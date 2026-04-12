@@ -38,6 +38,9 @@
 		assign preload = true
 	endif
 -%}
+{%- if template.name == 'index' and section.index == 1 -%}
+  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Premium Vegan Leather Women&#39;s Handbags | Crafted in Apple &amp; Cactus Leather and More</h1>
+{%- endif -%}
 <div class="row{% if full_width %} full-width-row{% endif %}">
 	<div class="small-12 columns">
 		<slide-show class="slideshow main-slideshow carousel custom-dots {{ mobile_height }} {{ desktop_height }} section-spacing{% if disable_top_spacing %} section-spacing--disable-top{% endif %}{% if disable_bottom_spacing %} section-spacing--disable-bottom{% endif %} transition--{{ transition }}" data-dots="{{ dots }}" data-autoplay="{{ autoplay }}" data-fade="{{ fade }}" data-transition="{{ transition }}" style="--dot-speed: {{ autoplay | divided_by: 1000 | append: 's' }};">
