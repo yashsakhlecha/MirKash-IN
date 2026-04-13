@@ -1,9 +1,0 @@
-{%- liquid
-	assign text_parts = text | newline_to_br | split: '<br />'
-
-	for part in text_parts
-		echo '<span class="">'
-		echo part
-		echo '</span>'
-	endfor
--%}
