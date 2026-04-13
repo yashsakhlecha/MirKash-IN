@@ -4,7 +4,10 @@
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
 
-  if request.page_type == 'product'
+  if request.page_type == 'index'
+    assign og_title = 'Mir Kash | Premium Vegan Handbags for Women'
+    assign og_description = 'Shop Mir Kash — luxury vegan leather handbags for women. Everyday luxury, cruelty-free. Free shipping pan India.'
+  elsif request.page_type == 'product'
     assign og_type = 'product'
   elsif request.page_type == 'article'
     assign og_type = 'article'

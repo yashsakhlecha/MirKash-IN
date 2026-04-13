@@ -39,7 +39,7 @@
 	endif
 -%}
 {%- if template.name == 'index' and section.index == 1 -%}
-  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Premium Vegan Leather Women&#39;s Handbags | Crafted in Apple &amp; Cactus Leather and More</h1>
+  <h1 class="visually-hidden">Premium Vegan Leather Handbags</h1>
 {%- endif -%}
 <div class="row{% if full_width %} full-width-row{% endif %}">
 	<div class="small-12 columns">
@@ -58,9 +58,9 @@
 					endif
 
 
-					assign heading_tag = 'div'
+					assign heading_tag = 'p'
 					if priority == 'high'
-						assign heading_tag = 'h1'
+						assign heading_tag = 'p'
 					endif
 				-%}
 				<div class="slideshow__slide slideshow__slide--index-{{ forloop.index }} carousel__slide {{ mobile_height }} {{ desktop_height }} text-{{ text_alignment }} content-size-{{ content_size }}{% if forloop.index == 1 %} is-initial-selected{% endif -%}" style="--overlay-color-rgb: {{ overlay_color.rgb | replace: ' ' , ',' }}; --overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};" {{ block.shopify_attributes }}>
