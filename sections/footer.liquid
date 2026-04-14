@@ -185,7 +185,6 @@
 			</div>
 			<div class="small-12 columns">
 				<p>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}</p>
-				<span style="font-size:12px; text-decoration: underline;"><a target="_blank" href="https://www.shopify.com/partners/directory/partner/dorec">Developed By Dorec-Shopify Agency</a></span>
 				{%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
           <div class="footer--follow-on-shop">
             {{ shop | login_button: action: 'follow' }}
