@@ -1,0 +1,303 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Kirtan.Live" [ref=e4] [cursor=pointer]:
+      - /url: https://kirtan.live
+      - img "Kirtan.Live" [ref=e5]
+    - list [ref=e6]:
+      - listitem [ref=e7] [cursor=pointer]:
+        - generic [ref=e10]: 
+      - listitem [ref=e11] [cursor=pointer]:
+        - link "" [ref=e12]:
+          - /url: "#"
+          - generic [ref=e14]: 
+      - listitem [ref=e15] [cursor=pointer]:
+        - link "Random " [ref=e16]:
+          - /url: https://kirtan.live/?random=1
+          - generic [ref=e17]:
+            - text: Random
+            - generic [ref=e18]: 
+    - list [ref=e19]:
+      - listitem [ref=e20] [cursor=pointer]: Create account
+      - listitem [ref=e21] [cursor=pointer]:
+        - generic [ref=e23]: 
+      - listitem [ref=e24] [cursor=pointer]:
+        - link "" [ref=e25]:
+          - /url: "#"
+          - generic [ref=e26]: 
+  - navigation [ref=e27]:
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - link "" [ref=e30] [cursor=pointer]:
+          - /url: https://kirtan.live
+          - generic [ref=e31]: 
+      - listitem [ref=e32]:
+        - link "Recent" [ref=e33] [cursor=pointer]:
+          - /url: all
+          - generic [ref=e34]: 
+          - text: Recent
+      - listitem [ref=e35]:
+        - link "Categories" [ref=e36] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e37]: 
+          - text: Categories
+      - listitem [ref=e38]:
+        - link "Videos" [ref=e39] [cursor=pointer]:
+          - /url: videos
+          - generic [ref=e40]: 
+          - text: Videos
+      - listitem [ref=e41]:
+        - link "Music" [ref=e42] [cursor=pointer]:
+          - /url: music
+          - generic [ref=e43]: 
+          - text: Music
+      - listitem [ref=e44]:
+        - link "Gifs" [ref=e45] [cursor=pointer]:
+          - /url: gifs
+          - generic [ref=e46]: 
+          - text: Gifs
+      - listitem [ref=e47]:
+        - link "Photos" [ref=e48] [cursor=pointer]:
+          - /url: photos
+          - generic [ref=e49]: 
+          - text: Photos
+      - listitem [ref=e50]:
+        - link "News" [ref=e51] [cursor=pointer]:
+          - /url: articles
+          - generic [ref=e52]: 
+          - text: News
+  - generic:
+    - list:
+      - listitem:
+        - link "Ragi Kirtan 11":
+          - /url: category,ragi-kirtan
+          - img
+          - text: Ragi Kirtan
+          - generic: "11"
+      - listitem:
+        - link "AKJ Kirtan 1":
+          - /url: category,akj-kirtan
+          - img
+          - text: AKJ Kirtan
+          - generic: "1"
+      - listitem:
+        - link "Dhanra Kirtan 0":
+          - /url: category,dhanra-kirtan
+          - img
+          - text: Dhanra Kirtan
+          - generic: "0"
+      - listitem:
+        - link "Dodra Kirtan 0":
+          - /url: category,dodra-kirtan
+          - img
+          - text: Dodra Kirtan
+          - generic: "0"
+      - listitem:
+        - link "Sikh News 2":
+          - /url: category,sikh-news
+          - img
+          - text: Sikh News
+          - generic: "2"
+      - listitem:
+        - link "Gurbani Katha Vichar 0":
+          - /url: category,gurbani-katha-vichar
+          - img
+          - text: Gurbani Katha Vichar
+          - generic: "0"
+      - listitem:
+        - link "Simran 0":
+          - /url: category,simran
+          - img
+          - text: Simran
+          - generic: "0"
+      - listitem:
+        - link "Dhadi Kavishar Poems 0":
+          - /url: category,dhadi-kavishar-poems
+          - img
+          - text: Dhadi Kavishar Poems
+          - generic: "0"
+  - generic [ref=e53]:
+    - heading "Kirtan.Live Gurbani Katha Kirtan Video and Audio" [level=1] [ref=e54]
+    - paragraph [ref=e55]: Kirtan.Live Brings you latest and best Gurbani Kirtan, Live Gurmat Samagams, Mp3 recordings, Gurmat images, sikh articles and cool punjabi stuff!
+  - main [ref=e56]:
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - generic [ref=e59] [cursor=pointer]: All
+        - generic [ref=e60] [cursor=pointer]: Photos
+        - generic [ref=e61] [cursor=pointer]: Videos
+        - generic [ref=e62] [cursor=pointer]: Music
+        - generic [ref=e63] [cursor=pointer]: Gifs
+        - generic [ref=e64] [cursor=pointer]: News
+      - generic [ref=e65]:
+        - generic [ref=e66] [cursor=pointer]:
+          - generic [ref=e67]: 
+          - text: Today
+        - generic [ref=e68] [cursor=pointer]:
+          - generic [ref=e69]: 
+          - text: This week
+        - generic [ref=e70] [cursor=pointer]:
+          - generic [ref=e71]: 
+          - text: This month
+    - generic [ref=e72]:
+      - generic [ref=e74]:
+        - img "Texas Deputy Sherrif \"Sandeep Singh Dhaliwal\" gave life in line of duty" [ref=e75]
+        - link [ref=e77] [cursor=pointer]:
+          - /url: sikh-news,article,257,texas-deputy-sherrif-34sandeep-singh-dhaliwal34-gave-life-in-line-of-duty
+        - generic [ref=e79]: 
+        - generic [ref=e80]: Texas Deputy Sherrif "Sandeep Singh Dhaliwal" gave life in line of duty
+      - generic [ref=e82]:
+        - img "The Persian Voice of the Guru - A New Transcreation Series" [ref=e83]
+        - link [ref=e85] [cursor=pointer]:
+          - /url: sikh-news,article,256,the-persian-voice-of-the-guru-a-new-transcreation-series
+        - generic [ref=e87]: 
+        - generic [ref=e88]: The Persian Voice of the Guru - A New Transcreation Series
+      - generic [ref=e90]:
+        - img "Bhai Jaspreet Singh Ji Sonu Virji and others at Gurmat Samagam Madanpuri, Gurgaon" [ref=e91]
+        - link [ref=e93] [cursor=pointer]:
+          - /url: ragi-kirtan,video,253,bhai-jaspreet-singh-ji-sonu-virji-and-others-at-gurmat-samagam-madanpuri-gurgaon
+        - generic [ref=e95]: 
+        - generic [ref=e96]: Bhai Jaspreet Singh Ji Sonu Virji and others at Gurmat Samagam Madanpuri, Gurgaon
+      - generic [ref=e98]:
+        - img "Bhai Jaspreet Singh Ji Bathinda Wale at Gurbani Kirtan at Jamnapar Delhi" [ref=e99]
+        - link [ref=e101] [cursor=pointer]:
+          - /url: ragi-kirtan,video,252,bhai-jaspreet-singh-ji-bathinda-wale-at-gurbani-kirtan-at-jamnapar-delhi
+        - generic [ref=e103]: 
+        - generic [ref=e104]: Bhai Jaspreet Singh Ji Bathinda Wale at Gurbani Kirtan at Jamnapar Delhi
+      - generic [ref=e106]:
+        - img "Bhai Harbeer Singh Ji Delhi Wale at Jamnapar Gurbani Shabad Kirtan Delhi" [ref=e107]
+        - link [ref=e109] [cursor=pointer]:
+          - /url: ragi-kirtan,video,251,bhai-harbeer-singh-ji-delhi-wale-at-jamnapar-gurbani-shabad-kirtan-delhi
+        - generic [ref=e111]: 
+        - generic [ref=e112]: Bhai Harbeer Singh Ji Delhi Wale at Jamnapar Gurbani Shabad Kirtan Delhi
+      - generic [ref=e114]:
+        - img "Bhai Sukhman Singh Ji Hajuri Ragi Sri Darbar sahib Grubani Kirtan HD at Jamnapar Delhi" [ref=e115]
+        - link [ref=e117] [cursor=pointer]:
+          - /url: ragi-kirtan,video,250,bhai-sukhman-singh-ji-hajuri-ragi-sri-darbar-sahib-grubani-kirtan-hd-at-jamnapar-delhi
+        - generic [ref=e119]: 
+        - generic [ref=e120]: Bhai Sukhman Singh Ji Hajuri Ragi Sri Darbar sahib Grubani Kirtan HD at Jamnapar Delhi
+      - generic [ref=e122]:
+        - img "Bhai Manpreet SinghJi BareillyWale at Bhogal on 04 April 2018-Live Gurbani Kirtan" [ref=e123]
+        - link [ref=e125] [cursor=pointer]:
+          - /url: ragi-kirtan,video,249,bhai-manpreet-singhji-bareillywale-at-bhogal-on-04-april-2018-live-gurbani-kirtan
+        - generic [ref=e127]: 
+        - generic [ref=e128]: Bhai Manpreet SinghJi BareillyWale at Bhogal on 04 April 2018-Live Gurbani Kirtan
+      - generic [ref=e130]:
+        - img "Simran Sadhna - Bibi Amritpal Kaur Ji Delhi Wale at jamnapar on 11 Feb 2018 - 8447771130" [ref=e131]
+        - link [ref=e133] [cursor=pointer]:
+          - /url: ragi-kirtan,video,248,simran-sadhna-bibi-amritpal-kaur-ji-delhi-wale-at-jamnapar-on-11-feb-2018-8447771130
+        - generic [ref=e135]: 
+        - generic [ref=e136]: Simran Sadhna - Bibi Amritpal Kaur Ji Delhi Wale at jamnapar on 11 Feb 2018 - 8447771130
+      - generic [ref=e138]:
+        - img "Gurbani Katha Kirtan by Bhai Jaspreet Singh Ji Sonu Veerji at Jamnapar On 19 Feb 2018" [ref=e139]
+        - link [ref=e141] [cursor=pointer]:
+          - /url: ragi-kirtan,video,247,gurbani-katha-kirtan-by-bhai-jaspreet-singh-ji-sonu-veerji-at-jamnapar-on-19-feb-2018
+        - generic [ref=e143]: 
+        - generic [ref=e144]: Gurbani Katha Kirtan by Bhai Jaspreet Singh Ji Sonu Veerji at Jamnapar On 19 Feb 2018
+      - generic [ref=e146]:
+        - img "Gurbani kirtan - Salok mahalla 9 - Bibi Manpreet kaur ji Delhi Wale" [ref=e147]
+        - link [ref=e149] [cursor=pointer]:
+          - /url: ragi-kirtan,video,246,gurbani-kirtan-salok-mahalla-9-bibi-manpreet-kaur-ji-delhi-wale
+        - generic [ref=e151]: 
+        - generic [ref=e152]: Gurbani kirtan - Salok mahalla 9 - Bibi Manpreet kaur ji Delhi Wale
+      - generic [ref=e154]:
+        - img "Gurbani kirtan by Bhai Manpreet SinghJi Kanpuri at Amar Colony-Delhi on 03 March 2017" [ref=e155]
+        - link [ref=e157] [cursor=pointer]:
+          - /url: ragi-kirtan,video,245,gurbani-kirtan-by-bhai-manpreet-singhji-kanpuri-at-amar-colony-delhi-on-03-march-2017
+        - generic [ref=e159]: 
+        - generic [ref=e160]: Gurbani kirtan by Bhai Manpreet SinghJi Kanpuri at Amar Colony-Delhi on 03 March 2017
+      - generic [ref=e162]:
+        - img "Bhai Jaskaran SinghJi PatialaWale at Bhogal on 04 April 2018-Live Kirtan" [ref=e163]
+        - link [ref=e165] [cursor=pointer]:
+          - /url: ragi-kirtan,video,244,bhai-jaskaran-singhji-patialawale-at-bhogal-on-04-april-2018-live-kirtan
+        - generic [ref=e167]: 
+        - generic [ref=e168]: Bhai Jaskaran SinghJi PatialaWale at Bhogal on 04 April 2018-Live Kirtan
+      - generic [ref=e170]:
+        - img "Nice Kirtan Bhai Manpreet Singh Ji kanpuri Gurbani Kirtan Baani.Net 2019" [ref=e171]
+        - link [ref=e173] [cursor=pointer]:
+          - /url: ragi-kirtan,video,243,nice-kirtan-bhai-manpreet-singh-ji-kanpuri-gurbani-kirtan-baaninet-2019
+        - generic [ref=e175]: 
+        - generic [ref=e176]: Nice Kirtan Bhai Manpreet Singh Ji kanpuri Gurbani Kirtan Baani.Net 2019
+      - generic [ref=e178]:
+        - img "Bhai Balvinder Singh Ji Panipat Wale | akj Gurbani Kirtan 2019" [ref=e179]
+        - link [ref=e181] [cursor=pointer]:
+          - /url: akj-kirtan,video,242,bhai-balvinder-singh-ji-panipat-wale--akj-gurbani-kirtan-2019
+        - generic [ref=e183]: 
+        - generic [ref=e184]: Bhai Balvinder Singh Ji Panipat Wale | akj Gurbani Kirtan 2019
+  - generic [ref=e185]:
+    - generic [ref=e186]: 
+    - text: Loading
+  - navigation [ref=e187]:
+    - generic [ref=e188]:
+      - text: Main menu
+      - button "" [ref=e189] [cursor=pointer]:
+        - generic [ref=e190]: 
+    - list [ref=e191]:
+      - listitem [ref=e192]:
+        - link " Media " [ref=e193] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e195]: 
+          - generic [ref=e196]: Media
+          - generic [ref=e198]: 
+          - text: 
+        - text:      
+      - listitem [ref=e199]:
+        - link " Categories " [ref=e200] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e202]: 
+          - generic [ref=e203]: Categories
+          - generic [ref=e205]: 
+          - text: 
+      - listitem [ref=e206]:
+        - link " Most popular " [ref=e207] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e209]: 
+          - generic [ref=e210]: Most popular
+          - generic [ref=e212]: 
+          - text: 
+        - text:   
+    - generic [ref=e213]: More
+    - list [ref=e214]:
+      - listitem [ref=e215]:
+        - link " Cookie Policy" [ref=e216] [cursor=pointer]:
+          - /url: page/cookie-policy
+          - generic [ref=e218]: 
+          - generic [ref=e219]: Cookie Policy
+  - generic:
+    - generic:
+      - generic: Submit media
+      - link "":
+        - /url: ""
+        - generic: 
+    - generic:
+      - generic:
+        - link " Create photo gallery":
+          - /url: submit?pics
+          - generic: 
+          - generic: Create photo gallery
+      - generic:
+        - link " Submit Video or Audio":
+          - /url: submit?video
+          - generic: 
+          - generic: Submit Video or Audio
+      - generic:
+        - link " Submit animated gif":
+          - /url: submit?gif
+          - generic: 
+          - generic: Submit animated gif
+      - generic:
+        - link " Submit news":
+          - /url: submit?article
+          - generic: 
+          - generic: Submit news
+  - generic [ref=e220] [cursor=pointer]:
+    - img
+  - text:  
+  - generic:
+    - generic:
+      - text: Enter search term...
+      - link "":
+        - /url: "#"
+        - generic: 
+    - generic:
+      - generic:
+        - textbox "Search..."
+        - button ""

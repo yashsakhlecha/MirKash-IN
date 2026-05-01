@@ -1,0 +1,117 @@
+- generic [ref=e1]:
+  - iframe [ref=e2]:
+    
+  - region
+  - generic [ref=e4]:
+    - navigation [ref=e5]:
+      - button "Skip to main content" [ref=e7] [cursor=pointer]:
+        - generic [ref=e9]: Skip to main content
+      - button "Keyboard shortcuts" [ref=e11] [cursor=pointer]:
+        - generic [ref=e13]: Keyboard shortcuts
+      - button "Accessibility feedback" [ref=e15] [cursor=pointer]:
+        - generic [ref=e17]: Accessibility feedback
+    - banner [ref=e19]:
+      - generic [ref=e20]:
+        - link "Drive" [ref=e24] [cursor=pointer]:
+          - /url: https://drive.google.com/?tab=oo
+          - img [ref=e25]
+          - generic [ref=e26]: Drive
+        - generic [ref=e28]:
+          - button "Google apps" [ref=e32] [cursor=pointer]:
+            - img [ref=e33]
+          - link "Sign in" [ref=e36] [cursor=pointer]:
+            - /url: https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://drive.google.com/drive/folders/1oS8v3Zd-hfalLMf-QkCEYKV8IBFoyHe-%3Fusp%3Ddrive_link&service=writely&ec=GAZAMQ
+    - generic [ref=e37]:
+      - generic [ref=e46]:
+        - navigation [ref=e50]:
+          - heading "Folder Path" [ref=e51]
+          - list "Folder Path" [ref=e52]:
+            - listitem [ref=e53]:
+              - link "New Product Upload" [ref=e54]
+        - toolbar [ref=e55]:
+          - generic [ref=e56]:
+            - button "Download all" [ref=e57] [cursor=pointer]
+            - radiogroup "List or grid layout (⌥V then L)" [ref=e62]:
+              - generic [ref=e63]:
+                - radio "Lists" [checked] [ref=e64] [cursor=pointer]:
+                  - generic [ref=e65]:
+                    - img [ref=e66]
+                    - img [ref=e70]
+                - radio "Grid" [ref=e73] [cursor=pointer]:
+                  - generic [ref=e74]:
+                    - img [ref=e75]
+                    - img [ref=e79]
+      - main [ref=e83]:
+        - region [active] [ref=e89]:
+          - generic [ref=e90]:
+            - grid "Item list" [ref=e93]:
+              - rowgroup [ref=e94]:
+                - generic [ref=e95] [cursor=pointer]: Name
+                - img [ref=e97] [cursor=pointer]
+                - text: Owner
+                - generic [ref=e99] [cursor=pointer]: Date modified
+                - text: File size
+                - generic [ref=e105]:
+                  - button "Sort" [ref=e107] [cursor=pointer]:
+                    - img [ref=e111]
+                    - generic [ref=e113]: Sort
+                  - tooltip [ref=e114]: View sort options
+              - rowgroup [ref=e115]:
+                - row "Weaver Tote Bag - Blue Shared folder Owned by Owner hidden Modified 4:49 pm Size not available" [ref=e116]:
+                  - gridcell "Weaver Tote Bag - Blue Shared folder" [ref=e117]:
+                    - generic [ref=e119]:
+                      - img [ref=e125]
+                      - generic "Weaver Tote Bag - Blue Shared folder" [ref=e131]:
+                        - strong [ref=e134]: Weaver Tote Bag - Blue
+                  - gridcell "Owned by Owner hidden" [ref=e135]:
+                    - generic "Owned by Owner hidden" [ref=e139]:
+                      - img [ref=e142]
+                      - generic [ref=e145]: Owner hidden
+                  - gridcell "Modified 4:49 pm" [ref=e146]:
+                    - generic "Modified 4:49 pm" [ref=e150]:
+                      - generic [ref=e151]: 4:49 pm
+                  - gridcell "Size not available" [ref=e152]:
+                    - generic "Size not available" [ref=e156]:
+                      - generic [ref=e157]: —
+                  - gridcell [ref=e158]
+                - row "Weaver Tote Bag- Cherry Red Shared folder Owned by Owner hidden Modified 4:49 pm Size not available" [ref=e162]:
+                  - gridcell "Weaver Tote Bag- Cherry Red Shared folder" [ref=e163]:
+                    - generic [ref=e165]:
+                      - img [ref=e171]
+                      - generic "Weaver Tote Bag- Cherry Red Shared folder" [ref=e177]:
+                        - strong [ref=e180]: Weaver Tote Bag- Cherry Red
+                  - gridcell "Owned by Owner hidden" [ref=e181]:
+                    - generic "Owned by Owner hidden" [ref=e185]:
+                      - img [ref=e188]
+                      - generic [ref=e191]: Owner hidden
+                  - gridcell "Modified 4:49 pm" [ref=e192]:
+                    - generic "Modified 4:49 pm" [ref=e196]:
+                      - generic [ref=e197]: 4:49 pm
+                  - gridcell "Size not available" [ref=e198]:
+                    - generic "Size not available" [ref=e202]:
+                      - generic [ref=e203]: —
+                  - gridcell [ref=e204]
+                - 'row "Weaver_Tote_Updated.docx Microsoft Word Shared Owned by Owner hidden Modified 1:04 pm Size: 15 KB Storage used: 15 KB" [ref=e208]':
+                  - gridcell "Weaver_Tote_Updated.docx Microsoft Word Shared" [ref=e209]:
+                    - generic [ref=e211]:
+                      - img [ref=e217]
+                      - generic "Weaver_Tote_Updated.docx Microsoft Word Shared" [ref=e228]:
+                        - strong [ref=e231]: Weaver_Tote_Updated.docx
+                        - img "Shared" [ref=e233]:
+                          - img [ref=e234]
+                          - generic [ref=e237]: Shared
+                  - gridcell "Owned by Owner hidden" [ref=e238]:
+                    - generic "Owned by Owner hidden" [ref=e242]:
+                      - img [ref=e245]
+                      - generic [ref=e248]: Owner hidden
+                  - gridcell "Modified 1:04 pm" [ref=e249]:
+                    - generic "Modified 1:04 pm" [ref=e253]:
+                      - generic [ref=e254]: 1:04 pm
+                  - 'gridcell "Size: 15 KB Storage used: 15 KB" [ref=e255]':
+                    - 'generic "Size: 15 KB Storage used: 15 KB" [ref=e259]':
+                      - generic [ref=e260]: 15 KB
+                  - gridcell [ref=e261]
+            - progressbar [ref=e267]:
+              - img [ref=e269]
+  - region
+  - img [ref=e273]

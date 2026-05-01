@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WYLD for Brands — Influencer Marketing That Drives Real ROI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: #0D0D0D; color: #111; overflow-x: hidden; }
+
+/* ── TOKENS ── */
+:root {
+  --pink-from: #F472B6;
+  --pink-to:   #E91E8C;
+  --dark:      #0D0D0D;
+  --light:     #F5F5F7;
+  --white:     #FFFFFF;
+}
+
+/* ── GRADIENTS ── */
+.pg { background: linear-gradient(135deg, var(--pink-from), var(--pink-to)); }
+.pg-text {
+  background: linear-gradient(135deg, var(--pink-from), var(--pink-to));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.pg-border { border: 1.5px solid transparent; background-clip: padding-box; position: relative; }
+
+/* ── BUTTONS ── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--pink-from), var(--pink-to));
+  color: #fff; border: none; border-radius: 100px;
+  font-family: 'Inter', sans-serif; font-weight: 700; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; white-space: nowrap;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(233,30,140,.4); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.35); border-radius: 100px;
+  font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; white-space: nowrap;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+/* ── ACCORDION ── */
+.faq-body { overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s ease; opacity: 0; max-height: 0; }
+.faq-body.open { opacity: 1; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation: fadeUp 0.6s ease both; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .desktop-only { display: none !important; }
+  .two-col { grid-template-columns: 1fr !important; }
+  .three-col { grid-template-columns: 1fr !important; }
+  .four-col { grid-template-columns: 1fr 1fr !important; }
+  .city-grid { grid-template-columns: 1fr 1fr !important; }
+  .tier-row { flex-direction: column !important; }
+  .how-steps { flex-direction: column !important; gap: 32px !important; }
+  .how-step-connector { display: none !important; }
+  .hero-right { display: none !important; }
+  .trust-bar { flex-direction: column; gap: 16px; align-items: flex-start !important; }
+  .spectrum-bar { flex-direction: column; gap: 6px; }
+  .spectrum-labels { display: none; }
+}
+@media (min-width: 769px) {
+  .mobile-only { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+/* ── HELPERS ── */
+function useIsMobile() {
+  const [m, setM] = useState(window.innerWidth <= 768);
+  useEffect(() => {
+    const fn = () => setM(window.innerWidth <= 768);
+    window.addEventListener('resize', fn, { passive: true });
+    return () => window.removeEventListener('resize', fn);
+  }, []);
+  return m;
+}
+
+function useScrolled(threshold = 60) {
+  const [s, setS] = useState(false);
+  useEffect(() => {
+    const fn = () => setS(window.scrollY > threshold);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, [threshold]);
+  return s;
+}
+
+function useInView(ref, threshold = 0.2) {
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold });
+    obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return vis;
+}
+
+function useCountUp(target, active, dur = 1800) {
+  const [v, setV] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    let s = 0; const step = target / (dur / 16);
+    const t = setInterval(() => { s += step; if (s >= target) { setV(target); clearInterval(t); } else setV(Math.floor(s)); }, 16);
+    return () => clearInterval(t);
+  }, [active, target]);
+  return v;
+}
+
+/* ── LOGO ── */
+function WyldLogo({ white = false, height = 28 }) {
+  return <img src={white ? 'uploads/WYLD logo horizontal-White.png' : 'uploads/WYLD Final Logo-01-cropped.png'} alt="WYLD" style={{ height, width: 'auto', display: 'block' }} />;
+}
+
+/* ── SECTION LABEL ── */
+function SectionLabel({ children, dark = false }) {
+  return (
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
+      <div style={{ width: 18, height: 2, background: 'linear-gradient(90deg,#F472B6,#E91E8C)', borderRadius: 2 }}></div>
+      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: dark ? 'rgba(255,255,255,0.45)' : '#999' }}>{children}</span>
+    </div>
+  );
+}
+
+/* ── NAV ── */
+function Nav() {
+  const scrolled = useScrolled();
+  const mob = useIsMobile();
+  const [open, setOpen] = useState(false);
+  useEffect(() => { if (!mob) setOpen(false); }, [mob]);
+
+  const bg = (scrolled || open) ? 'rgba(255,255,255,0.97)' : 'transparent';
+  const dark = scrolled || open;
+
+  return (
+    <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, background: bg, backdropFilter: (scrolled || open) ? 'blur(12px)' : 'none', boxShadow: (scrolled || open) ? '0 1px 0 rgba(0,0,0,0.08)' : 'none', transition: 'all 0.3s' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: mob ? '0 20px' : '0 40px', height: mob ? 60 : 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <WyldLogo white={!dark} height={mob ? 24 : 28} />
+        <div className="desktop-only" style={{ display: 'flex', gap: 36, alignItems: 'center' }}>
+          {['For Creators', 'Blog', 'FAQs'].map(l => (
+            <a key={l} href={l === 'For Creators' ? 'WYLD Homepage.html' : '#'} style={{ color: dark ? '#555' : 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: 14, fontWeight: 500, transition: 'color 0.2s' }}
+              onMouseEnter={e => e.target.style.color = dark ? '#111' : '#fff'}
+              onMouseLeave={e => e.target.style.color = dark ? '#555' : 'rgba(255,255,255,0.7)'}>{l}</a>
+          ))}
+        </div>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <a href="#contact" className="btn-primary desktop-only" style={{ padding: '10px 20px', fontSize: 14 }}>Book a Strategy Call</a>
+          <button className="mobile-only" onClick={() => setOpen(o => !o)} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: 5, padding: 4 }}>
+            {[0,1,2].map(i => <div key={i} style={{ width: i===2 ? (open?22:16) : 22, height: 2, background: dark ? '#111' : '#fff', borderRadius: 2, transition: 'all 0.3s', transform: i===0&&open ? 'rotate(45deg) translate(5px,5px)' : i===2&&open ? 'rotate(-45deg) translate(5px,-5px)' : 'none', opacity: i===1&&open ? 0 : 1 }}></div>)}
+          </button>
+        </div>
+      </div>
+      <div style={{ overflow: 'hidden', maxHeight: open ? 400 : 0, transition: 'max-height 0.35s ease', background: 'rgba(255,255,255,0.97)' }}>
+        <div style={{ padding: '8px 20px 28px' }}>
+          <a href="WYLD Homepage.html" style={{ display: 'block', color: '#111', textDecoration: 'none', fontSize: 16, fontWeight: 600, padding: '14px 0', borderBottom: '1px solid #f0f0f0' }}>For Creators</a>
+          {['Blog','FAQs'].map(l => <a key={l} href="#" style={{ display: 'block', color: '#111', textDecoration: 'none', fontSize: 16, fontWeight: 600, padding: '14px 0', borderBottom: '1px solid #f0f0f0' }}>{l}</a>)}
+          <a href="#contact" className="btn-primary" style={{ marginTop: 20, padding: '14px 24px', fontSize: 15, width: '100%', justifyContent: 'center', display: 'flex' }}>Book a Strategy Call</a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+/* ── S1: HERO ── */
+function CreatorNetwork() {
+  const nodes = [
+    { x: 50, y: 10, label: 'Mumbai Creator', size: 52 },
+    { x: 80, y: 35, label: 'Delhi Creator', size: 44 },
+    { x: 65, y: 65, label: 'Bangalore\nCreator', size: 48 },
+    { x: 20, y: 50, label: 'Hyderabad\nCreator', size: 40 },
+    { x: 35, y: 85, label: 'Pune Creator', size: 36 },
+    { x: 85, y: 72, label: 'Chennai Creator', size: 38 },
+    { x: 10, y: 20, label: 'Jaipur Creator', size: 32 },
+    { x: 55, y: 40, label: 'Kolkata Creator', size: 30 },
+  ];
+  const edges = [[0,1],[0,7],[1,2],[1,5],[2,3],[2,7],[3,4],[4,7],[5,2]];
+
+  return (
+    <div style={{ position: 'relative', width: '100%', height: 420 }}>
+      <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, opacity: 0.25 }}>
+        {edges.map(([a,b], i) => (
+          <line key={i}
+            x1={`${nodes[a].x}%`} y1={`${nodes[a].y}%`}
+            x2={`${nodes[b].x}%`} y2={`${nodes[b].y}%`}
+            stroke="url(#lineGrad)" strokeWidth="1.5" strokeDasharray="4 4"
+          />
+        ))}
+        <defs>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#F472B6" />
+            <stop offset="100%" stopColor="#E91E8C" />
+          </linearGradient>
+        </defs>
+      </svg>
+      {nodes.map((n, i) => (
+        <div key={i} style={{ position: 'absolute', left: `${n.x}%`, top: `${n.y}%`, transform: 'translate(-50%,-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+          <div style={{ width: n.size, height: n.size, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(244,114,182,0.25), rgba(233,30,140,0.15))', border: '1.5px solid rgba(244,114,182,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
+            <div style={{ width: n.size * 0.55, height: n.size * 0.55, borderRadius: '50%', background: 'linear-gradient(135deg, #F472B6, #E91E8C)', opacity: 0.7 }}></div>
+          </div>
+          <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)', fontWeight: 500, textAlign: 'center', lineHeight: 1.3, whiteSpace: 'pre-line' }}>{n.label}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function StatTile({ value, label }) {
+  return (
+    <div style={{ flex: '1 1 140px', padding: '20px 24px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, backdropFilter: 'blur(8px)' }}>
+      <div style={{ fontSize: 28, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1, marginBottom: 6 }}>{value}</div>
+      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', fontWeight: 500, lineHeight: 1.4 }}>{label}</div>
+    </div>
+  );
+}
+
+function Hero() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#0D0D0D', padding: mob ? '100px 20px 72px' : '140px 40px 100px', position: 'relative', overflow: 'hidden' }}>
+      {/* Subtle radial glow */}
+      <div style={{ position: 'absolute', top: -200, left: -200, width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(244,114,182,0.08) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
+
+      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: 60, alignItems: 'center' }}>
+        {/* Left */}
+        <div>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(244,114,182,0.1)', border: '1px solid rgba(244,114,182,0.25)', borderRadius: 100, padding: '5px 14px', marginBottom: 28 }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#EC4899' }}></div>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#F472B6', letterSpacing: '0.1em', textTransform: 'uppercase' }}>India's Leading UGC Marketing Platform</span>
+          </div>
+          <h1 style={{ fontSize: mob ? 'clamp(36px,10vw,52px)' : 'clamp(44px,4.5vw,68px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: 24, textWrap: 'balance' }}>
+            Run Influencer Campaigns That<br />
+            <span style={{ background: 'linear-gradient(135deg,#F472B6,#E91E8C)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Actually Drive Results.</span>
+          </h1>
+          <p style={{ fontSize: mob ? 16 : 18, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, marginBottom: 40, maxWidth: 520 }}>
+            WYLD connects your brand with 200,000+ verified nano and micro influencers across India. Tech-powered matching. Official Instagram data. Real ROI.
+          </p>
+          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginBottom: 56 }}>
+            <a href="#contact" className="btn-primary" style={{ padding: mob ? '13px 22px' : '14px 28px', fontSize: 15 }}>Get a Free Brand Strategy Call</a>
+            <a href="#how" className="btn-ghost" style={{ padding: mob ? '13px 22px' : '14px 28px', fontSize: 15 }}>See How It Works →</a>
+          </div>
+        </div>
+
+        {/* Right — creator network */}
+        <div className="hero-right">
+          <CreatorNetwork />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── S2: PROOF STRIP ── */
+const BRAND_LOGOS = ['Nykaa', 'boAt', 'Mamaearth', 'Sugar\nCosmetics', 'WOW Skin\nScience', 'Plum'];
+
+function ProofStrip() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#fff', padding: mob ? '52px 20px' : '64px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <p style={{ fontSize: 11, fontWeight: 700, color: '#bbb', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 32 }}>Trusted by India's Fastest-Growing Brands</p>
+        <div className="trust-bar" style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap', justifyContent: mob ? 'flex-start' : 'space-between' }}>
+          {BRAND_LOGOS.map((b, i) => (
+            <div key={i} style={{ flex: mob ? '0 0 calc(33% - 14px)' : '1 1 100px', height: 56, background: '#F9F9F9', borderRadius: 10, border: '1px solid #ECECEC', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 12px' }}>
+              <span style={{ fontWeight: 700, fontSize: 11, color: '#ccc', letterSpacing: '0.04em', textTransform: 'uppercase', textAlign: 'center', lineHeight: 1.3, whiteSpace: 'pre-line' }}>{b}</span>
+            </div>
+          ))}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, border: '1.5px solid #F9A8D4', borderRadius: 100, padding: '8px 18px', flexShrink: 0 }}>
+            <span style={{ fontSize: 15 }}>🦈</span>
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#EC4899', whiteSpace: 'nowrap' }}>As seen on Shark Tank India</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── S3: UGC 101 ── */
+function StatCard({ number, text, source }) {
+  const ref = useRef(); const vis = useInView(ref);
+  return (
+    <div ref={ref} style={{ background: '#fff', borderRadius: 16, padding: '28px 28px', border: '1.5px solid #F0F0F0', boxShadow: '0 4px 20px rgba(0,0,0,0.04)', opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(16px)', transition: 'all 0.5s ease' }}>
+      <div style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 12, background: 'linear-gradient(135deg,#F472B6,#E91E8C)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{number}</div>
+      <p style={{ fontSize: 15, color: '#333', lineHeight: 1.6, fontWeight: 500 }}>{text}</p>
+      {source && <p style={{ fontSize: 11, color: '#bbb', marginTop: 10, fontStyle: 'italic' }}>{source}</p>}
+    </div>
+  );
+}
+
+function TrustSpectrum() {
+  const mob = useIsMobile();
+  const items = [
+    { label: 'Brand Ad', shade: 0 },
+    { label: 'Paid Celebrity', shade: 1 },
+    { label: 'Macro Influencer', shade: 2 },
+    { label: 'Micro Influencer', shade: 3 },
+    { label: 'Nano Influencer UGC', shade: 4, highlight: true },
+  ];
+  return (
+    <div>
+      <p style={{ fontSize: 12, fontWeight: 600, color: '#999', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 16 }}>Content Trust Spectrum</p>
+      <div style={{ display: 'flex', flexDirection: mob ? 'column' : 'row', gap: mob ? 8 : 0, borderRadius: 12, overflow: 'hidden' }}>
+        {items.map((item, i) => {
+          const pct = (i+1) / items.length;
+          const bg = item.highlight
+            ? 'linear-gradient(135deg, #F472B6, #E91E8C)'
+            : `rgba(180,180,180,${0.08 + i * 0.06})`;
+          return (
+            <div key={i} style={{ flex: item.highlight ? '1.5 1 0' : '1 1 0', background: bg, padding: '16px 14px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', minHeight: mob ? 56 : `${80 + i * 18}px`, position: 'relative' }}>
+              <span style={{ fontSize: mob ? 12 : 11, fontWeight: item.highlight ? 800 : 600, color: item.highlight ? '#fff' : '#888', lineHeight: 1.3 }}>{item.label}</span>
+              {item.highlight && <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.7)', fontWeight: 600, marginTop: 4 }}>← Where WYLD lives</span>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function UGCSection() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#F5F5F7', padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <SectionLabel>UGC 101</SectionLabel>
+        <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,40px)' : 'clamp(32px,3vw,52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', maxWidth: 680, lineHeight: 1.1, marginBottom: 16 }}>
+          What is UGC — and why is every brand in India switching to it?
+        </h2>
+        <p style={{ fontSize: mob ? 15 : 18, color: '#6B6B6B', lineHeight: 1.7, maxWidth: 620, marginBottom: 56 }}>
+          UGC (User Generated Content) is content created by real people about your brand — reviews, unboxings, tutorials, reels. It's the most trusted form of marketing that exists.
+        </p>
+
+        <div className="two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, marginBottom: 40 }}>
+          {/* Stat cards */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <StatCard number="92%" text="of consumers trust UGC more than brand-produced ads" source="Source: Nielsen" />
+            <StatCard number="4×" text="higher click-through rate compared to traditional brand content" />
+            <StatCard number="29%" text="higher web conversions when UGC is present on product pages" />
+          </div>
+          {/* Trust spectrum */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 32 }}>
+            <TrustSpectrum />
+          </div>
+        </div>
+
+        {/* Callout */}
+        <div style={{ border: '1.5px solid #F9A8D4', borderRadius: 16, padding: mob ? '24px 24px' : '32px 40px', background: 'linear-gradient(135deg, rgba(253,242,248,0.8), rgba(252,231,243,0.6))' }}>
+          <p style={{ fontSize: mob ? 15 : 18, color: '#BE185D', lineHeight: 1.7, fontWeight: 600, fontStyle: 'italic' }}>
+            "The Indian consumer doesn't trust polished ads anymore. They trust people who look and sound like them. That's the UGC shift — and WYLD is how brands scale it."
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── S4: WHY UGC CONVERTS ── */
+const WHY_CARDS = [
+  { icon: '📣', title: 'Word of Mouth, Scaled', body: 'Nano creators are trusted insiders in their communities — not paid celebrities. When they recommend your product, it lands like a friend\'s advice, not an advertisement.' },
+  { icon: '🎬', title: 'Content You Can Actually Use', body: 'Every piece of UGC you get through WYLD comes with full commercial rights. Use it in your Meta ads, website, packaging, email campaigns — it\'s yours.' },
+  { icon: '🛍️', title: 'Purchase Intent, Not Just Reach', body: 'Nano influencer audiences have 3× higher purchase intent than celebrity follower bases. They follow because they\'re genuinely interested — not because everyone else does.' },
+];
+
+function WhyConverts() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#0D0D0D', padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <SectionLabel dark>Why It Works</SectionLabel>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20, marginBottom: 56 }}>
+          <div>
+            <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,3vw,52px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 16, maxWidth: 560 }}>
+              Real people. Real opinions.<br />Real purchase decisions.
+            </h2>
+            <p style={{ fontSize: mob ? 15 : 17, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, maxWidth: 520 }}>
+              UGC isn't just content — it's word of mouth at scale. When a real person in Mumbai posts about your product to their 8,000 followers, those followers listen. They buy.
+            </p>
+          </div>
+        </div>
+
+        <div className="three-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+          {WHY_CARDS.map((c, i) => (
+            <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 20, padding: 32 }}>
+              <div style={{ fontSize: 28, marginBottom: 20 }}>{c.icon}</div>
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginBottom: 14, letterSpacing: '-0.01em' }}>{c.title}</h3>
+              <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7 }}>{c.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── S5: WHY WYLD ── */
+const WYLD_FEATURES = [
+  { badge: 'Official Partner', title: 'Real Data. Not Scraped.', body: 'WYLD is integrated with Instagram\'s official API. We access verified engagement, audience demographics, and authenticity data — the same data Instagram uses internally. No estimates. No guesses.' },
+  { badge: '400+ Data Points', title: 'The Most Advanced Creator Analysis in India', body: 'Our AI analyzes 400+ data points from every creator profile — from engagement quality and follower authenticity to content sentiment and brand-fit score. Your campaign only includes creators who genuinely match your brand.' },
+  { badge: 'End-to-End Platform', title: 'From Brief to Delivery — All in One Place', body: 'Campaign briefs, creator matching, content approvals, delivery tracking — everything runs through WYLD\'s platform. No WhatsApp chains, no Excel sheets, no follow-ups.' },
+  { badge: 'Real-Time Analytics', title: 'See Everything. In Real Time.', body: 'Your WYLD dashboard shows live campaign performance: creator-wise reach, engagement, UGC delivery status, and ROI attribution — all in one view. Download reports. Share with your team.' },
+];
+
+function WhyWYLD() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#F5F5F7', padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <SectionLabel>The WYLD Difference</SectionLabel>
+        <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,3vw,52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', maxWidth: 680, lineHeight: 1.1, marginBottom: 16 }}>
+          We're not just a platform.<br />We're a tech-first influencer marketing agency.
+        </h2>
+        <p style={{ fontSize: mob ? 15 : 17, color: '#6B6B6B', lineHeight: 1.7, maxWidth: 560, marginBottom: 56 }}>
+          Most influencer agencies work on gut feel and spreadsheets. WYLD runs on real data, official APIs, and AI — so every campaign decision is backed by evidence.
+        </p>
+
+        <div className="two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          {WYLD_FEATURES.map((f, i) => (
+            <div key={i} style={{ background: '#fff', borderRadius: 20, padding: mob ? '24px 24px' : '32px 32px', boxShadow: '0 4px 24px rgba(0,0,0,0.05)', borderLeft: '4px solid', borderLeftColor: 'transparent', backgroundClip: 'padding-box', position: 'relative', overflow: 'hidden' }}>
+              {/* Pink left border */}
+              <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 4, background: 'linear-gradient(180deg,#F472B6,#E91E8C)' }}></div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
+                <span style={{ fontSize: 10, fontWeight: 800, color: '#EC4899', letterSpacing: '0.1em', textTransform: 'uppercase', background: 'rgba(236,72,153,0.08)', borderRadius: 100, padding: '4px 10px' }}>{f.badge}</span>
+              </div>
+              <h3 style={{ fontSize: mob ? 16 : 18, fontWeight: 800, color: '#111', marginBottom: 12, letterSpacing: '-0.01em', lineHeight: 1.3 }}>{f.title}</h3>
+              <p style={{ fontSize: 14, color: '#6B6B6B', lineHeight: 1.7 }}>{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── S6: HOW IT WORKS ── */
+const HOW_STEPS = [
+  { n: '01', title: 'Share Your Brief', body: 'Tell us your product, audience, campaign goal, and budget. A WYLD strategist reviews it and confirms the best approach for your brand.' },
+  { n: '02', title: 'We Match, Brief & Manage', body: 'Our AI matches your campaign with the right verified creators. WYLD handles all creator communication, briefs, approvals, and coordination.' },
+  { n: '03', title: 'Content Goes Live. You Get the Data.', body: 'Creators post. Your dashboard updates in real time — reach, engagement, UGC files with full commercial rights, and ROI report.' },
+];
+
+function HowItWorks() {
+  const mob = useIsMobile();
+  return (
+    <section id="how" style={{ background: '#fff', padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <SectionLabel>Simple Process</SectionLabel>
+        <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,3vw,52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', marginBottom: 64, lineHeight: 1.1 }}>
+          From brief to live content in <span style={{ background: 'linear-gradient(135deg,#F472B6,#E91E8C)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>48 hours</span>
+        </h2>
+
+        <div className="how-steps" style={{ display: 'flex', gap: 0, position: 'relative' }}>
+          {HOW_STEPS.map((s, i) => (
+            <React.Fragment key={i}>
+              <div style={{ flex: '1 1 0', padding: '0 32px 0 0' }}>
+                <div style={{ fontSize: 56, fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 16, background: 'linear-gradient(135deg,#F472B6,#E91E8C)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{s.n}</div>
+                <h3 style={{ fontSize: 20, fontWeight: 800, color: '#111', marginBottom: 12, letterSpacing: '-0.01em' }}>{s.title}</h3>
+                <p style={{ fontSize: 15, color: '#6B6B6B', lineHeight: 1.7 }}>{s.body}</p>
+              </div>
+              {i < HOW_STEPS.length - 1 && (
+                <div className="how-step-connector" style={{ display: 'flex', alignItems: 'flex-start', paddingTop: 24, paddingRight: 32, flexShrink: 0 }}>
+                  <svg width="60" height="24" viewBox="0 0 60 24" fill="none">
+                    <line x1="0" y1="12" x2="48" y2="12" stroke="#E5E5E5" strokeWidth="1.5" strokeDasharray="4 4" />
+                    <polygon points="48,6 60,12 48,18" fill="#E5E5E5" />
+                  </svg>
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+
+        <p style={{ fontSize: 14, color: '#bbb', marginTop: 48, fontStyle: 'italic', textAlign: 'center' }}>
+          WYLD manages the entire campaign. You review, approve, and grow.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ── S7: TIERS ── */
+function TierCard({ title, tagline, badge, badgeColor, body, bestFor, cost, cta, highlight, footnote, footnoteAmber }) {
+  const mob = useIsMobile();
+  return (
+    <div style={{ flex: highlight ? '1.35 1 260px' : '1 1 200px', borderRadius: 20, padding: highlight ? '36px 28px 28px' : '24px 20px', background: highlight ? 'linear-gradient(160deg,#1a1500,#111)' : '#161616', border: highlight ? '1.5px solid rgba(245,158,11,0.55)' : '1.5px solid rgba(255,255,255,0.06)', position: 'relative', boxShadow: highlight ? '0 0 60px rgba(245,158,11,0.15), 0 0 120px rgba(245,158,11,0.06)' : 'none', transition: 'transform 0.2s', display: 'flex', flexDirection: 'column', alignSelf: highlight ? 'stretch' : 'auto' }}>
+      {highlight && (
+        <div style={{ position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg,#F59E0B,#D97706)', borderRadius: 100, padding: '5px 16px', fontSize: 10, fontWeight: 800, color: '#fff', letterSpacing: '0.1em', textTransform: 'uppercase', whiteSpace: 'nowrap', boxShadow: '0 4px 14px rgba(245,158,11,0.4)' }}>Recommended</div>
+      )}
+      <div style={{ display: 'inline-flex', marginBottom: 14 }}>
+        <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: 100, background: badgeColor.bg, color: badgeColor.text }}>{badge}</span>
+      </div>
+      <h3 style={{ fontSize: highlight ? 22 : 18, fontWeight: 900, color: '#fff', marginBottom: 6, letterSpacing: '-0.01em' }}>{title}</h3>
+      <p style={{ fontSize: 13, color: highlight ? '#F59E0B' : 'rgba(255,255,255,0.35)', fontWeight: 600, marginBottom: 14, fontStyle: 'italic' }}>{tagline}</p>
+      <p style={{ fontSize: highlight ? 14 : 13, color: highlight ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.42)', lineHeight: 1.7, marginBottom: 16, flex: 1 }}>{body}</p>
+      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 8 }}>
+        <span style={{ fontWeight: 700, color: 'rgba(255,255,255,0.45)' }}>Best for: </span>{bestFor}
+      </div>
+      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 22 }}>
+        <span style={{ fontWeight: 700, color: 'rgba(255,255,255,0.45)' }}>Cost: </span>{cost}
+      </div>
+      <a href="#contact" style={{ padding: highlight ? '13px 20px' : '11px 18px', fontSize: 13, justifyContent: 'center', display: 'flex', borderRadius: 100, textDecoration: 'none', fontWeight: 700, transition: 'all 0.2s', ...(highlight ? { background: 'linear-gradient(135deg,#F59E0B,#D97706)', color: '#fff', border: 'none', boxShadow: '0 4px 18px rgba(245,158,11,0.35)' } : { background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '1.5px solid rgba(255,255,255,0.2)' }) }}>{cta}</a>
+      {footnote && <p style={{ fontSize: 11, color: footnoteAmber ? 'rgba(245,158,11,0.6)' : 'rgba(255,255,255,0.25)', marginTop: 10, textAlign: 'center', fontStyle: 'italic' }}>{footnote}</p>}
+    </div>
+  );
+}
+
+const TIERS = [
+  { title: 'Savings Model', tagline: 'Turn your customers into marketers', badge: 'Entry Level', badgeColor: { bg: 'rgba(148,163,184,0.15)', text: '#94A3B8' }, body: 'Reward existing customers with cashback when they post. Always-on UGC, zero upfront spend.', bestFor: 'Large brands (₹100Cr+ annual sales)', cost: 'Cashback on sales only', cta: 'Learn More →', highlight: false, footnote: 'For large-scale brands only', footnoteAmber: true },
+  { title: 'Barter Campaigns', tagline: 'Bulk content at low cost', badge: 'Affordable', badgeColor: { bg: 'rgba(96,165,250,0.15)', text: '#60A5FA' }, body: 'Product-for-post with nano creators. High volume, fast turnaround, lower production polish.', bestFor: 'New brands, launches, content libraries', cost: 'Product cost only', cta: 'Start with Barter →', highlight: false },
+  { title: 'WYLD Privé', tagline: 'Premium UGC. Fully managed. Zero effort.', badge: '★ RECOMMENDED', badgeColor: { bg: 'rgba(245,158,11,0.2)', text: '#F59E0B' }, body: 'A dedicated WYLD strategist handles everything — strategy, top-tier creators (Score 750+), briefs, approvals, delivery, and full commercial rights.', bestFor: 'Brands that want results, hands-free', cost: 'Custom pricing', cta: 'Apply for Privé →', highlight: true, footnote: 'Limited brand slots' },
+  { title: 'AI UGC', tagline: 'Scale ad creatives without a team', badge: 'New', badgeColor: { bg: 'rgba(167,139,250,0.15)', text: '#A78BFA' }, body: 'AI-generated UGC-style video ads from your brief. Ready for Meta and Google in hours.', bestFor: 'Performance marketing, paid ads, A/B testing', cost: 'Per creative', cta: 'Learn More →', highlight: false },
+];
+
+function TiersSection() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#0D0D0D', padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <SectionLabel dark>Pick Your Model</SectionLabel>
+        <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,3vw,52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#fff', marginBottom: 16, lineHeight: 1.1 }}>
+          Four ways to work with WYLD
+        </h2>
+        <p style={{ fontSize: mob ? 15 : 17, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7, maxWidth: 520, marginBottom: 64 }}>
+          Most brands choose Privé. Here's why — and what else is available.
+        </p>
+        <div className="tier-row" style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+          {TIERS.map((t, i) => <TierCard key={i} {...t} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── S8: RESULTS ── */
+const RESULTS = [
+  { brand: 'Beauty Brand', result: '3.2M organic reach in 14 days', sub: '180 nano creators · Mumbai + Delhi · Beauty vertical', metrics: [{ v: '3.2M', l: 'Reach' }, { v: '8.4%', l: 'Avg Engagement' }, { v: '180', l: 'Creators' }] },
+  { brand: 'F&B Brand', result: '5× ROAS on ₹1.8L spend', sub: 'Savings Model · 90 creators · Tier 1 + Tier 2 cities', metrics: [{ v: '5.1×', l: 'ROAS' }, { v: '90', l: 'Creators' }, { v: '14', l: 'Days' }] },
+  { brand: 'Lifestyle Brand', result: '420 pieces of UGC. One campaign.', sub: 'Barter + Savings combo · Full commercial rights · Used in paid ads', metrics: [{ v: '420', l: 'UGC Assets' }, { v: '100%', l: 'Rights' }, { v: 'Meta', l: 'Used in Ads' }] },
+  { brand: 'Fashion Brand', result: '₹12L in tracked sales in 21 days', sub: 'WYLD Privé · 35 top creators · Instagram + Reels', metrics: [{ v: '₹12L', l: 'Sales' }, { v: '35', l: 'Creators' }, { v: '21', l: 'Days' }] },
+  { brand: 'Health & Wellness', result: '2.1M views on launch week', sub: 'Savings Model · Product launch · 120 creators nationwide', metrics: [{ v: '2.1M', l: 'Views' }, { v: '6.2%', l: 'Engagement' }, { v: '120', l: 'Creators' }] },
+  { brand: 'Home & Living', result: '60% lower CPC vs brand ads', sub: 'AI UGC creatives · Meta campaigns · A/B tested', metrics: [{ v: '60%', l: 'Lower CPC' }, { v: '3.8×', l: 'ROAS' }, { v: 'Meta', l: 'Platform' }] },
+];
+
+function ResultsSection() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#F5F5F7', padding: mob ? '72px 0' : '100px 0' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: mob ? '0 20px' : '0 40px' }}>
+        <SectionLabel>Real Campaigns. Real Results.</SectionLabel>
+        <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,3vw,52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', marginBottom: 12, lineHeight: 1.1 }}>
+          What WYLD campaigns deliver
+        </h2>
+        <p style={{ fontSize: 14, color: '#999', marginBottom: 36 }}>Scroll to see more case studies →</p>
+      </div>
+      {/* Horizontally scrollable row */}
+      <div style={{ overflowX: 'auto', paddingBottom: 16, WebkitOverflowScrolling: 'touch' }}>
+        <div style={{ display: 'flex', gap: 20, padding: mob ? '0 20px 4px' : '0 40px 4px', width: 'max-content' }}>
+          {RESULTS.map((r, i) => (
+            <div key={i} style={{ background: '#fff', borderRadius: 20, padding: '32px 28px', boxShadow: '0 4px 24px rgba(0,0,0,0.05)', border: '1.5px solid #F0F0F0', width: mob ? 280 : 340, flexShrink: 0 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#bbb', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>{r.brand}</div>
+              <h3 style={{ fontSize: mob ? 18 : 20, fontWeight: 900, color: '#111', letterSpacing: '-0.02em', lineHeight: 1.2, marginBottom: 10 }}>{r.result}</h3>
+              <p style={{ fontSize: 13, color: '#999', marginBottom: 28, lineHeight: 1.5 }}>{r.sub}</p>
+              <div style={{ display: 'flex', gap: 0, borderTop: '1px solid #F0F0F0', paddingTop: 20 }}>
+                {r.metrics.map((m, j) => (
+                  <div key={j} style={{ flex: 1, textAlign: 'center', borderRight: j < r.metrics.length-1 ? '1px solid #F0F0F0' : 'none' }}>
+                    <div style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.03em', background: 'linear-gradient(135deg,#F472B6,#E91E8C)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{m.v}</div>
+                    <div style={{ fontSize: 11, color: '#bbb', fontWeight: 600, marginTop: 4 }}>{m.l}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: mob ? '16px 20px 0' : '16px 40px 0' }}>
+        <p style={{ fontSize: 12, color: '#bbb', fontStyle: 'italic' }}>Results based on actual WYLD campaigns. Individual results vary.</p>
+      </div>
+    </section>
+  );
+}
+
+/* ── S9: CITY COVERAGE ── */
+const CITIES = [
+  { city: 'Mumbai',       count: '45,000+', niches: 'Beauty, Fashion, Food, Finance' },
+  { city: 'Delhi / NCR',  count: '38,000+', niches: 'Lifestyle, Tech, Fashion, Fitness' },
+  { city: 'Bangalore',    count: '29,000+', niches: 'Tech, Food, Fitness, Travel' },
+  { city: 'Hyderabad',    count: '18,000+', niches: 'Food, Fashion, Beauty, Tech' },
+  { city: 'Chennai',      count: '14,000+', niches: 'Food, Lifestyle, Fashion, Regional' },
+  { city: 'Pune',         count: '12,000+', niches: 'Fitness, Food, Tech, Lifestyle' },
+];
+
+function CityCoverage() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#fff', padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,3vw,52px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', marginBottom: 16, lineHeight: 1.1 }}>
+          Creators in every Indian city
+        </h2>
+        <p style={{ fontSize: mob ? 15 : 17, color: '#6B6B6B', lineHeight: 1.7, maxWidth: 520, marginBottom: 48 }}>
+          From metros to Tier 2 cities — WYLD has verified creators everywhere your audience lives.
+        </p>
+
+        <div className="city-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16, marginBottom: 24 }}>
+          {CITIES.map((c, i) => (
+            <div key={i} style={{ background: '#F5F5F7', borderRadius: 16, padding: '24px 24px', border: '1.5px solid #ECECEC', transition: 'all 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = '#F9A8D4'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = '#ECECEC'}>
+              <div style={{ fontWeight: 800, fontSize: 18, color: '#111', marginBottom: 6, letterSpacing: '-0.01em' }}>{c.city}</div>
+              <div style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-0.02em', background: 'linear-gradient(135deg,#F472B6,#E91E8C)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', marginBottom: 8 }}>{c.count}</div>
+              <div style={{ fontSize: 12, color: '#999', fontWeight: 500 }}>creators</div>
+              <div style={{ fontSize: 12, color: '#bbb', marginTop: 10, lineHeight: 1.5 }}>{c.niches}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: 14, color: '#999', fontStyle: 'italic' }}>+ Jaipur, Ahmedabad, Kolkata, Chandigarh, Kochi and 40 more cities</p>
+      </div>
+    </section>
+  );
+}
+
+/* ── S10: FAQ ── */
+const FAQS = [
+  { q: 'What exactly is WYLD, and how is it different from other influencer marketing agencies?', a: 'WYLD is a tech-first influencer marketing agency built on India\'s largest verified nano and micro influencer network. Unlike traditional agencies that rely on gut feel, WYLD uses official Instagram API data and AI analysis of 400+ creator data points to ensure every creator match is right for your brand. You also get a real-time dashboard — something most agencies will never show you.' },
+  { q: 'What is UGC and why should my brand invest in it?', a: 'UGC (User Generated Content) is content created by real people — unboxings, reviews, tutorials — about your product. Studies show 92% of consumers trust UGC more than brand ads. It also converts 4× better. Through WYLD, your brand gets UGC at scale with full commercial rights to use in ads and across your marketing.' },
+  { q: 'Do I own the content creators post?', a: 'Yes. Full commercial rights to all UGC content are included as standard. Use it in paid ads, on your website, in email campaigns, or on packaging.' },
+  { q: 'How quickly can a campaign go live?', a: 'Barter campaigns go live in 48–72 hours. Savings Model campaigns take 5–7 days from brief to first post. Privé campaigns — where our team manages everything — are typically 24–48 hours once your brief is approved.' },
+  { q: 'What\'s the minimum budget to start?', a: 'Barter campaigns start at product cost only. Savings Model campaigns start at ₹50,000. Contact us for Privé and AI UGC pricing.' },
+];
+
+function FAQItem({ q, a, open, toggle }) {
+  return (
+    <div style={{ borderBottom: '1px solid #E8E8E8' }}>
+      <button onClick={toggle} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 0', background: 'none', border: 'none', cursor: 'pointer', gap: 20, textAlign: 'left' }}>
+        <span style={{ fontSize: 16, fontWeight: 700, color: '#111', lineHeight: 1.5 }}>{q}</span>
+        <span style={{ fontSize: 22, color: open ? '#EC4899' : '#bbb', transition: 'all 0.3s', transform: open ? 'rotate(45deg)' : 'none', display: 'inline-block', lineHeight: 1, flexShrink: 0 }}>+</span>
+      </button>
+      <div style={{ overflow: 'hidden', maxHeight: open ? 300 : 0, opacity: open ? 1 : 0, transition: 'max-height 0.35s ease, opacity 0.25s ease' }}>
+        <p style={{ fontSize: 15, color: '#6B6B6B', lineHeight: 1.75, paddingBottom: 24 }}>{a}</p>
+      </div>
+    </div>
+  );
+}
+
+function FAQSection() {
+  const [openIdx, setOpenIdx] = useState(null);
+  const [sectionOpen, setSectionOpen] = useState(false);
+  const mob = useIsMobile();
+  return (
+    <section style={{ background: '#F5F5F7', padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth: 800, margin: '0 auto' }}>
+        <button onClick={() => setSectionOpen(o => !o)} style={{ width: '100%', background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginBottom: sectionOpen ? 40 : 0 }}>
+          <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,3vw,48px)', fontWeight: 900, letterSpacing: '-0.03em', color: '#111', lineHeight: 1.1, margin: 0 }}>
+            Questions brands always ask
+          </h2>
+          <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#fff', border: '1.5px solid #E5E5E5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 20, color: sectionOpen ? '#EC4899' : '#bbb', transition: 'all 0.3s', transform: sectionOpen ? 'rotate(45deg)' : 'none' }}>+</div>
+        </button>
+        <div style={{ overflow: 'hidden', maxHeight: sectionOpen ? 2000 : 0, opacity: sectionOpen ? 1 : 0, transition: 'max-height 0.5s ease, opacity 0.3s ease' }}>
+          {FAQS.map((f, i) => (
+            <FAQItem key={i} q={f.q} a={f.a} open={openIdx === i} toggle={() => setOpenIdx(openIdx === i ? null : i)} />
+          ))}
+        </div>
+        {!sectionOpen && <p style={{ fontSize: 14, color: '#999', marginTop: 12 }}>Click to expand {FAQS.length} questions</p>}
+      </div>
+    </section>
+  );
+}
+
+/* ── S11: CONTACT FORM ── */
+function ContactForm() {
+  const mob = useIsMobile();
+  const [form, setForm] = useState({ brand: '', category: '', budget: '', email: '', mobile: '', goal: '' });
+  const [sent, setSent] = useState(false);
+
+  const CATEGORIES = ['Beauty', 'Fashion', 'F&B', 'Tech', 'Lifestyle', 'Other'];
+  const BUDGETS = ['Under ₹50K', '₹50K – ₹2L', '₹2L – ₹10L', '₹10L+'];
+
+  const selStyle = { width: '100%', padding: '13px 16px', borderRadius: 10, border: '1.5px solid #E5E5E5', fontSize: 14, fontFamily: 'Inter,sans-serif', color: '#111', background: '#fff', outline: 'none', appearance: 'none', transition: 'border-color 0.2s' };
+  const inputStyle = { ...selStyle };
+
+  const TRUST = [
+    { text: 'As seen on Shark Tank India Season 3' },
+    { text: 'Official Instagram API Partner' },
+    { text: '48-hour campaign go-live' },
+  ];
+
+  return (
+    <section id="contact" style={{ background: '#0D0D0D', padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 64 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(244,114,182,0.1)', border: '1px solid rgba(244,114,182,0.25)', borderRadius: 100, padding: '5px 14px', marginBottom: 20 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#F472B6', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Get Started</span>
+          </div>
+          <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,3vw,56px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 16 }}>
+            Ready to run your first<br />WYLD campaign?
+          </h2>
+          <p style={{ fontSize: mob ? 15 : 18, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, maxWidth: 520, margin: '0 auto' }}>
+            We onboard a limited number of new brands each month to maintain campaign quality. Tell us about your brand and a WYLD strategist will reach out within 24 hours.
+          </p>
+        </div>
+
+        <div className="two-col" style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: 48, alignItems: 'start' }}>
+          {/* Form card */}
+          {!sent ? (
+            <div style={{ background: '#fff', borderRadius: 24, padding: mob ? 28 : 40 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: '#555', letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Brand / Company Name</label>
+                  <input value={form.brand} onChange={e => setForm({ ...form, brand: e.target.value })} placeholder="Your brand name" style={inputStyle}
+                    onFocus={e => e.target.style.borderColor = '#F9A8D4'} onBlur={e => e.target.style.borderColor = '#E5E5E5'} />
+                </div>
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: '#555', letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Product Category</label>
+                  <div style={{ position: 'relative' }}>
+                    <select value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} style={selStyle}>
+                      <option value="">Select category</option>
+                      {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                    <div style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#bbb', fontSize: 12 }}>▾</div>
+                  </div>
+                </div>
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: '#555', letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Monthly Marketing Budget</label>
+                  <div style={{ position: 'relative' }}>
+                    <select value={form.budget} onChange={e => setForm({ ...form, budget: e.target.value })} style={selStyle}>
+                      <option value="">Select budget range</option>
+                      {BUDGETS.map(b => <option key={b} value={b}>{b}</option>)}
+                    </select>
+                    <div style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#bbb', fontSize: 12 }}>▾</div>
+                  </div>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: 16 }}>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: '#555', letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Your Work Email</label>
+                    <input value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="you@yourcompany.com" type="email" style={inputStyle}
+                      onFocus={e => e.target.style.borderColor = '#F9A8D4'} onBlur={e => e.target.style.borderColor = '#E5E5E5'} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: '#555', letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Mobile Number</label>
+                    <input value={form.mobile} onChange={e => setForm({ ...form, mobile: e.target.value })} placeholder="+91 98765 43210" type="tel" style={inputStyle}
+                      onFocus={e => e.target.style.borderColor = '#F9A8D4'} onBlur={e => e.target.style.borderColor = '#E5E5E5'} />
+                  </div>
+                </div>
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: '#555', letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>Campaign Goal <span style={{ color: '#bbb', fontWeight: 400, textTransform: 'none' }}>(optional)</span></label>
+                  <textarea value={form.goal} onChange={e => setForm({ ...form, goal: e.target.value })} placeholder="Tell us what you're trying to achieve..." rows={3}
+                    style={{ ...inputStyle, resize: 'none', lineHeight: 1.6 }}
+                    onFocus={e => e.target.style.borderColor = '#F9A8D4'} onBlur={e => e.target.style.borderColor = '#E5E5E5'} />
+                </div>
+                <button className="btn-primary" onClick={() => { if (form.email) setSent(true); }} style={{ padding: '15px 28px', fontSize: 16, justifyContent: 'center', borderRadius: 12, marginTop: 4 }}>
+                  Book a Strategy Call
+                      Request a Strategy Call
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div style={{ background: '#fff', borderRadius: 24, padding: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 400, textAlign: 'center' }}>
+              <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg,#F472B6,#E91E8C)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
+              <h3 style={{ fontSize: 24, fontWeight: 900, color: '#111', marginBottom: 12 }}>You're in the queue!</h3>
+              <p style={{ fontSize: 15, color: '#6B6B6B', lineHeight: 1.7, maxWidth: 300 }}>A WYLD brand strategist will reach out to <strong>{form.email}</strong> within 24 hours.</p>
+            </div>
+          )}
+
+          {/* Trust signals */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 28 }}>
+            {TRUST.map((t, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'linear-gradient(135deg,#F472B6,#E91E8C)', flexShrink: 0, marginTop: 8 }}></div>
+                <div style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', fontWeight: 600, lineHeight: 1.5 }}>{t.text}</div>
+              </div>
+            ))}
+            <div style={{ marginTop: 16, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)' }}>Or email us directly:</p>
+              <a href="mailto:brands@getwyld.in" style={{ fontSize: 18, fontWeight: 700, color: '#F472B6', textDecoration: 'none', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.target.style.color = '#EC4899'} onMouseLeave={e => e.target.style.color = '#F472B6'}>brands@getwyld.in</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FOOTER ── */
+function Footer() {
+  const mob = useIsMobile();
+  return (
+    <footer style={{ background: '#0D0D0D', borderTop: '1px solid rgba(255,255,255,0.06)', padding: mob ? '40px 20px 28px' : '48px 40px 32px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
+        <WyldLogo white height={24} />
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+          <a href="WYLD Homepage.html" style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}>For Creators</a>
+          <a href="#" style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}>Privacy</a>
+          <a href="#" style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}>Terms</a>
+        </div>
+        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>© WYLD 2025</span>
+      </div>
+    </footer>
+  );
+}
+
+/* ── APP ── */
+function App() {
+  return (
+    <>
+      <Nav />
+      <main>
+        <Hero />
+        <ProofStrip />
+        <UGCSection />
+        <WhyConverts />
+        <WhyWYLD />
+        <HowItWorks />
+        <TiersSection />
+        <ResultsSection />
+        <CityCoverage />
+        <FAQSection />
+        <ContactForm />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Competitor {
+  id           String    @id @default(cuid())
+  name         String
+  metaPageId   String    @unique
+  libraryUrl   String
+  totalAds     Int       @default(0)
+  lastSyncedAt DateTime?
+  createdAt    DateTime  @default(now())
+  ads          Ad[]
+}
+
+model Ad {
+  id           String     @id @default(cuid())
+  competitorId String
+  competitor   Competitor @relation(fields: [competitorId], references: [id], onDelete: Cascade)
+  metaAdId     String     @unique
+  videoUrl     String?
+  thumbnailUrl String?
+  adCopyText   String?
+  startDate        DateTime?
+  script           String?
+  sceneDescription String?
+  language         String?
+  archetype        String?
+  hookType         String?
+  status           String     @default("pending")
+  createdAt        DateTime   @default(now())
+}

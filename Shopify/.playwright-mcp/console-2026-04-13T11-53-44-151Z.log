@@ -1,0 +1,4 @@
+[    2088ms] [LOG] --------------CX - WhatsApp Chat--------------- @ https://mirkash.in/products/braidey-cherry-red:365
+[    3877ms] [LOG] Script loaded! @ https://cdn.shopify.com/extensions/019d43b3-8890-70b3-ac83-7ef680a432ec/shopify-nextjs-prisma-app-26/assets/widgetLoader.js:14
+[    4499ms] Uncaught TypeError: loaded is not a function
+    at element.onload (https://cdn.shopify.com/extensions/019d43b3-8890-70b3-ac83-7ef680a432ec/shopify-nextjs-prisma-app-26/assets/widgetLoader.js:5:4)

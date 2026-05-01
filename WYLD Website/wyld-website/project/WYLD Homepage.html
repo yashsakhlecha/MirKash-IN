@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WYLD — Where Influence Becomes Currency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #F5F5F7; color: #111111; overflow-x: hidden; }
+
+  /* ── MARQUEE ─────────────────────────────────────────── */
+  @keyframes marquee-left  { 0%{transform:translateX(0)}   100%{transform:translateX(-50%)} }
+  @keyframes marquee-right { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
+  .marquee-track-left  { animation: marquee-left  28s linear infinite; }
+  .marquee-track-right { animation: marquee-right 32s linear infinite; }
+  .marquee-track-left:hover, .marquee-track-right:hover { animation-play-state: paused; }
+
+  /* ── COLOURS ─────────────────────────────────────────── */
+  .pink-gradient { background: linear-gradient(135deg,#F472B6 0%,#EC4899 50%,#E91E8C 100%); }
+
+  /* ── SCROLLBAR ───────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #F5F5F7; }
+  ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+
+  /* ── CAROUSEL ────────────────────────────────────────── */
+  .creator-carousel { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; cursor: grab; }
+  .creator-carousel::-webkit-scrollbar { display: none; }
+  .creator-carousel.grabbing { cursor: grabbing; }
+
+  /* ── EXPERIENCE SLIDER ───────────────────────────────── */
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .exp-slide-active { animation: fadeIn 0.6s ease; }
+
+  /* ── BUTTONS ─────────────────────────────────────────── */
+  .btn-pink {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg,#F472B6,#E91E8C);
+    color: #fff; border: none; border-radius: 100px;
+    font-family: 'Inter',sans-serif; font-weight: 600;
+    cursor: pointer; transition: all 0.2s ease; text-decoration: none;
+  }
+  .btn-pink:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(233,30,140,.35); }
+
+  /* ── CAMPAIGN CARD ───────────────────────────────────── */
+  .campaign-card {
+    background: #fff; border-radius: 16px; padding: 24px;
+    border: 1.5px solid #F0F0F0;
+    transition: all 0.25s ease; position: relative; overflow: hidden;
+  }
+  .campaign-card::after {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+    background: linear-gradient(135deg,#F472B6,#E91E8C);
+    transform:scaleX(0); transform-origin:left; transition:transform 0.3s ease;
+  }
+  .campaign-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.10); border-color:#F9A8D4; }
+  .campaign-card:hover::after { transform:scaleX(1); }
+
+  /* ── CREATOR CARD ────────────────────────────────────── */
+  .creator-card {
+    flex-shrink: 0; border-radius: 16px; overflow: hidden;
+    position: relative; background: #eee; transition: transform 0.2s ease;
+  }
+  .creator-card:hover { transform: scale(1.02); }
+
+  /* ── VISIBILITY ──────────────────────────────────────── */
+  @media (max-width: 768px) { .desktop-only { display: none !important; } }
+  @media (min-width: 769px) { .mobile-only  { display: none !important; } }
+
+  /* ── GLOBAL MOBILE PADDING ───────────────────────────── */
+  @media (max-width: 768px) {
+    .section-pad { padding-left: 20px !important; padding-right: 20px !important; }
+    .section-pad-top { padding-top: 72px !important; }
+    .section-pad-bottom { padding-bottom: 72px !important; }
+  }
+
+  /* ── NUMBERS GRID ────────────────────────────────────── */
+  .numbers-grid {
+    display: flex; flex-wrap: wrap;
+    justify-content: space-around; align-items: center; gap: 40px;
+  }
+  @media (max-width: 768px) {
+    .numbers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .numbers-grid .num-item { padding: 28px 16px; border-right: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); }
+    .numbers-grid .num-item:nth-child(even) { border-right: none; }
+    .numbers-grid .num-item:nth-last-child(-n+2) { border-bottom: none; }
+  }
+
+  /* ── EARN BRANDS ROW ─────────────────────────────────── */
+  .brand-logos-scroll { display: flex; gap: 12px; flex-wrap: wrap; }
+  @media (max-width: 768px) {
+    .brand-logos-scroll { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+    .brand-logos-scroll::-webkit-scrollbar { display: none; }
+  }
+
+  /* ── TRUST STRIP ─────────────────────────────────────── */
+  .trust-inner { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+  @media (max-width: 768px) {
+    .trust-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  }
+
+  /* ── APP DOWNLOAD BADGES ─────────────────────────────── */
+  .app-badges { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+  @media (max-width: 768px) {
+    .app-badges { flex-direction: column; }
+    .app-badges a { justify-content: center; }
+  }
+
+  /* ── FOOTER COLS ─────────────────────────────────────── */
+  .footer-cols { display: flex; gap: 64px; flex-wrap: wrap; flex: 1 1 auto; }
+  @media (max-width: 768px) {
+    .footer-cols { flex-direction: column; gap: 0; }
+    .footer-col-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.07); cursor: pointer;
+    }
+    .footer-col-links { padding: 8px 0 16px; display: none; }
+    .footer-col-links.open { display: block; }
+  }
+
+  /* ── HERO BADGES ─────────────────────────────────────── */
+  .hero-badges { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  @media (max-width: 768px) {
+    .hero-badges { flex-direction: column; align-items: stretch; padding: 0 24px; }
+    .hero-badges a { justify-content: center; }
+  }
+
+  /* ── SCROLL ANIMATION ────────────────────────────────── */
+  @keyframes scrollDown { 0%{top:-50%} 100%{top:100%} }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+const { TweaksPanel, TweakSection, TweakColor, TweakText, TweakToggle, TweakSlider, TweakSelect, useTweaks } = window;
+
+/* ─── TWEAK DEFAULTS ───────────────────────────────────────────────────── */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentFrom": "#F472B6",
+  "accentTo": "#E91E8C",
+  "heroHeadline": "Where Influence\nBecomes Currency",
+  "heroSub": "Earn real money from India's top brands — on your terms.",
+  "ctaLabel": "Join WYLD",
+  "appStoreUrl": "https://apps.apple.com",
+  "playStoreUrl": "https://play.google.com",
+  "smartDownloadLabel": "Download WYLD",
+  "showNumbersStrip": true,
+  "showExperiences": true,
+  "creatorCountStat": "25,000+"
+}/*EDITMODE-END*/;
+
+/* ─── MOBILE HOOK ──────────────────────────────────────────────────────── */
+function useIsMobile() {
+  const [mob, setMob] = useState(window.innerWidth <= 768);
+  useEffect(() => {
+    const fn = () => setMob(window.innerWidth <= 768);
+    window.addEventListener('resize', fn, { passive: true });
+    return () => window.removeEventListener('resize', fn);
+  }, []);
+  return mob;
+}
+
+/* ─── DEVICE OS DETECTION ──────────────────────────────────────────────── */
+function getDeviceOS() {
+  const ua = navigator.userAgent || '';
+  if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'ios';
+  if (/android/i.test(ua)) return 'android';
+  return 'other';
+}
+
+/* ─── PLACEHOLDER ──────────────────────────────────────────────────────── */
+function PlaceholderImg({ label, dark = false }) {
+  const bg     = dark ? '#1a1a1a' : '#e8e8e8';
+  const stripe = dark ? '#222'    : '#d8d8d8';
+  const tc     = dark ? '#555'    : '#aaa';
+  const id     = 'p' + (label||'x').replace(/\W/g,'').slice(0,12);
+  return (
+    <div style={{ position:'absolute', inset:0, overflow:'hidden' }}>
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position:'absolute',inset:0 }}>
+        <rect width="100%" height="100%" fill={bg} />
+        <defs>
+          <pattern id={id} patternUnits="userSpaceOnUse" width="24" height="24" patternTransform="rotate(45)">
+            <rect width="12" height="24" fill={stripe} />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill={`url(#${id})`} opacity="0.4" />
+      </svg>
+      <div style={{ position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:6 }}>
+        <span style={{ fontFamily:'monospace',fontSize:11,color:tc,textAlign:'center',padding:'0 16px',lineHeight:1.5 }}>{label}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ─── LOGO ─────────────────────────────────────────────────────────────── */
+function WyldLogo({ white = false, height = 30 }) {
+  return (
+    <img
+      src={white ? 'uploads/WYLD logo horizontal-White.png' : 'uploads/WYLD Final Logo-01-cropped.png'}
+      alt="WYLD" style={{ height, width:'auto', display:'block' }}
+    />
+  );
+}
+
+/* ─── NAV ──────────────────────────────────────────────────────────────── */
+function Nav({ tweaks }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const mob = useIsMobile();
+
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', fn, { passive:true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+
+  // Close menu on desktop resize
+  useEffect(() => { if (!mob) setMenuOpen(false); }, [mob]);
+
+  const bg = (scrolled || menuOpen) ? 'rgba(255,255,255,0.97)' : 'transparent';
+  const shadow = (scrolled || menuOpen) ? '0 1px 0 rgba(0,0,0,0.08)' : 'none';
+  const linkColor = (scrolled || menuOpen) ? '#111' : '#fff';
+
+  return (
+    <nav style={{ position:'fixed',top:0,left:0,right:0,zIndex:1000, background:bg, backdropFilter:(scrolled||menuOpen)?'blur(12px)':'none', boxShadow:shadow, transition:'background 0.3s,box-shadow 0.3s' }}>
+      <div style={{ maxWidth:1440,margin:'0 auto',padding: mob ? '0 20px' : '0 40px',height: mob ? 60 : 72,display:'flex',alignItems:'center',justifyContent:'space-between' }}>
+        <WyldLogo white={!(scrolled||menuOpen)} height={mob ? 26 : 30} />
+
+        {/* Desktop links */}
+        <div className="desktop-only" style={{ display:'flex',gap:40,alignItems:'center' }}>
+          {['For Brands','Blog','FAQs'].map(l => (
+            <a key={l} href="#" style={{ color:linkColor,textDecoration:'none',fontSize:15,fontWeight:500,opacity:.85,transition:'opacity 0.2s' }}
+              onMouseEnter={e=>e.target.style.opacity=1} onMouseLeave={e=>e.target.style.opacity=.85}>{l}</a>
+          ))}
+        </div>
+
+        <div style={{ display:'flex',alignItems:'center',gap:12 }}>
+          <a href="#" className="btn-pink desktop-only" style={{ padding:'10px 22px',fontSize:14 }}>{tweaks.ctaLabel}</a>
+          {/* Hamburger */}
+          <button className="mobile-only" onClick={() => setMenuOpen(o => !o)}
+            style={{ background:'none',border:'none',cursor:'pointer',padding:6,display:'flex',flexDirection:'column',gap:5 }}>
+            <div style={{ width:22,height:2,background:linkColor,transition:'all 0.3s',transform:menuOpen?'rotate(45deg) translate(5px,5px)':'none' }}></div>
+            <div style={{ width:22,height:2,background:linkColor,transition:'all 0.3s',opacity:menuOpen?0:1 }}></div>
+            <div style={{ width:menuOpen?22:16,height:2,background:linkColor,transition:'all 0.3s',transform:menuOpen?'rotate(-45deg) translate(5px,-5px)':'none' }}></div>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile drawer */}
+      <div style={{ overflow:'hidden',maxHeight:menuOpen?400:0,transition:'max-height 0.35s ease',background:'rgba(255,255,255,0.97)' }}>
+        <div style={{ padding:'8px 20px 28px' }}>
+          {['For Brands','Blog','FAQs'].map(l => (
+            <a key={l} href="#" style={{ display:'block',color:'#111',textDecoration:'none',fontSize:17,fontWeight:600,padding:'15px 0',borderBottom:'1px solid #f0f0f0' }}>{l}</a>
+          ))}
+          <a href="#" className="btn-pink" style={{ marginTop:20,padding:'14px 24px',fontSize:15,width:'100%',justifyContent:'center',display:'flex' }}>{tweaks.ctaLabel}</a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+/* ─── SMART DOWNLOAD BUTTON ────────────────────────────────────────────── */
+function SmartDownloadButton({ tweaks, outline = false }) {
+  const os = getDeviceOS();
+  const url = os === 'ios' ? tweaks.appStoreUrl : os === 'android' ? tweaks.playStoreUrl : tweaks.appStoreUrl;
+  const icon = os === 'android'
+    ? <path d="M3.18 23.76c.29.16.61.24.95.24.4 0 .83-.12 1.23-.35l13.2-7.61-2.92-2.92-12.46 10.64zM.54 1.32C.2 1.7 0 2.28 0 3.01v17.98c0 .73.2 1.31.55 1.69l.09.08L10.29 13l-.08-.08L.54 1.32zM20.1 9.65l-2.63-1.52L14.4 11.2l3.09 3.09 2.62-1.51c.75-.43 1.19-1.01 1.19-1.57 0-.56-.44-1.13-1.2-1.56zM4.14.59L17.46 8.3 14.4 11.2.54 1.32C.92.87 1.49.59 2.1.59c.69 0 1.39.35 2.04.7.01 0 .01 0 0 0z"/>
+    : <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>;
+
+  const baseStyle = outline
+    ? { display:'flex',alignItems:'center',justifyContent:'center',gap:12,background:'transparent',border:'1.5px solid rgba(255,255,255,0.22)',borderRadius:14,padding:'13px 28px',textDecoration:'none',transition:'all 0.2s ease',cursor:'pointer',width:'100%' }
+    : { display:'flex',alignItems:'center',justifyContent:'center',gap:12,background:'rgba(255,255,255,0.13)',backdropFilter:'blur(12px)',border:'1.5px solid rgba(255,255,255,0.35)',borderRadius:14,padding:'14px 28px',textDecoration:'none',transition:'all 0.2s ease',cursor:'pointer',width:'100%' };
+
+  return (
+    <a href={url} style={baseStyle}
+      onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,0.22)';e.currentTarget.style.borderColor='rgba(255,255,255,0.6)';}}
+      onMouseLeave={e=>{e.currentTarget.style.background=outline?'transparent':'rgba(255,255,255,0.13)';e.currentTarget.style.borderColor=outline?'rgba(255,255,255,0.22)':'rgba(255,255,255,0.35)';}}>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d={icon.props.d} /></svg>
+      <div style={{ textAlign:'left' }}>
+        <div style={{ fontSize:10,color:'rgba(255,255,255,0.65)',fontWeight:400,lineHeight:1 }}>
+          {os === 'android' ? 'Get it on' : 'Download on the'}
+        </div>
+        <div style={{ fontSize:17,color:'#fff',fontWeight:700,lineHeight:1.3 }}>{tweaks.smartDownloadLabel}</div>
+      </div>
+    </a>
+  );
+}
+
+/* ─── HERO ─────────────────────────────────────────────────────────────── */
+function Hero({ tweaks }) {
+  const mob = useIsMobile();
+  const lines = tweaks.heroHeadline.split('\n');
+  return (
+    <section style={{ position:'relative',height:'100svh',minHeight: mob ? 580 : 640,overflow:'hidden',display:'flex',alignItems:'center',justifyContent:'center' }}>
+      <div style={{ position:'absolute',inset:0 }}>
+        <PlaceholderImg label={"Full-bleed lifestyle photo\nCreator at brand event / shoot\n16:9 · high-res"} dark />
+      </div>
+      <div style={{ position:'absolute',inset:0,background:'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.65) 100%)' }}></div>
+
+      <div style={{ position:'relative',zIndex:2,textAlign:'center',maxWidth: mob ? '100%' : 820,padding: mob ? '0 0 80px' : '0 24px',width:'100%' }}>
+        <div style={{ display:'inline-block',background:'rgba(255,255,255,0.15)',backdropFilter:'blur(8px)',border:'1px solid rgba(255,255,255,0.25)',borderRadius:100,padding: mob ? '5px 14px' : '6px 18px',fontSize: mob ? 11 : 12,fontWeight:600,letterSpacing:'0.1em',textTransform:'uppercase',color:'#fff',marginBottom: mob ? 20 : 28 }}>
+          India's Largest UGC Platform
+        </div>
+        <h1 style={{ fontSize: mob ? 'clamp(40px,11vw,56px)' : 'clamp(52px,7vw,88px)',fontWeight:900,color:'#fff',lineHeight:1.0,letterSpacing:'-0.03em',marginBottom: mob ? 16 : 22,padding: mob ? '0 20px' : 0,textWrap:'balance' }}>
+          {lines.map((l,i) => <React.Fragment key={i}>{l}{i < lines.length-1 && <br />}</React.Fragment>)}
+        </h1>
+        <p style={{ fontSize: mob ? 15 : 'clamp(16px,2vw,20px)',color:'rgba(255,255,255,0.8)',fontWeight:400,marginBottom: mob ? 36 : 44,lineHeight:1.65,padding: mob ? '0 24px' : 0 }}>
+          {mob ? tweaks.heroSub : 'Join 25,000+ nano and micro creators earning real money from India\'s top brands — on your terms.'}
+        </p>
+
+        {/* Mobile: single smart button. Desktop: two store badges */}
+        {mob ? (
+          <div style={{ padding:'0 24px' }}>
+            <SmartDownloadButton tweaks={tweaks} />
+          </div>
+        ) : (
+          <div className="hero-badges">
+            <AppBadge store="App Store" url={tweaks.appStoreUrl} />
+            <AppBadge store="Google Play" url={tweaks.playStoreUrl} />
+          </div>
+        )}
+      </div>
+
+      <div className="desktop-only" style={{ position:'absolute',bottom:32,left:'50%',transform:'translateX(-50%)' }}>
+        <div style={{ width:1,height:48,background:'rgba(255,255,255,0.3)',position:'relative',overflow:'hidden' }}>
+          <div style={{ position:'absolute',top:0,left:0,right:0,height:'50%',background:'rgba(255,255,255,0.8)',animation:'scrollDown 1.6s ease-in-out infinite' }}></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AppBadge({ store, url = '#' }) {
+  const isApple = store === 'App Store';
+  return (
+    <a href={url} style={{ display:'flex',alignItems:'center',gap:12,background:'rgba(255,255,255,0.13)',backdropFilter:'blur(12px)',border:'1.5px solid rgba(255,255,255,0.35)',borderRadius:14,padding:'13px 22px',textDecoration:'none',transition:'all 0.2s ease',cursor:'pointer' }}
+      onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,0.22)';e.currentTarget.style.borderColor='rgba(255,255,255,0.6)';}}
+      onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,0.13)';e.currentTarget.style.borderColor='rgba(255,255,255,0.35)';}}>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+        {isApple ? <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/> : <path d="M3.18 23.76c.29.16.61.24.95.24.4 0 .83-.12 1.23-.35l13.2-7.61-2.92-2.92-12.46 10.64zM.54 1.32C.2 1.7 0 2.28 0 3.01v17.98c0 .73.2 1.31.55 1.69l.09.08L10.29 13l-.08-.08L.54 1.32zM20.1 9.65l-2.63-1.52L14.4 11.2l3.09 3.09 2.62-1.51c.75-.43 1.19-1.01 1.19-1.57 0-.56-.44-1.13-1.2-1.56zM4.14.59L17.46 8.3 14.4 11.2.54 1.32C.92.87 1.49.59 2.1.59c.69 0 1.39.35 2.04.7.01 0 .01 0 0 0z"/>}
+      </svg>
+      <div style={{ textAlign:'left' }}>
+        <div style={{ fontSize:10,color:'rgba(255,255,255,0.7)',fontWeight:400,lineHeight:1 }}>Download on the</div>
+        <div style={{ fontSize:16,color:'#fff',fontWeight:700,lineHeight:1.3 }}>{store}</div>
+      </div>
+    </a>
+  );
+}
+
+/* ─── NUMBERS STRIP ────────────────────────────────────────────────────── */
+function useCountUp(target, active, duration = 2000) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { setCount(target); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 16);
+    return () => clearInterval(timer);
+  }, [active, target, duration]);
+  return count;
+}
+
+function NumberStat({ value, suffix, label }) {
+  const ref = useRef();
+  const [active, setActive] = useState(false);
+  const count = useCountUp(value, active);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setActive(true); }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className="num-item" style={{ textAlign:'center', flex:'1 1 160px' }}>
+      <div style={{ fontSize:'clamp(34px,4vw,54px)',fontWeight:900,color:'#fff',letterSpacing:'-0.03em',lineHeight:1 }}>
+        {count.toLocaleString('en-IN')}{suffix}
+      </div>
+      <div style={{ fontSize:13,fontWeight:600,color:'rgba(255,255,255,0.7)',marginTop:8,letterSpacing:'0.06em',textTransform:'uppercase' }}>{label}</div>
+    </div>
+  );
+}
+
+function NumbersStrip({ tweaks }) {
+  const creatorCount = parseInt((tweaks?.creatorCountStat || '25,000+').replace(/[^0-9]/g, '')) || 25000;
+  return (
+    <section className="pink-gradient" style={{ padding:'0' }}>
+      <div className="numbers-grid" style={{ maxWidth:1200,margin:'0 auto',padding:'52px 40px' }}>
+        <NumberStat value={creatorCount} suffix="+" label="Creators" />
+        <NumberStat value={200}   suffix="+" label="Brand Partners" />
+        <NumberStat value={1200}  suffix="+" label="Campaigns Run" />
+        <div className="num-item" style={{ textAlign:'center',flex:'1 1 160px' }}>
+          <div style={{ fontSize:'clamp(18px,2.5vw,26px)',fontWeight:800,color:'#fff',letterSpacing:'-0.01em',lineHeight:1.2 }}>Shark Tank<br />India</div>
+          <div style={{ fontSize:13,fontWeight:600,color:'rgba(255,255,255,0.7)',marginTop:8,letterSpacing:'0.06em',textTransform:'uppercase' }}>Featured On</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── BRAND LOGO ───────────────────────────────────────────────────────── */
+const BRAND_NAMES = ['Nykaa','Boat','Mamaearth','Myntra','Blinkit','Zomato','Sugar','Plum','Bewakoof','mCaffeine','Lenskart','Noise','Dot & Key','WOW Skin','Pilgrim','The Derma Co'];
+
+function BrandLogo({ name, dark = false }) {
+  return (
+    <div style={{ flexShrink:0,width:130,height:60,background:dark?'rgba(255,255,255,0.06)':'#fff',borderRadius:10,border:dark?'1px solid rgba(255,255,255,0.08)':'1px solid #EBEBEB',display:'flex',alignItems:'center',justifyContent:'center',padding:'0 14px' }}>
+      <span style={{ fontWeight:700,fontSize:12,color:dark?'rgba(255,255,255,0.45)':'#aaa',letterSpacing:'0.04em',textTransform:'uppercase',textAlign:'center' }}>{name}</span>
+    </div>
+  );
+}
+
+/* ─── EARN ─────────────────────────────────────────────────────────────── */
+const CAMPAIGN_TYPES = [
+  { type:'Instagram Reel', range:'₹2,000 – ₹8,000', brand:'Beauty Brand', desc:'Create a 30–60 second reel featuring the product in your daily routine.' },
+  { type:'Story Series',   range:'₹800 – ₹2,500',   brand:'Fashion Label', desc:'Three-part story series showing outfit transitions with brand pieces.' },
+  { type:'YouTube Short',  range:'₹3,000 – ₹12,000', brand:'Lifestyle Brand', desc:'Unboxing + first impressions video, authentic and relatable.' },
+];
+
+function EarnSection() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background:'#fff',padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth:1200,margin:'0 auto' }}>
+        {/* Header */}
+        <div style={{ marginBottom: mob ? 40 : 56 }}>
+          <div style={{ display:'inline-block',background:'linear-gradient(135deg,#FDF2F8,#FCE7F3)',border:'1px solid #F9A8D4',borderRadius:100,padding:'6px 16px',fontSize:12,fontWeight:700,color:'#BE185D',letterSpacing:'0.08em',textTransform:'uppercase',marginBottom: mob ? 16 : 20 }}>For Creators</div>
+          <h2 style={{ fontSize: mob ? 'clamp(52px,14vw,72px)' : 'clamp(52px,6vw,88px)',fontWeight:900,letterSpacing:'-0.04em',lineHeight:1,color:'#111' }}>Earn.</h2>
+          <p style={{ fontSize: mob ? 15 : 'clamp(16px,1.5vw,18px)',color:'#6B6B6B',marginTop: mob ? 12 : 16,maxWidth:480,lineHeight:1.65 }}>
+            Get paid for the content you already love making. Apply to campaigns from top Indian brands and receive direct bank transfers — no middlemen, no waiting.
+          </p>
+          <a href="#" className="btn-pink" style={{ marginTop:24,padding: mob ? '12px 24px' : '14px 28px',fontSize: mob ? 14 : 15,display:'inline-flex' }}>Browse Campaigns →</a>
+        </div>
+
+        {/* Campaign cards */}
+        <div style={{ display:'grid',gridTemplateColumns: mob ? '1fr' : 'repeat(auto-fit,minmax(280px,1fr))',gap: mob ? 16 : 20,marginBottom: mob ? 48 : 64 }}>
+          {CAMPAIGN_TYPES.map((c,i) => (
+            <div key={i} className="campaign-card" style={{ padding: mob ? 20 : 24 }}>
+              <div style={{ width:44,height:44,borderRadius:11,background:'#F5F5F7',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:14 }}>
+                <span style={{ fontWeight:800,fontSize:10,color:'#999',letterSpacing:'0.05em' }}>{c.brand.slice(0,3).toUpperCase()}</span>
+              </div>
+              <div style={{ fontSize:11,fontWeight:700,color:'#bbb',letterSpacing:'0.07em',textTransform:'uppercase',marginBottom:8 }}>{c.type}</div>
+              <div style={{ fontSize: mob ? 22 : 24,fontWeight:800,color:'#111',letterSpacing:'-0.02em',marginBottom:10 }}>{c.range}</div>
+              <p style={{ fontSize:14,color:'#6B6B6B',lineHeight:1.6 }}>{c.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Brand logos */}
+        <div style={{ borderTop:'1px solid #F0F0F0',paddingTop: mob ? 32 : 40 }}>
+          <p style={{ fontSize:12,fontWeight:600,color:'#bbb',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:20 }}>Active Brand Partners</p>
+          <div className="brand-logos-scroll">
+            {BRAND_NAMES.slice(0,8).map((b,i) => <BrandLogo key={i} name={b} />)}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── SAVE ─────────────────────────────────────────────────────────────── */
+function MarqueeRow({ brands, reverse = false }) {
+  const doubled = [...brands,...brands];
+  return (
+    <div style={{ overflow:'hidden',width:'100%',marginBottom:12 }}>
+      <div className={reverse ? 'marquee-track-right' : 'marquee-track-left'} style={{ display:'flex',gap:12,width:'max-content' }}>
+        {doubled.map((b,i) => <BrandLogo key={i} name={b} />)}
+      </div>
+    </div>
+  );
+}
+
+function SaveSection() {
+  const mob = useIsMobile();
+  const row1 = BRAND_NAMES.slice(0,8);
+  const row2 = BRAND_NAMES.slice(8,16);
+  return (
+    <section style={{ background:'#F5F5F7',padding: mob ? '72px 0' : '100px 0' }}>
+      <div style={{ maxWidth:1200,margin:'0 auto',padding: mob ? '0 20px' : '0 40px',marginBottom: mob ? 40 : 56 }}>
+        <div style={{ display:'inline-block',background:'#fff',border:'1px solid #E5E5E5',borderRadius:100,padding:'6px 16px',fontSize:12,fontWeight:700,color:'#6B6B6B',letterSpacing:'0.08em',textTransform:'uppercase',marginBottom: mob ? 16 : 20 }}>For Creators</div>
+        <h2 style={{ fontSize: mob ? 'clamp(52px,14vw,72px)' : 'clamp(52px,6vw,88px)',fontWeight:900,letterSpacing:'-0.04em',lineHeight:1,color:'#111' }}>Save.</h2>
+        <p style={{ fontSize: mob ? 15 : 'clamp(16px,1.5vw,18px)',color:'#6B6B6B',marginTop: mob ? 12 : 16,maxWidth:520,lineHeight:1.65 }}>
+          Unlock exclusive deals at 200+ brands just by being a WYLD creator. From food to fashion — your card pays for itself.
+        </p>
+      </div>
+      <MarqueeRow brands={row1} />
+      <MarqueeRow brands={row2} reverse />
+      <div style={{ maxWidth:1200,margin:'0 auto',padding: mob ? '32px 20px 0' : '40px 40px 0' }}>
+        <p style={{ fontSize: mob ? 15 : 16,color:'#6B6B6B',fontWeight:500 }}>
+          <span style={{ fontWeight:800,color:'#111' }}>200+ brands</span> across food, fashion & lifestyle — and growing.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ─── EXPERIENCES ──────────────────────────────────────────────────────── */
+const EXP_SLIDES = [
+  { label:'Brand Shoot · Mumbai Studio', id:'shoot' },
+  { label:'Creator Meetup · Delhi',      id:'meetup' },
+  { label:'Product Launch · Bangalore',  id:'launch' },
+  { label:'Rooftop Event · Goa',         id:'goa' },
+  { label:'Fashion Collab · Hyderabad',  id:'fashion' },
+];
+
+function ExperiencesSection() {
+  const [current, setCurrent] = useState(0);
+  const mob = useIsMobile();
+  const timerRef = useRef();
+  const touchStart = useRef(null);
+
+  const go = useCallback(n => setCurrent((n + EXP_SLIDES.length) % EXP_SLIDES.length), []);
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => go(current + 1), 4500);
+    return () => clearInterval(timerRef.current);
+  }, [current, go]);
+
+  const onTouchStart = e => { touchStart.current = e.touches[0].clientX; };
+  const onTouchEnd   = e => {
+    if (!touchStart.current) return;
+    const dx = e.changedTouches[0].clientX - touchStart.current;
+    if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
+    touchStart.current = null;
+  };
+
+  return (
+    <section style={{ background:'#0D0D0D',padding: mob ? '72px 0 0' : '100px 0 0' }}>
+      <div style={{ maxWidth:1200,margin:'0 auto',padding: mob ? '0 20px' : '0 40px',marginBottom: mob ? 36 : 56 }}>
+        <h2 style={{ fontSize: mob ? 'clamp(52px,14vw,72px)' : 'clamp(52px,6vw,88px)',fontWeight:900,letterSpacing:'-0.04em',lineHeight:1,color:'#fff' }}>Experiences.</h2>
+        <p style={{ fontSize: mob ? 15 : 'clamp(16px,1.5vw,18px)',color:'rgba(255,255,255,0.4)',marginTop: mob ? 12 : 16,maxWidth:480,lineHeight:1.65 }}>
+          Step into the room. WYLD creators get exclusive invites to brand events, shoots, and creator summits across India.
+        </p>
+      </div>
+
+      <div style={{ position:'relative',width:'100%',aspectRatio: mob ? '4/3' : '16/7',overflow:'hidden',background:'#111' }}
+        onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        {EXP_SLIDES.map((s,i) => (
+          <div key={s.id} className={i===current?'exp-slide-active':''}
+            style={{ position:'absolute',inset:0,opacity:i===current?1:0,transition:'opacity 0.7s ease',pointerEvents:i===current?'auto':'none' }}>
+            <PlaceholderImg label={`Experiences Image ${i+1}\n${s.label}\nLifestyle / event photography`} dark />
+          </div>
+        ))}
+        <div style={{ position:'absolute',inset:0,background:'linear-gradient(to top,rgba(13,13,13,0.75) 0%,transparent 55%)' }}></div>
+
+        {/* Arrows */}
+        {['←','→'].map((arrow, ai) => (
+          <button key={arrow} onClick={() => go(current + (ai === 0 ? -1 : 1))}
+            style={{ position:'absolute',[ai===0?'left':'right']: mob?12:32,top:'50%',transform:'translateY(-50%)',background:'rgba(255,255,255,0.1)',border:'1px solid rgba(255,255,255,0.15)',backdropFilter:'blur(8px)',borderRadius:'50%',width: mob?40:48,height: mob?40:48,cursor:'pointer',color:'#fff',fontSize: mob?16:20,display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s' }}
+            onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.22)'}
+            onMouseLeave={e=>e.currentTarget.style.background='rgba(255,255,255,0.1)'}>{arrow}</button>
+        ))}
+
+        {/* Dots */}
+        <div style={{ position:'absolute',bottom: mob?20:28,left:'50%',transform:'translateX(-50%)',display:'flex',gap:8 }}>
+          {EXP_SLIDES.map((_,i) => (
+            <button key={i} onClick={() => setCurrent(i)} style={{ width:i===current?28:8,height:8,borderRadius:100,background:i===current?'#EC4899':'rgba(255,255,255,0.4)',border:'none',cursor:'pointer',transition:'all 0.3s ease',padding:0 }}></button>
+          ))}
+        </div>
+
+        {/* Slide label */}
+        <div style={{ position:'absolute',bottom: mob?52:60,left: mob?20:40,fontSize: mob?12:13,fontWeight:600,color:'rgba(255,255,255,0.5)',letterSpacing:'0.05em',textTransform:'uppercase' }}>
+          {EXP_SLIDES[current].label}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── CREATOR CONTENT ──────────────────────────────────────────────────── */
+const CREATOR_HANDLES = ['@priya.creates','@dev_lens','@ayesha.style','@rahul.eats','@meera_reels','@zara.travel','@karan.fits','@nisha.beauty','@arjun.vlogs','@tara.lifestyle'];
+const FOLLOWER_COUNTS = ['12.4K','8.9K','22.1K','6.7K','15.3K','9.2K','31.8K','11.5K','7.4K','18.9K'];
+
+function CreatorContentSection() {
+  const mob = useIsMobile();
+  const carouselRef = useRef();
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const onMouseDown = e => { isDragging.current=true; startX.current=e.pageX-carouselRef.current.offsetLeft; scrollLeft.current=carouselRef.current.scrollLeft; carouselRef.current.classList.add('grabbing'); };
+  const onMouseUp   = () => { isDragging.current=false; carouselRef.current?.classList.remove('grabbing'); };
+  const onMouseMove = e => { if(!isDragging.current) return; e.preventDefault(); const x=e.pageX-carouselRef.current.offsetLeft; carouselRef.current.scrollLeft=scrollLeft.current-(x-startX.current)*1.2; };
+
+  // Card width: show 1.5 on mobile, 3.5 on desktop
+  const cardWidth = mob ? 'calc(68vw)' : 'clamp(160px,20vw,220px)';
+
+  return (
+    <section style={{ background:'#fff',padding: mob ? '72px 0' : '100px 0' }}>
+      <div style={{ maxWidth:1200,margin:'0 auto',padding: mob ? '0 20px' : '0 40px',marginBottom: mob ? 32 : 48 }}>
+        <h2 style={{ fontSize: mob ? 'clamp(28px,8vw,42px)' : 'clamp(32px,4vw,56px)',fontWeight:900,letterSpacing:'-0.03em',color:'#111' }}>Made by WYLD Creators</h2>
+        <p style={{ fontSize: mob ? 14 : 16,color:'#6B6B6B',marginTop:10 }}>Real content, real people, real results.</p>
+      </div>
+
+      <div ref={carouselRef} className="creator-carousel"
+        style={{ display:'flex',gap: mob ? 12 : 16,paddingLeft: mob ? 20 : 40,paddingRight: mob ? 20 : 40,paddingBottom:8 }}
+        onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseUp} onMouseMove={onMouseMove}>
+        {CREATOR_HANDLES.map((handle,i) => (
+          <div key={i} className="creator-card" style={{ width:cardWidth,aspectRatio:'9/16' }}>
+            <div style={{ position:'absolute',inset:0 }}>
+              <PlaceholderImg label={`${handle}\nInstagram Reel · 9:16`} />
+            </div>
+            <div style={{ position:'absolute',inset:0,background:'linear-gradient(to top,rgba(0,0,0,0.72) 0%,transparent 55%)',borderRadius:16 }}></div>
+            <div style={{ position:'absolute',bottom: mob?12:14,left: mob?12:14,right: mob?12:14 }}>
+              <div style={{ fontSize: mob?12:13,fontWeight:700,color:'#fff',marginBottom:6 }}>{handle}</div>
+              <div style={{ display:'inline-flex',alignItems:'center',gap:4,background:'rgba(255,255,255,0.15)',backdropFilter:'blur(8px)',borderRadius:100,padding: mob?'3px 9px':'3px 10px' }}>
+                <span style={{ fontSize: mob?10:11,color:'#fff',fontWeight:600 }}>👤 {FOLLOWER_COUNTS[i]}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: mob ? '16px 20px 0' : '24px 40px 0',display:'flex',justifyContent:'center',alignItems:'center',gap:8 }}>
+        <div style={{ width:24,height:1,background:'#ddd' }}></div>
+        <span style={{ fontSize:12,color:'#bbb',fontWeight:500 }}>Swipe to explore</span>
+        <div style={{ width:24,height:1,background:'#ddd' }}></div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── APP DOWNLOAD ─────────────────────────────────────────────────────── */
+function AppDownloadSection({ tweaks }) {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background:'#0D0D0D',padding: mob ? '72px 20px' : '100px 40px' }}>
+      <div style={{ maxWidth:1200,margin:'0 auto',display:'flex',alignItems:'center',gap:80,flexWrap:'wrap' }}>
+        <div style={{ flex:'1 1 320px' }}>
+          <h2 style={{ fontSize: mob ? 'clamp(36px,10vw,52px)' : 'clamp(36px,4vw,64px)',fontWeight:900,letterSpacing:'-0.03em',color:'#fff',lineHeight:1.1,marginBottom: mob ? 16 : 20 }}>
+            Your influence,<br />your income.
+          </h2>
+          <p style={{ fontSize: mob ? 15 : 18,color:'rgba(255,255,255,0.5)',lineHeight:1.65,marginBottom: mob ? 32 : 44,maxWidth:400 }}>
+            Join 25,000 creators on WYLD. Apply to campaigns, track earnings, and redeem exclusive brand perks — all from one app.
+          </p>
+          {mob ? (
+            <div style={{ marginBottom:32 }}>
+              <SmartDownloadButton tweaks={tweaks} outline />
+            </div>
+          ) : (
+            <div className="app-badges">
+              <AppBadgeOutline store="App Store" url={tweaks.appStoreUrl} />
+              <AppBadgeOutline store="Google Play" url={tweaks.playStoreUrl} />
+            </div>
+          )}
+          <a href="#" className="btn-pink" style={{ padding: mob ? '14px 28px' : '16px 36px',fontSize: mob ? 15 : 16,display: mob ? 'flex' : 'inline-flex',justifyContent:'center',width: mob ? '100%' : 'auto' }}>Create Your Profile →</a>
+        </div>
+
+        {/* Phone mockup — desktop only */}
+        <div className="desktop-only" style={{ flex:'0 0 260px',display:'flex',justifyContent:'center' }}>
+          <div style={{ width:240,height:480,borderRadius:36,overflow:'hidden',border:'2px solid rgba(255,255,255,0.1)',background:'#111',position:'relative',boxShadow:'0 32px 64px rgba(0,0,0,0.5)' }}>
+            <PlaceholderImg label={"WYLD App Screenshot\nHome screen · iOS"} dark />
+            <div style={{ position:'absolute',top:12,left:'50%',transform:'translateX(-50%)',width:80,height:24,background:'#000',borderRadius:100 }}></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AppBadgeOutline({ store, url = '#' }) {
+  const isApple = store === 'App Store';
+  return (
+    <a href={url} style={{ display:'flex',alignItems:'center',gap:12,background:'transparent',border:'1.5px solid rgba(255,255,255,0.22)',borderRadius:12,padding:'12px 22px',textDecoration:'none',transition:'all 0.2s ease',cursor:'pointer' }}
+      onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.55)';e.currentTarget.style.background='rgba(255,255,255,0.05)';}}
+      onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.22)';e.currentTarget.style.background='transparent';}}>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+        {isApple ? <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/> : <path d="M3.18 23.76c.29.16.61.24.95.24.4 0 .83-.12 1.23-.35l13.2-7.61-2.92-2.92-12.46 10.64zM.54 1.32C.2 1.7 0 2.28 0 3.01v17.98c0 .73.2 1.31.55 1.69l.09.08L10.29 13l-.08-.08L.54 1.32zM20.1 9.65l-2.63-1.52L14.4 11.2l3.09 3.09 2.62-1.51c.75-.43 1.19-1.01 1.19-1.57 0-.56-.44-1.13-1.2-1.56zM4.14.59L17.46 8.3 14.4 11.2.54 1.32C.92.87 1.49.59 2.1.59c.69 0 1.39.35 2.04.7.01 0 .01 0 0 0z"/>}
+      </svg>
+      <div>
+        <div style={{ fontSize:10,color:'rgba(255,255,255,0.45)',fontWeight:400 }}>Download on the</div>
+        <div style={{ fontSize:15,color:'#fff',fontWeight:700 }}>{store}</div>
+      </div>
+    </a>
+  );
+}
+
+/* ─── TRUST STRIP ──────────────────────────────────────────────────────── */
+function TrustStrip() {
+  const mob = useIsMobile();
+  return (
+    <section style={{ background:'#fff',padding: mob ? '48px 20px' : '48px 40px',borderBottom:'1px solid #F0F0F0' }}>
+      <div style={{ maxWidth:1200,margin:'0 auto' }}>
+        <div className="trust-inner">
+          {/* Shark Tank */}
+          <div style={{ display:'flex',alignItems:'center',gap:14 }}>
+            <span style={{ fontSize:12,fontWeight:700,color:'#bbb',letterSpacing:'0.07em',textTransform:'uppercase',whiteSpace:'nowrap' }}>As seen on</span>
+            <div style={{ height:36,padding:'0 14px',background:'#F5F5F7',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center' }}>
+              <span style={{ fontWeight:800,fontSize:11,color:'#888',letterSpacing:'0.04em' }}>SHARK TANK INDIA</span>
+            </div>
+          </div>
+
+          {/* Divider — desktop */}
+          <div className="desktop-only" style={{ width:1,height:36,background:'#E5E5E5' }}></div>
+
+          {/* Backed by */}
+          <div style={{ display:'flex',alignItems: mob ? 'flex-start' : 'center',gap: mob ? 10 : 16,flexDirection: mob ? 'column' : 'row',flexWrap:'wrap' }}>
+            <span style={{ fontSize:12,fontWeight:700,color:'#bbb',letterSpacing:'0.07em',textTransform:'uppercase',whiteSpace:'nowrap' }}>Backed by</span>
+            <div style={{ display:'flex',gap: mob ? '10px 16px' : 16,flexWrap:'wrap' }}>
+              {['Aman Gupta','Anupam Mittal','Varun Alagh','Better Capital','Artha Venture Fund'].map(n => (
+                <span key={n} style={{ fontSize: mob ? 13 : 13,fontWeight:600,color:'#6B6B6B' }}>{n}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── FOOTER ───────────────────────────────────────────────────────────── */
+function FooterCol({ title, links }) {
+  const mob = useIsMobile();
+  const [open, setOpen] = useState(false);
+  if (!mob) {
+    return (
+      <div style={{ flex:'0 0 auto' }}>
+        <div style={{ fontSize:13,fontWeight:700,color:'rgba(255,255,255,0.9)',letterSpacing:'0.06em',textTransform:'uppercase',marginBottom:20 }}>{title}</div>
+        {links.map(l => (
+          <a key={l} href="#" style={{ display:'block',fontSize:14,color:'rgba(255,255,255,0.4)',textDecoration:'none',marginBottom:12,lineHeight:1,transition:'color 0.2s' }}
+            onMouseEnter={e=>e.target.style.color='rgba(255,255,255,0.8)'} onMouseLeave={e=>e.target.style.color='rgba(255,255,255,0.4)'}>{l}</a>
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div style={{ borderBottom:'1px solid rgba(255,255,255,0.07)' }}>
+      <button onClick={() => setOpen(o=>!o)} style={{ width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'18px 0',background:'none',border:'none',cursor:'pointer' }}>
+        <span style={{ fontSize:13,fontWeight:700,color:'rgba(255,255,255,0.9)',letterSpacing:'0.06em',textTransform:'uppercase' }}>{title}</span>
+        <span style={{ color:'rgba(255,255,255,0.4)',fontSize:18,transition:'transform 0.25s',transform:open?'rotate(45deg)':'none',display:'inline-block',lineHeight:1 }}>+</span>
+      </button>
+      <div style={{ overflow:'hidden',maxHeight:open?300:0,transition:'max-height 0.3s ease' }}>
+        <div style={{ paddingBottom:16 }}>
+          {links.map(l => (
+            <a key={l} href="#" style={{ display:'block',fontSize:14,color:'rgba(255,255,255,0.4)',textDecoration:'none',marginBottom:14,lineHeight:1 }}>{l}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Footer() {
+  const mob = useIsMobile();
+  const cols = [
+    { title:'For Creators', links:['How it Works','Browse Campaigns','Creator Perks','Experiences','Refer & Earn'] },
+    { title:'For Brands',   links:['Run a Campaign','Creator Network','UGC Content','Case Studies','Pricing'] },
+    { title:'Company',      links:['About WYLD','Blog','Careers','Press','FAQs'] },
+  ];
+  const SOCIAL = [
+    { name:'IG', path:'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z' },
+    { name:'LI', path:'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' },
+    { name:'YT', path:'M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z' },
+  ];
+
+  return (
+    <footer style={{ background:'#0D0D0D',padding: mob ? '56px 20px 28px' : '72px 40px 32px' }}>
+      <div style={{ maxWidth:1200,margin:'0 auto' }}>
+        <div style={{ display:'flex',gap: mob ? 0 : 80,flexDirection: mob ? 'column' : 'row',flexWrap:'wrap',marginBottom: mob ? 32 : 64,justifyContent:'space-between' }}>
+
+          {/* Brand col */}
+          <div style={{ flex:'0 0 260px',marginBottom: mob ? 40 : 0 }}>
+            <WyldLogo white height={mob ? 24 : 28} />
+            <p style={{ fontSize:14,color:'rgba(255,255,255,0.35)',marginTop:14,lineHeight:1.7,maxWidth:220 }}>
+              Where influence becomes currency. India's largest UGC platform for nano and micro creators.
+            </p>
+            <div style={{ display:'flex',gap:10,marginTop:22 }}>
+              {SOCIAL.map(s => (
+                <a key={s.name} href="#" style={{ width:36,height:36,borderRadius:'50%',background:'rgba(255,255,255,0.07)',display:'flex',alignItems:'center',justifyContent:'center',textDecoration:'none',transition:'background 0.2s' }}
+                  onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.16)'}
+                  onMouseLeave={e=>e.currentTarget.style.background='rgba(255,255,255,0.07)'}>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)"><path d={s.path} /></svg>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Link cols */}
+          <div className="footer-cols" style={{ flex:'1 1 auto', marginLeft: mob ? 0 : 'auto' }}>
+            {cols.map(c => <FooterCol key={c.title} title={c.title} links={c.links} />)}
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div style={{ marginBottom: mob ? 20 : 28 }}>
+          <a href="mailto:hello@getwyld.in" style={{ fontSize:14,color:'rgba(255,255,255,0.35)',textDecoration:'none',transition:'color 0.2s' }}
+            onMouseEnter={e=>e.target.style.color='#EC4899'} onMouseLeave={e=>e.target.style.color='rgba(255,255,255,0.35)'}>hello@getwyld.in</a>
+        </div>
+
+        <div style={{ borderTop:'1px solid rgba(255,255,255,0.07)',paddingTop:20,display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:10 }}>
+          <span style={{ fontSize:12,color:'rgba(255,255,255,0.25)' }}>© WYLD 2025. All rights reserved.</span>
+          <div style={{ display:'flex',gap:20 }}>
+            {['Privacy Policy','Terms of Service'].map(l => (
+              <a key={l} href="#" style={{ fontSize:12,color:'rgba(255,255,255,0.25)',textDecoration:'none',transition:'color 0.2s' }}
+                onMouseEnter={e=>e.target.style.color='rgba(255,255,255,0.55)'} onMouseLeave={e=>e.target.style.color='rgba(255,255,255,0.25)'}>{l}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ─── APP ──────────────────────────────────────────────────────────────── */
+function App() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  // Apply accent color CSS variable
+  useEffect(() => {
+    document.documentElement.style.setProperty('--accent-from', tweaks.accentFrom);
+    document.documentElement.style.setProperty('--accent-to', tweaks.accentTo);
+    // Update all pink-gradient elements
+    const style = document.getElementById('dynamic-accent-style') || document.createElement('style');
+    style.id = 'dynamic-accent-style';
+    style.textContent = `
+      .pink-gradient { background: linear-gradient(135deg, ${tweaks.accentFrom} 0%, ${tweaks.accentTo} 100%) !important; }
+      .btn-pink { background: linear-gradient(135deg, ${tweaks.accentFrom}, ${tweaks.accentTo}) !important; }
+      .campaign-card::after { background: linear-gradient(135deg, ${tweaks.accentFrom}, ${tweaks.accentTo}) !important; }
+    `;
+    document.head.appendChild(style);
+  }, [tweaks.accentFrom, tweaks.accentTo]);
+
+  return (
+    <>
+      <Nav tweaks={tweaks} />
+      <main>
+        <Hero tweaks={tweaks} />
+        {tweaks.showNumbersStrip && <NumbersStrip tweaks={tweaks} />}
+        <EarnSection />
+        <SaveSection />
+        {tweaks.showExperiences && <ExperiencesSection />}
+        <CreatorContentSection />
+        <AppDownloadSection tweaks={tweaks} />
+        <TrustStrip />
+      </main>
+      <Footer />
+      <TweaksPanel tweaks={tweaks} setTweak={setTweak}>
+        <TweakSection label="Brand">
+          <TweakColor id="accentFrom" label="Accent start" tweaks={tweaks} setTweak={setTweak} />
+          <TweakColor id="accentTo" label="Accent end" tweaks={tweaks} setTweak={setTweak} />
+        </TweakSection>
+        <TweakSection label="Hero">
+          <TweakText id="heroHeadline" label="Headline" tweaks={tweaks} setTweak={setTweak} />
+          <TweakText id="heroSub" label="Subline (mobile)" tweaks={tweaks} setTweak={setTweak} />
+          <TweakText id="ctaLabel" label="Nav CTA label" tweaks={tweaks} setTweak={setTweak} />
+        </TweakSection>
+        <TweakSection label="App Download">
+          <TweakText id="smartDownloadLabel" label="Mobile button label" tweaks={tweaks} setTweak={setTweak} />
+          <TweakText id="appStoreUrl" label="App Store URL" tweaks={tweaks} setTweak={setTweak} />
+          <TweakText id="playStoreUrl" label="Play Store URL" tweaks={tweaks} setTweak={setTweak} />
+        </TweakSection>
+        <TweakSection label="Sections">
+          <TweakToggle id="showNumbersStrip" label="Numbers strip" tweaks={tweaks} setTweak={setTweak} />
+          <TweakToggle id="showExperiences" label="Experiences slider" tweaks={tweaks} setTweak={setTweak} />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

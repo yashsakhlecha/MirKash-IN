@@ -1,0 +1,24 @@
+---
+---
+
+<nav id="nav">
+  <a href="/" class="nav-logo">Book Kirtan</a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#genres">Artists</a></li>
+    <li><a href="#occasions">Occasions</a></li>
+    <li><a href="#journal">Journal</a></li>
+  </ul>
+  <a href="#inquiry" class="nav-inquire">Inquire</a>
+</nav>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav?.classList.add('scrolled');
+    } else {
+      nav?.classList.remove('scrolled');
+    }
+  });
+</script>

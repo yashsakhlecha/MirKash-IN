@@ -1,0 +1,42 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - button [ref=e5]:
+        - img [ref=e6]
+      - generic [ref=e8]:
+        - img [ref=e10]
+        - generic [ref=e13]: Competitor Ads
+    - generic [ref=e14]: Powered by Tamasha
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - heading "Track & Analyse Competitors" [level=1] [ref=e17]
+      - paragraph [ref=e18]: Search for competitor pages, sync their latest ads, and use AI to analyze their hooks and scripts.
+    - generic [ref=e19]:
+      - tablist [ref=e20]:
+        - tab "Explorer" [selected] [ref=e21]:
+          - img
+          - text: Explorer
+        - tab "Global Feed" [disabled]:
+          - img
+          - text: Global Feed
+      - tabpanel [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]:
+              - generic [ref=e26]:
+                - generic [ref=e27]: ✦
+                - text: Add Competitor
+              - paragraph [ref=e28]: Search by name or paste a Meta Ad Library URL
+            - generic [ref=e29]:
+              - textbox "Paste Ad Library URL..." [ref=e30]
+              - paragraph [ref=e31]: "Tip: Provide the full URL containing 'view_all_page_id'"
+              - generic [ref=e32]: OR SEARCH BY NAME
+              - textbox "Competitor name..." [ref=e35]
+              - button "Add Competitor" [ref=e36]:
+                - img
+                - text: Add Competitor
+          - generic [ref=e38]:
+            - generic [ref=e39]:
+              - generic [ref=e40]: ●
+              - text: Tracked Competitors (0)
+            - paragraph [ref=e41]: Select a competitor to view and analyze their ads

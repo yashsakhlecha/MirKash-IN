@@ -1,0 +1,818 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - link "LUXURY VEGAN BAGS" [ref=e9] [cursor=pointer]:
+          - /url: /collections/all-products
+        - link "FREE SHIPPING PAN INDIA" [ref=e11] [cursor=pointer]:
+          - /url: /collections/all-products
+        - link "COD AVAILABLE" [ref=e13] [cursor=pointer]:
+          - /url: /collections/all-products
+      - generic [ref=e14]:
+        - link "LUXURY VEGAN BAGS" [ref=e16] [cursor=pointer]:
+          - /url: /collections/all-products
+        - link "FREE SHIPPING PAN INDIA" [ref=e18] [cursor=pointer]:
+          - /url: /collections/all-products
+        - link "COD AVAILABLE" [ref=e20] [cursor=pointer]:
+          - /url: /collections/all-products
+      - generic [ref=e21]:
+        - link "LUXURY VEGAN BAGS" [ref=e23] [cursor=pointer]:
+          - /url: /collections/all-products
+        - link "FREE SHIPPING PAN INDIA" [ref=e25] [cursor=pointer]:
+          - /url: /collections/all-products
+        - link "COD AVAILABLE" [ref=e27] [cursor=pointer]:
+          - /url: /collections/all-products
+    - generic [ref=e31]:
+      - link "Mir Kash Mir Kash" [ref=e32] [cursor=pointer]:
+        - /url: /
+        - img "Mir Kash" [ref=e33]
+        - img "Mir Kash" [ref=e34]
+      - generic [ref=e35]:
+        - link "My Account" [ref=e36] [cursor=pointer]:
+          - /url: https://mirkash.in/customer_authentication/redirect?locale=en&region_country=IN
+          - generic [ref=e37]:
+            - img
+        - link "Search" [ref=e38] [cursor=pointer]:
+          - /url: /search
+          - img
+        - link "0" [ref=e39] [cursor=pointer]:
+          - /url: /cart
+          - generic [ref=e40]:
+            - img
+            - generic [ref=e41]: "0"
+      - menubar [ref=e43]:
+        - menuitem "Shop" [ref=e44]:
+          - link "Shop" [ref=e45] [cursor=pointer]:
+            - /url: /
+            - text: Shop
+            - img [ref=e46]
+        - menuitem "About The Brand" [ref=e48]:
+          - link "About The Brand" [ref=e49] [cursor=pointer]:
+            - /url: /pages/our-story
+        - menuitem "Collections" [ref=e50]:
+          - link "Collections" [ref=e51] [cursor=pointer]:
+            - /url: /collections/all-products
+            - text: Collections
+            - img [ref=e52]
+        - menuitem "Contact" [ref=e54]:
+          - link "Contact" [ref=e55] [cursor=pointer]:
+            - /url: /pages/contact
+    - main [ref=e56]:
+      - navigation "breadcrumbs" [ref=e59]:
+        - link "Home" [ref=e60] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e61]: /
+        - text: Braidey - Cherry Red
+      - generic [ref=e62]:
+        - generic [ref=e66]:
+          - generic [ref=e69]:
+            - link "Zoom" [ref=e72] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/2_1b26b86f-825f-40f5-98e2-05fe1fc33227.png?v=1756966487
+              - img [ref=e73]
+            - link "Zoom" [ref=e80] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/BraideyRed_6c00cf0a-ceff-4883-af1b-979be6148601.png?v=1757486200
+              - img [ref=e81]
+            - link "Zoom" [ref=e88] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/WhatsAppImage2025-03-27at1.21.06PM.jpg?v=1757486200
+              - img [ref=e89]
+            - link "Zoom" [ref=e96] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/WhatsAppImage2025-03-27at1.21.05PM_2.jpg?v=1757486200
+              - img [ref=e97]
+            - link "Zoom" [ref=e104] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/8_dacddff9-897f-43d9-b5bd-6e4773f61639.png?v=1757486200
+              - img [ref=e105]
+            - link "Zoom" [ref=e112] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/4_658b4ef0-ff92-4996-9653-77146691ddbc.png?v=1757486200
+              - img [ref=e113]
+            - link "Zoom" [ref=e120] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/3_500a3fb5-30b5-46bc-b2f2-b6a56331ac42.png?v=1757486200
+              - img [ref=e121]
+            - link "Zoom" [ref=e128] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/6_98b56012-cbf1-420e-a5a5-7059f10e2ccf.png?v=1757486200
+              - img [ref=e129]
+            - link "Zoom" [ref=e136] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/7_c101c98b-e3e6-4ea8-8f1b-158e08354bec.png?v=1757486200
+              - img [ref=e137]
+            - link "Zoom" [ref=e144] [cursor=pointer]:
+              - /url: //mirkash.in/cdn/shop/files/5_a1f157cb-753b-4372-9698-a7f145a96fbb.png?v=1757486200
+              - img [ref=e145]
+          - generic [ref=e150]:
+            - generic [ref=e151]:
+              - generic:
+                - generic:
+                  - link:
+                    - /url: javascript:void(0)
+              - paragraph [ref=e152]: Mir Kash
+              - generic [ref=e153]:
+                - heading "Braidey - Cherry Red" [level=1] [ref=e154]
+                - generic [ref=e157]:
+                  - insertion [ref=e158]: ₹ 8,999.00
+                  - text: ()
+                - link "★★★★★ 11 reviews" [ref=e159] [cursor=pointer]:
+                  - /url: "#shopify-product-reviews"
+                  - generic [ref=e160]: ★★★★★
+                  - text: 11 reviews
+              - generic [ref=e161]:
+                - paragraph [ref=e162]: "The Braidey is Mir Kash’s signature shoulder bag — built around one defining detail: a hand-braided exterior that makes it unmistakably ours."
+                - paragraph [ref=e163]: Crafted from premium vegan leather, the Braidey is soft, structured, and designed for real life. All chains and straps are fully detachable, giving you three ways to wear it — over the shoulder, crossbody, or by hand. The metal chain adds a touch of luxe without adding weight.
+                - paragraph [ref=e164]: "Inside, the spacious structured body holds everything you need for a full day out: wallet, phone, keys, and more."
+                - paragraph [ref=e165]:
+                  - text: "Material: Premium vegan leather"
+                  - text: "Hardware: Gold-toned metal chain and clasps"
+                  - text: "Strap: Detachable chain + adjustable leather strap"
+                  - text: Cruelty-free. 100% animal leather-free.
+              - group [ref=e168]:
+                - generic [ref=e169]:
+                  - text: "Color:"
+                  - generic [ref=e170]: Cherry Red
+                - radio "Cherry Red" [checked] [ref=e171]
+                - generic [ref=e172] [cursor=pointer]: Cherry Red
+                - radio "Nude" [ref=e173]
+                - generic [ref=e174] [cursor=pointer]: Nude
+                - radio "Silver" [ref=e175]
+                - generic [ref=e176] [cursor=pointer]: Silver
+              - list [ref=e177]:
+                - listitem [ref=e178]
+                - listitem [ref=e179]
+                - listitem [ref=e180]
+                - listitem [ref=e181]
+                - listitem [ref=e182]
+              - generic [ref=e187]:
+                - generic [ref=e189]:
+                  - button "Decrease quantity for Braidey - Cherry Red" [ref=e190]:
+                    - img [ref=e191]
+                  - spinbutton "Quantity for Braidey - Cherry Red" [ref=e193]: "1"
+                  - button "Increase quantity for Braidey - Cherry Red" [ref=e194] [cursor=pointer]:
+                    - img [ref=e195]
+                - button "Add to cart" [ref=e198] [cursor=pointer]:
+                  - generic [ref=e199]: Add to cart
+                  - generic:
+                    - img
+                - button "BUY IT NOW" [ref=e201] [cursor=pointer]
+              - list [ref=e202]:
+                - listitem [ref=e203]:
+                  - img "Express Shipping" [ref=e204]
+                  - generic [ref=e205]: Express Shipping
+                - listitem [ref=e206]:
+                  - img "14 Days Easy Return" [ref=e207]
+                  - generic [ref=e208]: 14 Days Easy Return
+                - listitem [ref=e209]:
+                  - img "Cash on Delivery" [ref=e210]
+                  - generic [ref=e211]: Cash on Delivery
+                - listitem [ref=e212]:
+                  - img "48 Hour Dispatch" [ref=e213]
+                  - generic [ref=e214]: 48 Hour Dispatch
+              - group [ref=e216]:
+                - generic "Details" [ref=e217] [cursor=pointer]: Details
+              - group [ref=e220]:
+                - generic "Sustainability Efforts" [ref=e221] [cursor=pointer]: Sustainability Efforts
+              - group [ref=e224]:
+                - generic "Packaging" [ref=e225] [cursor=pointer]: Packaging
+              - group [ref=e228]:
+                - generic "Care Guide" [ref=e229] [cursor=pointer]: Care Guide
+              - button "Shipping & Returns" [ref=e232] [cursor=pointer]:
+                - img [ref=e233]
+                - generic [ref=e235]: Shipping & Returns
+              - generic [ref=e236]:
+                - link "Facebook" [ref=e237] [cursor=pointer]:
+                  - /url: http://www.facebook.com/sharer.php?u=https://mirkash.in/products/braidey-cherry-red
+                  - img [ref=e238]
+                - link "X" [ref=e240] [cursor=pointer]:
+                  - /url: https://twitter.com/intent/tweet?text=Braidey%20-%20Cherry%20Red&url=https://mirkash.in/products/braidey-cherry-red
+                  - img [ref=e241]
+                - link "Pinterest" [ref=e243] [cursor=pointer]:
+                  - /url: http://pinterest.com/pin/create/link/?url=https://mirkash.in/products/braidey-cherry-red&media=//mirkash.in/cdn/shop/files/2_1b26b86f-825f-40f5-98e2-05fe1fc33227.png?crop=center&height=1024&v=1756966487&width=1024&description=Braidey%20-%20Cherry%20Red
+                  - img [ref=e244]
+                - link "WhatsApp" [ref=e245] [cursor=pointer]:
+                  - /url: whatsapp://send?text=Braidey%20-%20Cherry%20Red, https://mirkash.in/products/braidey-cherry-red
+                  - img [ref=e246]
+                - button "Copied to clipboard" [ref=e248] [cursor=pointer]:
+                  - generic: Copied to clipboard
+            - button "Braidey - Cherry Red ₹ 8,999.00" [ref=e252] [cursor=pointer]:
+              - generic [ref=e254]:
+                - generic [ref=e255]: Braidey - Cherry Red
+                - generic [ref=e257]:
+                  - insertion [ref=e258]: ₹ 8,999.00
+                  - text: ()
+        - generic [ref=e262]:
+          - generic [ref=e264]:
+            - heading "Product information" [level=4] [ref=e265]
+            - img [ref=e267] [cursor=pointer]
+          - button "Shipping & Returns" [ref=e271] [cursor=pointer]
+      - generic [ref=e275]:
+        - generic [ref=e276]:
+          - img [ref=e278]
+          - generic [ref=e283]:
+            - heading "Vegan & Cruelty Free" [level=6] [ref=e284]
+            - paragraph [ref=e285]:
+              - strong [ref=e286]: Beauty without cruelty
+        - generic [ref=e287]:
+          - img [ref=e289]
+          - generic [ref=e291]:
+            - heading "Easy Returns" [level=6] [ref=e292]
+            - paragraph [ref=e293]:
+              - strong [ref=e294]: No questions asked
+        - generic [ref=e295]:
+          - img [ref=e297]
+          - generic [ref=e299]:
+            - heading "Luxury Packaging" [level=6] [ref=e300]
+            - paragraph [ref=e301]:
+              - strong [ref=e302]: Impeccable gifting and unboxing experience
+        - generic [ref=e303]:
+          - img [ref=e305]
+          - generic [ref=e308]:
+            - heading "Worldwide Shipping" [level=6] [ref=e309]
+            - paragraph [ref=e310]:
+              - strong [ref=e311]: + 15 day return
+      - generic [ref=e322]:
+        - generic [ref=e327]:
+          - button [ref=e328] [cursor=pointer]:
+            - generic [ref=e329]:
+              - img
+          - button [ref=e330] [cursor=pointer]:
+            - generic [ref=e331]:
+              - img
+        - generic [ref=e336]:
+          - button [ref=e337] [cursor=pointer]:
+            - generic [ref=e338]:
+              - img
+          - button [ref=e339] [cursor=pointer]:
+            - generic [ref=e340]:
+              - img
+        - generic [ref=e345]:
+          - button [ref=e346] [cursor=pointer]:
+            - generic [ref=e347]:
+              - img
+          - button [ref=e348] [cursor=pointer]:
+            - generic [ref=e349]:
+              - img
+        - generic [ref=e354]:
+          - button [ref=e355] [cursor=pointer]:
+            - generic [ref=e356]:
+              - img
+          - button [ref=e357] [cursor=pointer]:
+            - generic [ref=e358]:
+              - img
+        - generic [ref=e363]:
+          - button [ref=e364] [cursor=pointer]:
+            - generic [ref=e365]:
+              - img
+          - button [ref=e366] [cursor=pointer]:
+            - generic [ref=e367]:
+              - img
+      - generic [ref=e379]:
+        - generic [ref=e380]:
+          - heading "Customer Reviews" [level=2] [ref=e381]
+          - generic [ref=e382]:
+            - generic [ref=e384]:
+              - img "Average rating is 4.82 stars" [ref=e385]:
+                - generic [ref=e386]: 
+                - generic [ref=e387]: 
+                - generic [ref=e388]: 
+                - generic [ref=e389]: 
+                - generic [ref=e390]: 
+                - text: 4.82 out of 5
+              - generic [ref=e391]: Based on 11 reviews
+            - generic [ref=e392]:
+              - generic [ref=e393] [cursor=pointer]:
+                - button "82% (9) reviews with 5 star rating" [ref=e394]:
+                  - generic [ref=e395]: 
+                  - generic [ref=e396]: 
+                  - generic [ref=e397]: 
+                  - generic [ref=e398]: 
+                  - generic [ref=e399]: 
+                - generic [ref=e402]: "9"
+              - generic [ref=e403] [cursor=pointer]:
+                - button "18% (2) reviews with 4 star rating" [ref=e404]:
+                  - generic [ref=e405]: 
+                  - generic [ref=e406]: 
+                  - generic [ref=e407]: 
+                  - generic [ref=e408]: 
+                  - generic [ref=e409]: 
+                - generic [ref=e412]: "2"
+              - generic:
+                - button "0% (0) reviews with 3 star rating":
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                - generic: "0"
+              - generic:
+                - button "0% (0) reviews with 2 star rating":
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                - generic: "0"
+              - generic:
+                - button "0% (0) reviews with 1 star rating":
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                  - generic: 
+                - generic: "0"
+        - generic [ref=e416]:
+          - combobox "Sort dropdown" [ref=e417] [cursor=pointer]:
+            - option "Most Recent" [selected]
+            - option "Highest Rating"
+            - option "Lowest Rating"
+            - option "Only Pictures"
+            - option "Pictures First"
+            - option "Videos First"
+            - option "Most Helpful"
+          - generic [ref=e418]: 
+        - generic [ref=e419]:
+          - generic [ref=e420]:
+            - generic [ref=e421]:
+              - generic [ref=e422]:
+                - generic [ref=e423]:
+                  - img "5 star review" [ref=e424]:
+                    - generic [ref=e425]: 
+                    - generic [ref=e426]: 
+                    - generic [ref=e427]: 
+                    - generic [ref=e428]: 
+                    - generic [ref=e429]: 
+                  - generic [ref=e430]: 09/24/2025
+                - generic [ref=e431]:
+                  - generic [ref=e432]: 
+                  - generic [ref=e433]: Rekha Jain
+              - generic [ref=e435]:
+                - generic [ref=e436]: Phenomenal
+                - paragraph [ref=e438]: This has become my go-to bag. Quality is genuinely phenomenal.
+            - generic [ref=e439]:
+              - generic [ref=e440]:
+                - generic [ref=e441]:
+                  - img "4 star review" [ref=e442]:
+                    - generic [ref=e443]: 
+                    - generic [ref=e444]: 
+                    - generic [ref=e445]: 
+                    - generic [ref=e446]: 
+                    - generic [ref=e447]: 
+                  - generic [ref=e448]: 09/14/2025
+                - generic [ref=e449]:
+                  - generic [ref=e450]: 
+                  - generic [ref=e451]: Sweety Sinha
+              - generic [ref=e453]:
+                - generic [ref=e454]: Supreme quality
+                - paragraph [ref=e456]: Loved this bag!
+            - generic [ref=e457]:
+              - generic [ref=e458]:
+                - generic [ref=e459]:
+                  - img "5 star review" [ref=e460]:
+                    - generic [ref=e461]: 
+                    - generic [ref=e462]: 
+                    - generic [ref=e463]: 
+                    - generic [ref=e464]: 
+                    - generic [ref=e465]: 
+                  - generic [ref=e466]: 09/10/2025
+                - generic [ref=e467]:
+                  - generic [ref=e468]: 
+                  - generic [ref=e469]: Simran
+              - paragraph [ref=e473]: Stylish, roomy, and easy to wear different ways. A great everyday bag!
+            - generic [ref=e474]:
+              - generic [ref=e475]:
+                - generic [ref=e476]:
+                  - img "5 star review" [ref=e477]:
+                    - generic [ref=e478]: 
+                    - generic [ref=e479]: 
+                    - generic [ref=e480]: 
+                    - generic [ref=e481]: 
+                    - generic [ref=e482]: 
+                  - generic [ref=e483]: 09/10/2025
+                - generic [ref=e484]:
+                  - generic [ref=e485]: 
+                  - generic [ref=e486]: Isha Birani
+              - generic [ref=e488]:
+                - generic [ref=e489]: VIBE.
+                - generic [ref=e490]:
+                  - paragraph [ref=e491]: Honestly, this Braidey Red Mir Kash bag is such a vibe. The braid detail is cute without being over the top, and the cherry red color adds just enough pop to any outfit. It’s not huge, but it fits all the essentials—and somehow feels lighter than it looks.
+                  - paragraph [ref=e492]: The vegan leather feels soft but still holds its shape, so it doesn’t look all floppy or boring. I’ve gotten a few compliments on it already, which is always a nice bonus. For the price, it’s a solid bag that’s easy to throw on and head out, whether I’m running errands or meeting friends.
+            - generic [ref=e493]:
+              - generic [ref=e494]:
+                - generic [ref=e495]:
+                  - img "5 star review" [ref=e496]:
+                    - generic [ref=e497]: 
+                    - generic [ref=e498]: 
+                    - generic [ref=e499]: 
+                    - generic [ref=e500]: 
+                    - generic [ref=e501]: 
+                  - generic [ref=e502]: 09/10/2025
+                - generic [ref=e503]:
+                  - generic [ref=e504]: 
+                  - generic [ref=e505]: Leela K.
+              - generic [ref=e507]:
+                - generic [ref=e508]: Color is a 10/10
+                - paragraph [ref=e510]: The bag's color is the best part. It amplifies any outfit instantly. Will be my go to bag this fall season.
+          - generic [ref=e511]:
+            - button "Page 1": "1"
+            - button "Page 2" [ref=e512] [cursor=pointer]: "2"
+            - button "Page 3" [ref=e513] [cursor=pointer]: "3"
+            - button "Page 2" [ref=e514] [cursor=pointer]: 
+            - button "Page 3" [ref=e515] [cursor=pointer]: 
+      - generic [ref=e519]:
+        - heading "YOU MAY ALSO LIKE" [level=2] [ref=e522]
+        - list [ref=e523]:
+          - listitem [ref=e524]:
+            - generic [ref=e525]:
+              - figure [ref=e526]:
+                - link "Braidey - Nude" [ref=e527] [cursor=pointer]:
+                  - /url: /products/braidey-nude?pr_prod_strat=e5_desc&pr_rec_id=20e00bb33&pr_rec_pid=8819654000855&pr_ref_pid=8819653017815&pr_seq=uniform
+                  - img "Braidey - Nude" [ref=e528]
+              - generic [ref=e529]:
+                - link "Braidey - Nude" [ref=e530] [cursor=pointer]:
+                  - /url: /products/braidey-nude?pr_prod_strat=e5_desc&pr_rec_id=20e00bb33&pr_rec_pid=8819654000855&pr_ref_pid=8819653017815&pr_seq=uniform
+                - generic [ref=e531]:
+                  - insertion [ref=e532]: ₹ 8,999.00
+                  - text: ()
+                - generic [ref=e534]:
+                  - generic [ref=e536] [cursor=pointer]: Nude
+                  - generic [ref=e538] [cursor=pointer]: Silver
+                  - generic [ref=e540] [cursor=pointer]: Cherry Red
+                - generic [ref=e541]: ★★★★★
+          - listitem [ref=e542]:
+            - generic [ref=e543]:
+              - figure [ref=e544]:
+                - link "Braidey - Metallic Silver" [ref=e545] [cursor=pointer]:
+                  - /url: /products/braidey-metallic-silver?pr_prod_strat=e5_desc&pr_rec_id=20e00bb33&pr_rec_pid=8819654754519&pr_ref_pid=8819653017815&pr_seq=uniform
+                  - img "Braidey - Metallic Silver" [ref=e546]
+              - generic [ref=e547]:
+                - link "Braidey - Metallic Silver" [ref=e548] [cursor=pointer]:
+                  - /url: /products/braidey-metallic-silver?pr_prod_strat=e5_desc&pr_rec_id=20e00bb33&pr_rec_pid=8819654754519&pr_ref_pid=8819653017815&pr_seq=uniform
+                - generic [ref=e549]:
+                  - insertion [ref=e550]: ₹ 8,999.00
+                  - text: ()
+                - generic [ref=e552]:
+                  - generic [ref=e554] [cursor=pointer]: Silver
+                  - generic [ref=e556] [cursor=pointer]: Nude
+                  - generic [ref=e558] [cursor=pointer]: Cherry Red
+                - generic [ref=e559]: ★★★★★
+          - listitem [ref=e560]:
+            - generic [ref=e561]:
+              - figure [ref=e562]:
+                - link "Bucky - Grey" [ref=e563] [cursor=pointer]:
+                  - /url: /products/bucky-bag-grey?pr_prod_strat=e5_desc&pr_rec_id=20e00bb33&pr_rec_pid=9031029883095&pr_ref_pid=8819653017815&pr_seq=uniform
+                  - img "Bucky - Grey" [ref=e564]
+              - generic [ref=e565]:
+                - link "Bucky - Grey" [ref=e566] [cursor=pointer]:
+                  - /url: /products/bucky-bag-grey?pr_prod_strat=e5_desc&pr_rec_id=20e00bb33&pr_rec_pid=9031029883095&pr_ref_pid=8819653017815&pr_seq=uniform
+                - generic [ref=e567]:
+                  - insertion [ref=e568]: ₹ 9,780.00
+                  - text: ()
+                - generic [ref=e570]:
+                  - generic [ref=e572] [cursor=pointer]: Grey
+                  - generic [ref=e574] [cursor=pointer]: Tan
+          - listitem [ref=e575]:
+            - generic [ref=e576]:
+              - figure [ref=e577]:
+                - link "Bucky - Tan" [ref=e578] [cursor=pointer]:
+                  - /url: /products/bucky-bag-tan?pr_prod_strat=e5_desc&pr_rec_id=20e00bb33&pr_rec_pid=9031047479511&pr_ref_pid=8819653017815&pr_seq=uniform
+                  - img "Bucky - Tan" [ref=e579]
+              - generic [ref=e580]:
+                - link "Bucky - Tan" [ref=e581] [cursor=pointer]:
+                  - /url: /products/bucky-bag-tan?pr_prod_strat=e5_desc&pr_rec_id=20e00bb33&pr_rec_pid=9031047479511&pr_ref_pid=8819653017815&pr_seq=uniform
+                - generic [ref=e582]:
+                  - insertion [ref=e583]: ₹ 9,780.00
+                  - text: ()
+                - generic [ref=e585]:
+                  - generic [ref=e587] [cursor=pointer]: Grey
+                  - generic [ref=e589] [cursor=pointer]: Tan
+    - contentinfo [ref=e591]:
+      - generic [ref=e592]:
+        - generic [ref=e594]:
+          - button "THE BRAND" [ref=e595] [cursor=pointer]
+          - list [ref=e596]:
+            - listitem [ref=e597]:
+              - link "Press" [ref=e598] [cursor=pointer]:
+                - /url: https://mirkash.in/blogs/press/
+            - listitem [ref=e599]:
+              - link "Shop" [ref=e600] [cursor=pointer]:
+                - /url: /collections/all
+            - listitem [ref=e601]:
+              - link "About Us" [ref=e602] [cursor=pointer]:
+                - /url: /pages/our-story
+            - listitem [ref=e603]:
+              - link "Contact" [ref=e604] [cursor=pointer]:
+                - /url: /pages/contact
+            - listitem [ref=e605]:
+              - link "FAQ" [ref=e606] [cursor=pointer]:
+                - /url: /pages/faqs
+        - generic [ref=e608]:
+          - button "OUR POLICIES" [ref=e609] [cursor=pointer]
+          - list [ref=e610]:
+            - listitem [ref=e611]:
+              - link "Shipping & Return" [ref=e612] [cursor=pointer]:
+                - /url: /pages/shipping-returns
+            - listitem [ref=e613]:
+              - link "Privacy Policy" [ref=e614] [cursor=pointer]:
+                - /url: /pages/privacy-policy
+            - listitem [ref=e615]:
+              - link "Terms of Service" [ref=e616] [cursor=pointer]:
+                - /url: /pages/terms-conditions
+        - list [ref=e619]:
+          - listitem [ref=e620]:
+            - link "Facebook" [ref=e621] [cursor=pointer]:
+              - /url: https://www.facebook.com/profile.php?id=61553891201492&mibextid=LQQJ4d
+              - img [ref=e622]
+              - generic [ref=e624]: Facebook
+          - listitem [ref=e625]:
+            - link "Instagram" [ref=e626] [cursor=pointer]:
+              - /url: https://www.instagram.com/mirkashco/
+              - img [ref=e627]
+              - generic [ref=e629]: Instagram
+          - listitem [ref=e630]:
+            - link "Pinterest" [ref=e631] [cursor=pointer]:
+              - /url: https://in.pinterest.com/mirkashco/
+              - img [ref=e632]
+              - generic [ref=e633]: Pinterest
+          - listitem [ref=e634]:
+            - link "Linkedin" [ref=e635] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/mirkash/
+              - generic [ref=e637]: Linkedin
+        - generic [ref=e639]:
+          - generic [ref=e640]: NEWSLETTER
+          - paragraph [ref=e641]:
+            - strong [ref=e642]: Your VIP Pass to Vegan Luxury.
+          - group [ref=e645]:
+            - generic [ref=e646]:
+              - textbox "Email" [ref=e647]
+              - generic: Email
+            - button "Enter your email" [ref=e648] [cursor=pointer]:
+              - img [ref=e649]
+      - generic [ref=e652]:
+        - generic [ref=e655]:
+          - generic [ref=e656]:
+            - generic [ref=e657]: Update country/region
+            - combobox "Update country/region" [ref=e658]:
+              - option "English" [selected]
+            - generic:
+              - img
+          - generic [ref=e659]:
+            - generic [ref=e660]: Update country/region
+            - combobox "Update country/region" [ref=e661]:
+              - option "AF (INR ₹)"
+              - option "AX (INR ₹)"
+              - option "AL (INR ₹)"
+              - option "DZ (INR ₹)"
+              - option "AD (INR ₹)"
+              - option "AO (INR ₹)"
+              - option "AI (INR ₹)"
+              - option "AG (INR ₹)"
+              - option "AR (INR ₹)"
+              - option "AM (INR ₹)"
+              - option "AW (INR ₹)"
+              - option "AC (INR ₹)"
+              - option "AU (INR ₹)"
+              - option "AT (INR ₹)"
+              - option "AZ (INR ₹)"
+              - option "BS (INR ₹)"
+              - option "BH (INR ₹)"
+              - option "BD (INR ₹)"
+              - option "BB (INR ₹)"
+              - option "BY (INR ₹)"
+              - option "BE (INR ₹)"
+              - option "BZ (INR ₹)"
+              - option "BJ (INR ₹)"
+              - option "BM (INR ₹)"
+              - option "BT (INR ₹)"
+              - option "BO (INR ₹)"
+              - option "BA (INR ₹)"
+              - option "BW (INR ₹)"
+              - option "BR (INR ₹)"
+              - option "IO (INR ₹)"
+              - option "VG (INR ₹)"
+              - option "BN (INR ₹)"
+              - option "BG (INR ₹)"
+              - option "BF (INR ₹)"
+              - option "BI (INR ₹)"
+              - option "KH (INR ₹)"
+              - option "CM (INR ₹)"
+              - option "CA (INR ₹)"
+              - option "CV (INR ₹)"
+              - option "BQ (INR ₹)"
+              - option "KY (INR ₹)"
+              - option "CF (INR ₹)"
+              - option "TD (INR ₹)"
+              - option "CL (INR ₹)"
+              - option "CN (INR ₹)"
+              - option "CX (INR ₹)"
+              - option "CC (INR ₹)"
+              - option "CO (INR ₹)"
+              - option "KM (INR ₹)"
+              - option "CG (INR ₹)"
+              - option "CD (INR ₹)"
+              - option "CK (INR ₹)"
+              - option "CR (INR ₹)"
+              - option "CI (INR ₹)"
+              - option "HR (INR ₹)"
+              - option "CW (INR ₹)"
+              - option "CY (INR ₹)"
+              - option "CZ (INR ₹)"
+              - option "DK (INR ₹)"
+              - option "DJ (INR ₹)"
+              - option "DM (INR ₹)"
+              - option "DO (INR ₹)"
+              - option "EC (INR ₹)"
+              - option "EG (INR ₹)"
+              - option "SV (INR ₹)"
+              - option "GQ (INR ₹)"
+              - option "ER (INR ₹)"
+              - option "EE (INR ₹)"
+              - option "SZ (INR ₹)"
+              - option "ET (INR ₹)"
+              - option "FK (INR ₹)"
+              - option "FO (INR ₹)"
+              - option "FJ (INR ₹)"
+              - option "FI (INR ₹)"
+              - option "FR (INR ₹)"
+              - option "GF (INR ₹)"
+              - option "PF (INR ₹)"
+              - option "TF (INR ₹)"
+              - option "GA (INR ₹)"
+              - option "GM (INR ₹)"
+              - option "GE (INR ₹)"
+              - option "DE (INR ₹)"
+              - option "GH (INR ₹)"
+              - option "GI (INR ₹)"
+              - option "GR (INR ₹)"
+              - option "GL (INR ₹)"
+              - option "GD (INR ₹)"
+              - option "GP (INR ₹)"
+              - option "GT (INR ₹)"
+              - option "GG (INR ₹)"
+              - option "GN (INR ₹)"
+              - option "GW (INR ₹)"
+              - option "GY (INR ₹)"
+              - option "HT (INR ₹)"
+              - option "HN (INR ₹)"
+              - option "HK (INR ₹)"
+              - option "HU (INR ₹)"
+              - option "IS (INR ₹)"
+              - option "IN (INR ₹)" [selected]
+              - option "ID (INR ₹)"
+              - option "IQ (INR ₹)"
+              - option "IE (INR ₹)"
+              - option "IM (INR ₹)"
+              - option "IL (INR ₹)"
+              - option "IT (INR ₹)"
+              - option "JM (INR ₹)"
+              - option "JP (INR ₹)"
+              - option "JE (INR ₹)"
+              - option "JO (INR ₹)"
+              - option "KZ (INR ₹)"
+              - option "KE (INR ₹)"
+              - option "KI (INR ₹)"
+              - option "XK (INR ₹)"
+              - option "KW (INR ₹)"
+              - option "KG (INR ₹)"
+              - option "LA (INR ₹)"
+              - option "LV (INR ₹)"
+              - option "LB (INR ₹)"
+              - option "LS (INR ₹)"
+              - option "LR (INR ₹)"
+              - option "LY (INR ₹)"
+              - option "LI (INR ₹)"
+              - option "LT (INR ₹)"
+              - option "LU (INR ₹)"
+              - option "MO (INR ₹)"
+              - option "MG (INR ₹)"
+              - option "MW (INR ₹)"
+              - option "MY (INR ₹)"
+              - option "MV (INR ₹)"
+              - option "ML (INR ₹)"
+              - option "MT (INR ₹)"
+              - option "MQ (INR ₹)"
+              - option "MR (INR ₹)"
+              - option "MU (INR ₹)"
+              - option "YT (INR ₹)"
+              - option "MX (INR ₹)"
+              - option "MD (INR ₹)"
+              - option "MC (INR ₹)"
+              - option "MN (INR ₹)"
+              - option "ME (INR ₹)"
+              - option "MS (INR ₹)"
+              - option "MA (INR ₹)"
+              - option "MZ (INR ₹)"
+              - option "MM (INR ₹)"
+              - option "NA (INR ₹)"
+              - option "NR (INR ₹)"
+              - option "NP (INR ₹)"
+              - option "NL (INR ₹)"
+              - option "NC (INR ₹)"
+              - option "NZ (INR ₹)"
+              - option "NI (INR ₹)"
+              - option "NE (INR ₹)"
+              - option "NG (INR ₹)"
+              - option "NU (INR ₹)"
+              - option "NF (INR ₹)"
+              - option "MK (INR ₹)"
+              - option "NO (INR ₹)"
+              - option "OM (INR ₹)"
+              - option "PK (INR ₹)"
+              - option "PS (INR ₹)"
+              - option "PA (INR ₹)"
+              - option "PG (INR ₹)"
+              - option "PY (INR ₹)"
+              - option "PE (INR ₹)"
+              - option "PH (INR ₹)"
+              - option "PN (INR ₹)"
+              - option "PL (INR ₹)"
+              - option "PT (INR ₹)"
+              - option "QA (INR ₹)"
+              - option "RE (INR ₹)"
+              - option "RO (INR ₹)"
+              - option "RU (INR ₹)"
+              - option "RW (INR ₹)"
+              - option "WS (INR ₹)"
+              - option "SM (INR ₹)"
+              - option "ST (INR ₹)"
+              - option "SA (INR ₹)"
+              - option "SN (INR ₹)"
+              - option "RS (INR ₹)"
+              - option "SC (INR ₹)"
+              - option "SL (INR ₹)"
+              - option "SG (INR ₹)"
+              - option "SX (INR ₹)"
+              - option "SK (INR ₹)"
+              - option "SI (INR ₹)"
+              - option "SB (INR ₹)"
+              - option "SO (INR ₹)"
+              - option "ZA (INR ₹)"
+              - option "GS (INR ₹)"
+              - option "KR (INR ₹)"
+              - option "SS (INR ₹)"
+              - option "ES (INR ₹)"
+              - option "LK (INR ₹)"
+              - option "BL (INR ₹)"
+              - option "SH (INR ₹)"
+              - option "KN (INR ₹)"
+              - option "LC (INR ₹)"
+              - option "MF (INR ₹)"
+              - option "PM (INR ₹)"
+              - option "VC (INR ₹)"
+              - option "SD (INR ₹)"
+              - option "SR (INR ₹)"
+              - option "SJ (INR ₹)"
+              - option "SE (INR ₹)"
+              - option "CH (INR ₹)"
+              - option "TW (INR ₹)"
+              - option "TJ (INR ₹)"
+              - option "TZ (INR ₹)"
+              - option "TH (INR ₹)"
+              - option "TL (INR ₹)"
+              - option "TG (INR ₹)"
+              - option "TK (INR ₹)"
+              - option "TO (INR ₹)"
+              - option "TT (INR ₹)"
+              - option "TA (INR ₹)"
+              - option "TN (INR ₹)"
+              - option "TR (INR ₹)"
+              - option "TM (INR ₹)"
+              - option "TC (INR ₹)"
+              - option "TV (INR ₹)"
+              - option "UM (INR ₹)"
+              - option "UG (INR ₹)"
+              - option "UA (INR ₹)"
+              - option "AE (INR ₹)"
+              - option "GB (INR ₹)"
+              - option "US (INR ₹)"
+              - option "UY (INR ₹)"
+              - option "UZ (INR ₹)"
+              - option "VU (INR ₹)"
+              - option "VA (INR ₹)"
+              - option "VE (INR ₹)"
+              - option "VN (INR ₹)"
+              - option "WF (INR ₹)"
+              - option "EH (INR ₹)"
+              - option "YE (INR ₹)"
+              - option "ZM (INR ₹)"
+              - option "ZW (INR ₹)"
+            - generic:
+              - img
+        - generic [ref=e663]:
+          - paragraph [ref=e664]: © 2026 Mir Kash
+          - link "Developed By Dorec-Shopify Agency" [ref=e666] [cursor=pointer]:
+            - /url: https://www.shopify.com/partners/directory/partner/dorec
+    - generic [ref=e668]:
+      - generic [ref=e670]:
+        - heading "Cart" [level=4] [ref=e671]
+        - img [ref=e673] [cursor=pointer]
+      - generic [ref=e676]:
+        - img [ref=e677]
+        - paragraph [ref=e686]: Your cart is currently empty.
+        - link "Start Shopping" [ref=e687] [cursor=pointer]:
+          - /url: /collections/all
+          - generic [ref=e688]: Start Shopping
+    - generic [ref=e692]:
+      - heading "Select options" [level=4] [ref=e693]
+      - img [ref=e695] [cursor=pointer]
+    - generic [ref=e701]:
+      - search [ref=e702]:
+        - group [ref=e703]:
+          - searchbox "Search" [ref=e704]
+      - img [ref=e706] [cursor=pointer]
+  - img [ref=e710] [cursor=pointer]

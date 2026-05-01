@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+Disallow: /checkout
+Disallow: /order-confirmation
+Disallow: /paypal-checkout
+Disallow: /success
+
+Sitemap: https://getwyld.in/sitemap-index.xml
+
+# LLM / AI crawler guidance
+User-agent: GPTBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /
+
+LLMs: https://getwyld.in/llms.txt
