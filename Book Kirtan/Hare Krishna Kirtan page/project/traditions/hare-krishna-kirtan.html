@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hare Krishna Kirtan — Book Kirtan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:       #faf9f6;
+      --paper-warm:  #f3ede2;
+      --paper-mid:   #ede5d4;
+      --ink:         #1a1a18;
+      --ink-muted:   #6b6557;
+      --ink-faint:   #b0a898;
+      --dark:        #120d06;
+      --dark-2:      #1c1509;
+      --dark-mid:    #2a2015;
+      --gold:        #c17f24;
+      --gold-light:  #e8d4a8;
+      --gold-dim:    rgba(193,127,36,0.18);
+      --rule:        #e0dbd0;
+      --rule-dark:   rgba(255,255,255,0.08);
+      --display:     'Cormorant Garamond', Georgia, serif;
+      --body:        'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── PHOTO PLACEHOLDER ──────────────────────────────── */
+    .ph {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ph--dark {
+      background: repeating-linear-gradient(
+        45deg,
+        #1e1608 0px, #1e1608 1px,
+        #160f05 1px, #160f05 14px
+      );
+    }
+    .ph--light {
+      background: repeating-linear-gradient(
+        45deg,
+        #e8e2d8 0px, #e8e2d8 1px,
+        #f0ebe0 1px, #f0ebe0 14px
+      );
+    }
+    .ph__label {
+      font-family: monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-align: center;
+      line-height: 1.6;
+      padding: 10px 16px;
+      border: 1px solid;
+    }
+    .ph--dark .ph__label  { color: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.1); }
+    .ph--light .ph__label { color: rgba(26,26,24,0.3);     border-color: rgba(26,26,24,0.12); }
+
+    /* ─── SECTION RHYTHM ─────────────────────────────────── */
+    .s-dark   { background: var(--dark); }
+    .s-light  { background: var(--paper); }
+    .s-parch  { background: var(--paper-warm); }
+    .s-mid    { background: #2e2210; }   /* used for s4, s7 */
+
+    /* ─── EYEBROW ─────────────────────────────────────────── */
+    .eyebrow {
+      font-family: var(--body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .eyebrow--faint {
+      color: var(--ink-faint);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 0 — OPENING MOMENT
+    ═══════════════════════════════════════════════════════ */
+    #s0 {
+      padding: 120px 40px 130px;
+      text-align: center;
+    }
+    .mantra-deva {
+      font-family: var(--display);
+      font-size: clamp(28px, 5vw, 54px);
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1.55;
+      letter-spacing: 0.02em;
+      margin-bottom: 28px;
+    }
+    .mantra-roman {
+      font-family: var(--display);
+      font-size: clamp(15px, 2.2vw, 22px);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(232,212,168,0.45);
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 1 — HERO
+    ═══════════════════════════════════════════════════════ */
+    #s1 {
+      position: relative;
+      height: 88vh;
+      min-height: 560px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .hero-bg .ph {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,7,2,0.92) 0%,
+        rgba(10,7,2,0.45) 40%,
+        rgba(10,7,2,0.15) 70%,
+        transparent 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 48px 64px;
+    }
+    .hero-content h1 {
+      font-family: var(--display);
+      font-size: clamp(52px, 8vw, 100px);
+      font-weight: 300;
+      color: #faf9f6;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      margin-bottom: 22px;
+      text-wrap: balance;
+    }
+    .hero-content p {
+      font-family: var(--body);
+      font-size: clamp(15px, 1.6vw, 18px);
+      line-height: 1.7;
+      color: rgba(250,249,246,0.72);
+      max-width: 540px;
+      margin-bottom: 36px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: #faf9f6;
+      font-family: var(--body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #a86c1a; transform: translateY(-1px); }
+    .btn-primary::after { content: '→'; }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 2 — TESTIMONIALS
+    ═══════════════════════════════════════════════════════ */
+    #s2 {
+      padding: 96px 48px;
+    }
+    #s2 .eyebrow { text-align: center; margin-bottom: 56px; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .testimonials-grid .t-card:nth-child(2) { margin-top: 32px; }
+    .testimonials-grid .t-card:nth-child(4) { margin-top: -20px; }
+    .testimonials-grid .t-card:nth-child(5) { margin-top: 16px; }
+
+    .t-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 36px 32px 32px;
+      position: relative;
+    }
+    .t-card::before {
+      content: '\201C';
+      font-family: var(--display);
+      font-size: 80px;
+      line-height: 0.7;
+      color: var(--gold);
+      opacity: 0.5;
+      position: absolute;
+      top: 24px;
+      left: 28px;
+    }
+    .t-card blockquote {
+      font-family: var(--display);
+      font-size: clamp(17px, 1.6vw, 21px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--gold-light);
+      padding-top: 32px;
+      text-wrap: pretty;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 3 — WHAT IS HARE KRISHNA KIRTAN
+    ═══════════════════════════════════════════════════════ */
+    #s3 {
+      padding: 104px 48px;
+    }
+    #s3 .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    #s3 h2 {
+      font-family: var(--display);
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 48px;
+      line-height: 1.15;
+      text-wrap: balance;
+    }
+    .s3-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+      margin-bottom: 64px;
+    }
+    .s3-text p {
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--ink);
+    }
+    .s3-text p + p { margin-top: 18px; }
+    .s3-video {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: var(--dark-2);
+      overflow: hidden;
+    }
+    .s3-video .ph {
+      position: absolute;
+      inset: 0;
+    }
+    .s3-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .mantra-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      border: 1px solid var(--rule);
+    }
+    .mantra-card {
+      padding: 36px 32px;
+      background: var(--paper);
+      border-right: 1px solid var(--rule);
+      text-align: center;
+    }
+    .mantra-card:last-child { border-right: none; }
+    .mantra-card__deva {
+      font-family: var(--display);
+      font-size: 42px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .mantra-card__roman {
+      font-family: var(--display);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .mantra-card__meaning {
+      font-family: var(--body);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink-muted);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 4 — WHAT HAPPENS
+    ═══════════════════════════════════════════════════════ */
+    #s4 {
+      padding: 104px 48px;
+      background: #261b0e;
+    }
+    #s4 .inner {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+    #s4 h2 {
+      font-family: var(--display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300;
+      color: var(--gold-light);
+      margin-bottom: 40px;
+      line-height: 1.2;
+    }
+    #s4 p {
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 2.0;
+      color: rgba(232,212,168,0.65);
+    }
+    #s4 p + p { margin-top: 22px; }
+    #s4 p em {
+      font-style: normal;
+      color: rgba(232,212,168,0.88);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 5 — OCCASIONS
+    ═══════════════════════════════════════════════════════ */
+    #s5 {
+      padding: 104px 48px;
+    }
+    #s5 .inner { max-width: 1100px; margin: 0 auto; }
+    #s5 h2 {
+      font-family: var(--display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 56px;
+      text-align: center;
+    }
+    .occasions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--rule);
+    }
+    /* 7 cards: last row has 1 card — center it */
+    .occasions-grid::after {
+      content: '';
+      /* fills the empty 3rd slot in last row on wide screens */
+    }
+    .occasion-card {
+      background: var(--paper);
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .occasion-card__photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+    }
+    .occasion-card__photo .ph { height: 100%; }
+    .occasion-card__body {
+      padding: 24px 26px 28px;
+      flex: 1;
+    }
+    .occasion-card__name {
+      font-family: var(--display);
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .occasion-card__desc {
+      font-family: var(--body);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--ink-muted);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 6 — INSTRUMENTS
+    ═══════════════════════════════════════════════════════ */
+    #s6 {
+      padding: 104px 48px;
+    }
+    #s6 .inner { max-width: 1100px; margin: 0 auto; }
+    #s6 h2 {
+      font-family: var(--display);
+      font-size: clamp(30px, 3.5vw, 46px);
+      font-weight: 300;
+      color: var(--gold-light);
+      margin-bottom: 64px;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    .instruments-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .instrument-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+      position: relative;
+    }
+    .instrument-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 60px rgba(193,127,36,0.07);
+    }
+    .instrument-card__photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+    }
+    .instrument-card__photo .ph { height: 100%; }
+    .instrument-card__body {
+      padding: 28px 28px 32px;
+    }
+    .instrument-card__name {
+      font-family: var(--display);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+    .instrument-card__desc {
+      font-family: var(--body);
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(232,212,168,0.55);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 7 — TRADITION & SCIENCE
+    ═══════════════════════════════════════════════════════ */
+    #s7 {
+      padding: 104px 48px;
+      background: #f0e8d8;
+    }
+    #s7 .inner { max-width: 1100px; margin: 0 auto; }
+    #s7 > .inner > h2 {
+      font-family: var(--display);
+      font-size: clamp(30px, 3.5vw, 46px);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 64px;
+      line-height: 1.2;
+    }
+    .ts-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 24px;
+      padding: 32px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .timeline-item:last-child { border-bottom: 1px solid var(--rule); }
+    .tl-year {
+      font-family: var(--display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--gold);
+      padding-top: 4px;
+      line-height: 1.3;
+    }
+    .tl-body { }
+    .tl-place {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+    .tl-text {
+      font-family: var(--body);
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--ink);
+    }
+
+    /* Science cards */
+    .science-stack { display: flex; flex-direction: column; gap: 0; }
+    .science-card {
+      background: transparent;
+      border-top: 1px solid var(--rule);
+      padding: 28px 0 26px;
+    }
+    .science-card:last-child { border-bottom: 1px solid var(--rule); }
+    .science-card__label {
+      font-family: var(--display);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .science-card__text {
+      font-family: var(--body);
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--ink);
+    }
+    .ts-closing {
+      margin-top: 48px;
+      font-family: var(--display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--ink-muted);
+      text-align: center;
+      border-top: 1px solid var(--rule);
+      padding-top: 32px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 8 — ARTISTS
+    ═══════════════════════════════════════════════════════ */
+    #s8 {
+      padding: 104px 48px;
+    }
+    #s8 .inner { max-width: 1100px; margin: 0 auto; }
+    #s8 .s8-head {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    #s8 h2 {
+      font-family: var(--display);
+      font-size: clamp(32px, 3.5vw, 50px);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    #s8 .s8-sub {
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--ink-muted);
+      max-width: 580px;
+      margin: 0 auto;
+    }
+    .artists-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .artist-card {
+      background: var(--paper-warm);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+    }
+    .artist-card__photo {
+      width: 100%;
+      aspect-ratio: 1;
+    }
+    .artist-card__photo .ph { height: 100%; }
+    .artist-card__body {
+      padding: 20px 22px 22px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .artist-card__info { flex: 1; }
+    .artist-card__name {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+    .artist-card__city {
+      font-family: var(--body);
+      font-size: 12px;
+      color: var(--ink-faint);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .btn-book {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 8px 16px;
+      white-space: nowrap;
+      transition: background 0.18s, color 0.18s;
+      cursor: pointer;
+    }
+    .btn-book:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 9 — PULL QUOTE
+    ═══════════════════════════════════════════════════════ */
+    #s9 {
+      padding: 120px 48px;
+      text-align: center;
+    }
+    .big-quote {
+      font-family: var(--display);
+      font-size: clamp(26px, 4.5vw, 58px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.35;
+      color: var(--gold);
+      max-width: 880px;
+      margin: 0 auto;
+      text-wrap: balance;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 10 — FAQ
+    ═══════════════════════════════════════════════════════ */
+    #s10 {
+      padding: 96px 48px;
+    }
+    #s10 .inner { max-width: 740px; margin: 0 auto; }
+    #s10 h2 {
+      font-family: var(--display);
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 48px;
+    }
+    .faq-list { list-style: none; }
+    .faq-item {
+      border-top: 1px solid var(--rule);
+    }
+    .faq-item:last-child { border-bottom: 1px solid var(--rule); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 22px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .faq-q-text {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .faq-icon::before,
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: var(--gold);
+      transition: transform 0.28s ease, opacity 0.28s ease;
+    }
+    .faq-icon::before { width: 14px; height: 1px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .faq-icon::after  { width: 1px; height: 14px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .faq-item.open .faq-icon::after { transform: translate(-50%,-50%) rotate(90deg); opacity: 0; }
+    .faq-a {
+      display: none;
+      padding: 0 0 24px;
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--ink-muted);
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTION 11 — FINAL CTA
+    ═══════════════════════════════════════════════════════ */
+    #s11 {
+      padding: 128px 48px;
+      text-align: center;
+    }
+    #s11 h2 {
+      font-family: var(--display);
+      font-size: clamp(38px, 6vw, 80px);
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+      text-wrap: balance;
+    }
+    #s11 p {
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(232,212,168,0.55);
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .btn-secondary-link {
+      font-family: var(--body);
+      font-size: 13px;
+      color: rgba(232,212,168,0.45);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid rgba(232,212,168,0.2);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-secondary-link:hover {
+      color: rgba(232,212,168,0.75);
+      border-color: rgba(232,212,168,0.45);
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid .t-card:nth-child(4),
+      .testimonials-grid .t-card:nth-child(2) { margin-top: 0; }
+      .testimonials-grid .t-card:nth-child(5) { margin-top: 0; grid-column: 1 / -1; max-width: 480px; }
+      .s3-cols { grid-template-columns: 1fr; gap: 40px; }
+      .mantra-cards { grid-template-columns: 1fr; }
+      .mantra-card { border-right: none; border-bottom: 1px solid var(--rule); }
+      .mantra-card:last-child { border-bottom: none; }
+      .ts-cols { grid-template-columns: 1fr; gap: 48px; }
+      .instruments-grid { grid-template-columns: 1fr 1fr; }
+      .artists-grid { grid-template-columns: 1fr 1fr; }
+      .occasions-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      #s0, #s2, #s3, #s4, #s5, #s6, #s7, #s8, #s9, #s10, #s11 {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .hero-content { padding: 0 24px 48px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonials-grid .t-card:nth-child(5) { max-width: none; grid-column: auto; }
+      .instruments-grid { grid-template-columns: 1fr; }
+      .artists-grid { grid-template-columns: 1fr; }
+      .occasions-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 70px 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 0 — OPENING MOMENT
+═══════════════════════════════════════════════════════ -->
+<section id="s0" class="s-dark">
+  <p class="mantra-deva">
+    हरे कृष्ण हरे कृष्ण, कृष्ण कृष्ण हरे हरे<br>
+    हरे राम हरे राम, राम राम हरे हरे
+  </p>
+  <p class="mantra-roman">
+    Hare Krishna Hare Krishna, Krishna Krishna Hare Hare<br>
+    Hare Rama Hare Rama, Rama Rama Hare Hare
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — HERO
+═══════════════════════════════════════════════════════ -->
+<section id="s1" class="s-dark">
+  <div class="hero-bg">
+    <div class="ph ph--dark" style="position:absolute;inset:0;">
+      <div class="ph__label">full-bleed kirtan photo<br>crowd · eyes closed · hands raised<br>warm golden light · documentary feel</div>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Hare Krishna<br>Kirtan</h1>
+    <p>A 500-year-old tradition of singing the divine names together — where one voice leads and every heart follows. Open to all. No preparation needed.</p>
+    <a href="#s11" class="btn-primary">Book for your occasion</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — TESTIMONIALS
+═══════════════════════════════════════════════════════ -->
+<section id="s2" class="s-dark">
+  <p class="eyebrow">What people say after their first kirtan</p>
+  <div class="testimonials-grid">
+    <div class="t-card">
+      <blockquote>I felt as if a weight I had been carrying for years was suddenly lifted.</blockquote>
+    </div>
+    <div class="t-card">
+      <blockquote>Joyful and calm at the same time — I had never felt both together like that.</blockquote>
+    </div>
+    <div class="t-card">
+      <blockquote>I didn't know the words. I still couldn't stop singing.</blockquote>
+    </div>
+    <div class="t-card">
+      <blockquote>All my worries simply disappeared. What remained was peace.</blockquote>
+    </div>
+    <div class="t-card">
+      <blockquote>I finally found what I had been searching for.</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 — WHAT IS HARE KRISHNA KIRTAN
+═══════════════════════════════════════════════════════ -->
+<section id="s3" class="s-light">
+  <div class="inner">
+    <h2>What is Hare Krishna Kirtan?</h2>
+    <div class="s3-cols">
+      <div class="s3-text">
+        <p>Hare Krishna Kirtan is the congregational singing of the Maha Mantra — considered in the Vedic tradition to be the most powerful mantra for this age. The word <em>kirtan</em> means to glorify the Divine through song. The Maha Mantra is the song.</p>
+        <p>It is practised as call-and-response. The lead artist sings a line. The gathering sings it back. This exchange — between one voice and many — creates something that neither could create alone.</p>
+        <p>You do not need to be religious to participate. You do not need the right pronunciation or any preparation. The tradition holds that the names themselves carry the power, and all you need to do is receive them sincerely.</p>
+      </div>
+      <div class="s3-video">
+        <div class="ph ph--dark" style="position:absolute;inset:0;">
+          <div class="ph__label">YouTube embed<br>live kirtan video</div>
+        </div>
+      </div>
+    </div>
+    <div class="mantra-cards">
+      <div class="mantra-card">
+        <span class="mantra-card__deva">हरे</span>
+        <span class="mantra-card__roman">Hare</span>
+        <span class="mantra-card__meaning">The divine energy that draws the soul toward God</span>
+      </div>
+      <div class="mantra-card">
+        <span class="mantra-card__deva">कृष्ण</span>
+        <span class="mantra-card__roman">Krishna</span>
+        <span class="mantra-card__meaning">The all-attractive, the source of all joy</span>
+      </div>
+      <div class="mantra-card">
+        <span class="mantra-card__deva">राम</span>
+        <span class="mantra-card__roman">Rama</span>
+        <span class="mantra-card__meaning">The reservoir of divine bliss, the one who fills the heart</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4 — WHAT HAPPENS
+═══════════════════════════════════════════════════════ -->
+<section id="s4">
+  <div class="inner">
+    <p class="eyebrow" style="color:var(--gold);margin-bottom:16px;">What to expect</p>
+    <h2>What happens<br>in a kirtan</h2>
+    <p>A Hare Krishna Kirtan begins gently. The artist opens with a slow melody on the harmonium, setting a mood of quiet devotion. The mridanga joins softly. The mantra is introduced line by line.</p>
+    <p>As the gathering begins to respond, something in the room starts to shift. The tempo builds gradually — not in a rushed way, but naturally, <em>the way a wave builds before it reaches the shore.</em> At the peak, voices are fuller, hands are moving, and the separation between those who came to listen and those who came to sing has quietly dissolved.</p>
+    <p>Then the kirtan slows. It settles. It ends in stillness.</p>
+    <p>Most first-timers say the same thing afterwards: they are surprised by how natural it felt, and how different the room feels from when they first walked in. A typical session at a home or event runs between 60 and 90 minutes.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 5 — OCCASIONS
+═══════════════════════════════════════════════════════ -->
+<section id="s5" class="s-parch">
+  <div class="inner">
+    <p class="eyebrow eyebrow--faint" style="text-align:center;">Occasions</p>
+    <h2>What people invite it for</h2>
+    <div class="occasions-grid">
+
+      <div class="occasion-card">
+        <div class="occasion-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">wedding / sangeet photo</div>
+          </div>
+        </div>
+        <div class="occasion-card__body">
+          <div class="occasion-card__name">Wedding &amp; Sangeet</div>
+          <div class="occasion-card__desc">Many couples are now opening their wedding celebrations with live kirtan. Guests who have never chanted before find themselves singing within minutes.</div>
+        </div>
+      </div>
+
+      <div class="occasion-card">
+        <div class="occasion-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">griha pravesh · home blessing</div>
+          </div>
+        </div>
+        <div class="occasion-card__body">
+          <div class="occasion-card__name">Griha Pravesh</div>
+          <div class="occasion-card__desc">The first ceremony in a new home. Kirtan fills the space with sacred sound before anything else enters.</div>
+        </div>
+      </div>
+
+      <div class="occasion-card">
+        <div class="occasion-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">janmashtami gathering</div>
+          </div>
+        </div>
+        <div class="occasion-card__body">
+          <div class="occasion-card__name">Janmashtami</div>
+          <div class="occasion-card__desc">The birthday of Lord Krishna. Many families mark it with an extended or overnight kirtan session.</div>
+        </div>
+      </div>
+
+      <div class="occasion-card">
+        <div class="occasion-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">birthday celebration</div>
+          </div>
+        </div>
+        <div class="occasion-card__body">
+          <div class="occasion-card__name">Birthday &amp; Anniversary</div>
+          <div class="occasion-card__desc">A meaningful addition to the usual celebration. Guests say it becomes the part of the evening they remember longest.</div>
+        </div>
+      </div>
+
+      <div class="occasion-card">
+        <div class="occasion-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">neighbourhood satsang</div>
+          </div>
+        </div>
+        <div class="occasion-card__body">
+          <div class="occasion-card__name">Society Satsang</div>
+          <div class="occasion-card__desc">Neighbours who rarely speak find themselves singing together. It builds community in a way that is hard to manufacture otherwise.</div>
+        </div>
+      </div>
+
+      <div class="occasion-card">
+        <div class="occasion-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">new year midnight kirtan</div>
+          </div>
+        </div>
+        <div class="occasion-card__body">
+          <div class="occasion-card__name">New Year</div>
+          <div class="occasion-card__desc">Midnight arrives with the Maha Mantra instead of a countdown. Those who attend describe it as the most meaningful New Year they have ever had.</div>
+        </div>
+      </div>
+
+      <div class="occasion-card" style="grid-column: 2;">
+        <div class="occasion-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">home puja · satyanarayan katha</div>
+          </div>
+        </div>
+        <div class="occasion-card__body">
+          <div class="occasion-card__name">Home Puja &amp; Satyanarayan Katha</div>
+          <div class="occasion-card__desc">Kirtan before a katha prepares the heart. It settles the room and shifts the atmosphere in a way that incense and flowers alone cannot.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 6 — INSTRUMENTS
+═══════════════════════════════════════════════════════ -->
+<section id="s6" class="s-dark">
+  <div class="inner">
+    <p class="eyebrow" style="text-align:center;">The Music</p>
+    <h2>Three instruments.<br>One sound.</h2>
+    <div class="instruments-grid">
+
+      <div class="instrument-card">
+        <div class="instrument-card__photo">
+          <div class="ph ph--dark" style="width:100%;height:100%;">
+            <div class="ph__label">harmonium · detail photo</div>
+          </div>
+        </div>
+        <div class="instrument-card__body">
+          <div class="instrument-card__name">Harmonium</div>
+          <div class="instrument-card__desc">A hand-pumped keyboard instrument that carries the melody of the mantra. It anchors the sound and guides every voice in the room.</div>
+        </div>
+      </div>
+
+      <div class="instrument-card">
+        <div class="instrument-card__photo">
+          <div class="ph ph--dark" style="width:100%;height:100%;">
+            <div class="ph__label">mridanga · clay drum</div>
+          </div>
+        </div>
+        <div class="instrument-card__body">
+          <div class="instrument-card__name">Mridanga</div>
+          <div class="instrument-card__desc">A two-headed clay drum that has accompanied this tradition since the time of Chaitanya Mahaprabhu. As the kirtan builds, it is the mridanga you feel most in your body.</div>
+        </div>
+      </div>
+
+      <div class="instrument-card">
+        <div class="instrument-card__photo">
+          <div class="ph ph--dark" style="width:100%;height:100%;">
+            <div class="ph__label">kartals · brass hand cymbals</div>
+          </div>
+        </div>
+        <div class="instrument-card__body">
+          <div class="instrument-card__name">Kartals</div>
+          <div class="instrument-card__desc">Small brass hand cymbals. Artists often pass a pair to someone in the gathering — and the moment you hold them, you are no longer a guest. You are part of the kirtan.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 7 — TRADITION & SCIENCE
+═══════════════════════════════════════════════════════ -->
+<section id="s7">
+  <div class="inner">
+    <h2>Where it comes from.<br>What the research says.</h2>
+    <div class="ts-cols">
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-year">1486<br>Bengal</div>
+          <div class="tl-body">
+            <div class="tl-text">Chaitanya Mahaprabhu teaches that congregational chanting of the divine names is the most direct spiritual practice available to ordinary people — not just scholars or priests, but everyone.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">1966<br>New York</div>
+          <div class="tl-body">
+            <div class="tl-text">Srila Prabhupada carries this tradition from India to New York and founds ISKCON. Today the Maha Mantra is sung in over 100 countries.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">Today</div>
+          <div class="tl-body">
+            <div class="tl-text">ISKCON Chowpatty's annual New Year Eve kirtan fills to capacity every year. Midnight arrives with the Maha Mantra. Those who attend describe it as the most meaningful New Year they have ever had.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="science-stack">
+        <div class="science-card">
+          <span class="science-card__label">Neurology</span>
+          <p class="science-card__text">A neurologist at Henry Ford Hospital found his brainwaves showed near-complete stillness after chanting — a level of quiet he described as unheard of without medication.</p>
+        </div>
+        <div class="science-card">
+          <span class="science-card__label">Psychology</span>
+          <p class="science-card__text">A 2025 study of 291 regular chanters found consistent positive associations between the practice and happiness, peace of mind, and emotional resilience.</p>
+        </div>
+        <div class="science-card">
+          <span class="science-card__label">Physiology</span>
+          <p class="science-card__text">Regular chanting is associated with reduced cortisol, increased serotonin and oxytocin, and activation of the body's parasympathetic — rest and recovery — response.</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="ts-closing">The ancient texts described these effects centuries ago. Science is now arriving at the same place.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 8 — ARTISTS
+═══════════════════════════════════════════════════════ -->
+<section id="s8" class="s-light">
+  <div class="inner">
+    <div class="s8-head">
+      <p class="eyebrow eyebrow--faint">Our Artists</p>
+      <h2>Artists on Book Kirtan</h2>
+      <p class="s8-sub">Every artist on our platform has been vetted for musical training, live event experience, and the devotion that makes the difference between a performance and a real kirtan.</p>
+    </div>
+    <div class="artists-grid">
+      <div class="artist-card">
+        <div class="artist-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">artist portrait</div>
+          </div>
+        </div>
+        <div class="artist-card__body">
+          <div class="artist-card__info">
+            <div class="artist-card__name">Artist Name</div>
+            <div class="artist-card__city">Mumbai</div>
+          </div>
+          <a href="#" class="btn-book">Book</a>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">artist portrait</div>
+          </div>
+        </div>
+        <div class="artist-card__body">
+          <div class="artist-card__info">
+            <div class="artist-card__name">Artist Name</div>
+            <div class="artist-card__city">Delhi</div>
+          </div>
+          <a href="#" class="btn-book">Book</a>
+        </div>
+      </div>
+      <div class="artist-card">
+        <div class="artist-card__photo">
+          <div class="ph ph--light" style="width:100%;height:100%;">
+            <div class="ph__label">artist portrait</div>
+          </div>
+        </div>
+        <div class="artist-card__body">
+          <div class="artist-card__info">
+            <div class="artist-card__name">Artist Name</div>
+            <div class="artist-card__city">Vrindavan</div>
+          </div>
+          <a href="#" class="btn-book">Book</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 9 — PULL QUOTE
+═══════════════════════════════════════════════════════ -->
+<section id="s9" class="s-dark">
+  <p class="big-quote">"At a concert, you watch.<br>At a kirtan, something in you wakes up."</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 10 — FAQ
+═══════════════════════════════════════════════════════ -->
+<section id="s10" class="s-light">
+  <div class="inner">
+    <p class="eyebrow eyebrow--faint">FAQ</p>
+    <h2>Frequently asked questions</h2>
+    <ul class="faq-list">
+
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">Do we need to be Hindu or Vaishnava to book this?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a">Not at all. Hare Krishna Kirtan is open to everyone regardless of background, faith, or belief. The tradition specifically holds that these names are for all of humanity. Many of the people who find it most transformative come with no religious background whatsoever.</div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">How long does a session typically run?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a">A standard session runs between 60 and 90 minutes. For weddings, larger events, or overnight occasions like Janmashtami, extended formats of 2–3 hours or longer can be arranged. The artist will structure the arc of the kirtan — it is never simply time-filling.</div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">How many people does it work for?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a">Kirtan works beautifully from as few as 8–10 people in a home setting all the way up to thousands at a large venue. The artist will adapt the energy and instrumentation to the size of the gathering. Some of the most powerful kirtans happen in small rooms.</div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">What do we need to arrange?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a">The artist brings all instruments — harmonium, mridanga, and kartals. You will need to arrange a clean, quiet space where guests can sit comfortably on the floor or on chairs, and a sound system if the gathering is larger than 40–50 people. The artist's team will advise on specifics once confirmed.</div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">Do guests need to participate?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a">There is no obligation. Guests can simply sit, close their eyes, and receive the sound. Most find that participation happens naturally — the call-and-response structure makes it impossible not to respond eventually. No one has ever been made to feel unwelcome for simply listening.</div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">Can we book this for a memorial or prayer gathering?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a">Yes. Kirtan is especially suited to moments of grief and transition. The Maha Mantra has long been used at memorial gatherings, shraddha ceremonies, and prayer services across traditions. The artist will adapt the repertoire and tone to the occasion with care and sensitivity.</div>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 11 — FINAL CTA
+═══════════════════════════════════════════════════════ -->
+<section id="s11" class="s-dark">
+  <h2>Book a Hare Krishna<br>Kirtan</h2>
+  <p>Share a little about your occasion — the date, the gathering, what you have in mind — and we will connect you with the right artist.</p>
+  <div class="cta-group">
+    <a href="mailto:hello@bookkirtan.com" class="btn-primary" style="font-size:15px;padding:16px 36px;">Book Now</a>
+    <a href="#s8" class="btn-secondary-link">Browse all Hare Krishna Kirtan artists →</a>
+  </div>
+</section>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // close all
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

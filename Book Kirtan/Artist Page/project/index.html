@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pandit Vidyadhar Vyas — Book Kirtan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper: #faf9f6;
+      --ink: #1a1a18;
+      --ink-muted: #5a5954;
+      --ink-faint: #b0ada6;
+      --gold: #c17f24;
+      --gold-light: #f0e4cc;
+      --rule: #e0ddd6;
+      --display: 'Cormorant Garamond', Georgia, serif;
+      --body: 'EB Garamond', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 18px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 92vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero__photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(18%) contrast(1.04);
+    }
+
+    /* Ink wash from bottom — editorial, not gradient-y */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10, 10, 8, 0.85) 0%,
+        rgba(10, 10, 8, 0.30) 38%,
+        transparent 60%
+      );
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 40px 56px;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold);
+      color: #fff;
+      font-family: var(--body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 18px;
+    }
+
+    .hero__badge::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+    }
+
+    .hero__name {
+      font-family: var(--display);
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 300;
+      color: #faf9f6;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      text-wrap: balance;
+      margin-bottom: 16px;
+    }
+
+    .hero__meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .hero__tradition {
+      font-family: var(--display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+    }
+
+    .hero__sep {
+      width: 1px;
+      height: 14px;
+      background: rgba(250,249,246,0.35);
+    }
+
+    .hero__location {
+      font-family: var(--body);
+      font-size: 14px;
+      color: rgba(250,249,246,0.65);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── LAYOUT WRAPPER ──────────────────────────────────── */
+    .page-body {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .page-body--wide {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── RULE ─────────────────────────────────────────────── */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0;
+    }
+
+    /* ── STATS ROW ────────────────────────────────────────── */
+    .stats-row {
+      padding: 36px 0;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .stat-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 0 24px;
+    }
+
+    .stat-item:first-child { padding-left: 0; }
+
+    .stat-item + .stat-item {
+      border-left: 1px solid var(--rule);
+    }
+
+    .stat-value {
+      font-family: var(--display);
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .stat-label {
+      font-family: var(--body);
+      font-size: 12px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    /* ── PULL QUOTE / SUMMARY ────────────────────────────── */
+    .summary-section {
+      padding: 64px 0 56px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .section-eyebrow {
+      font-family: var(--body);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 28px;
+    }
+
+    .pull-quote {
+      font-family: var(--display);
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    /* ── WHAT MAKES SPECIAL ──────────────────────────────── */
+    .special-section {
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .special-block {
+      padding-left: 28px;
+      border-left: 2px solid var(--gold);
+    }
+
+    .special-text {
+      font-family: var(--display);
+      font-size: clamp(18px, 2vw, 22px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+
+    /* ── BIO ─────────────────────────────────────────────── */
+    .bio-section {
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .bio-section h2,
+    .achievements-section h2,
+    .performs-section h2,
+    .notableperfs-section h2,
+    .watch-section h2 {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 28px;
+    }
+
+    .bio-section p + p {
+      margin-top: 20px;
+    }
+
+    .bio-section p {
+      font-family: var(--body);
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    /* ── ACHIEVEMENTS ────────────────────────────────────── */
+    .achievements-section {
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .achievements-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .achievements-list li {
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--ink);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .achievements-list li::before {
+      content: '—';
+      color: var(--gold);
+      font-family: var(--display);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── PERFORMS IN / AT ────────────────────────────────── */
+    .performs-section {
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .performs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .performs-col h3 {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+    }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-family: var(--body);
+      font-size: 14px;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      border-radius: 100px;
+      padding: 5px 14px;
+      line-height: 1.4;
+      background: transparent;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    /* ── NOTABLE PERFORMANCES ────────────────────────────── */
+    .notableperfs-section {
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .perfs-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .perfs-list li {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: baseline;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .perf-year {
+      font-family: var(--display);
+      font-size: 14px;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .perf-name {
+      font-family: var(--body);
+      font-size: 17px;
+      color: var(--ink);
+    }
+
+    .perf-place {
+      font-family: var(--body);
+      font-size: 13px;
+      color: var(--ink-muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* ── WATCH ───────────────────────────────────────────── */
+    .watch-section {
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .watch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .watch-item {}
+
+    .watch-embed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .watch-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .watch-caption {
+      margin-top: 10px;
+      font-family: var(--display);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--ink-muted);
+    }
+
+    /* ── FOOTER CTA ──────────────────────────────────────── */
+    .footer-cta {
+      padding: 56px 0 80px;
+      border-top: 1px solid var(--rule);
+      text-align: center;
+    }
+
+    .footer-cta p {
+      font-family: var(--display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--ink-muted);
+    }
+
+    .footer-cta a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .footer-cta a:hover {
+      border-bottom-color: var(--gold);
+    }
+
+    .site-footer {
+      padding: 24px 40px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .site-footer__brand {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+    }
+
+    .site-footer__copy {
+      font-family: var(--body);
+      font-size: 12px;
+      color: var(--ink-faint);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: normal;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .site-nav.scrolled {
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .site-nav__brand {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 17px;
+      letter-spacing: 0.08em;
+      color: #faf9f6;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .site-nav.scrolled .site-nav__brand {
+      color: var(--ink);
+    }
+
+    .site-nav__link {
+      font-family: var(--body);
+      font-size: 13px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(250,249,246,0.7);
+      text-decoration: none;
+    }
+
+    .site-nav.scrolled .site-nav__link {
+      color: var(--ink-muted);
+    }
+
+    /* ── PHOTO PLACEHOLDER ───────────────────────────────── */
+    .photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: repeating-linear-gradient(
+        45deg,
+        #2a2a28 0px,
+        #2a2a28 1px,
+        #1c1c1a 1px,
+        #1c1c1a 12px
+      );
+    }
+
+    .photo-placeholder__label {
+      font-family: monospace;
+      font-size: 12px;
+      color: rgba(250,249,246,0.3);
+      letter-spacing: 0.1em;
+      text-align: center;
+      padding: 12px 20px;
+      border: 1px solid rgba(250,249,246,0.12);
+    }
+
+    @media (max-width: 680px) {
+      .hero__content { padding: 0 24px 40px; }
+      .page-body, .page-body--wide { padding: 0 24px; }
+      .performs-grid { grid-template-columns: 1fr; gap: 32px; }
+      .watch-grid { grid-template-columns: 1fr; }
+      .perfs-list li { grid-template-columns: 60px 1fr; }
+      .perf-place { display: none; }
+      .site-footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav" id="site-nav">
+    <a href="#" class="site-nav__brand">Book Kirtan</a>
+    <a href="mailto:hello@bookkirtan.com" class="site-nav__link">Enquire</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="photo-placeholder">
+      <div class="photo-placeholder__label">artist portrait<br/>full-bleed editorial photo</div>
+    </div>
+    <div class="hero__content">
+      <div class="hero__badge">Top Artist</div>
+      <h1 class="hero__name">Pandit<br/>Vidyadhar Vyas</h1>
+      <div class="hero__meta">
+        <span class="hero__tradition">Vaishnava Kirtan</span>
+        <span class="hero__sep"></span>
+        <span class="hero__location">Vrindavan, India</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="page-body--wide">
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-value">1.2M</span>
+        <span class="stat-label">Instagram Followers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">870K</span>
+        <span class="stat-label">YouTube Subscribers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">35+</span>
+        <span class="stat-label">Years Performing</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">12</span>
+        <span class="stat-label">Countries Performed</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- SUMMARY -->
+  <div class="page-body">
+    <section class="summary-section">
+      <p class="section-eyebrow">About the Artist</p>
+      <p class="pull-quote">
+        One of the most revered voices in contemporary Vaishnava kirtan, Pandit Vidyadhar Vyas carries a lineage tracing back five generations through the Braj region — his music is less performance than an act of deep spiritual transmission, each raga chosen not by season alone but by the precise emotional need of the gathering before him.
+      </p>
+    </section>
+  </div>
+
+  <!-- WHAT MAKES SPECIAL -->
+  <div class="page-body">
+    <section class="special-section">
+      <p class="section-eyebrow">What Makes Him Special</p>
+      <div class="special-block">
+        <p class="special-text">
+          Vyas-ji is among the last living practitioners of the endangered <em>ashtapad</em> style — eight-verse compositions from the Ashtapadī of Jayadeva's Gītagovinda — rendered in a Dhrupad-inflected voice that commands silence in even the most restless congregations. His kirtans do not end; they dissolve.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- BIO -->
+  <div class="page-body">
+    <section class="bio-section">
+      <h2>Biography</h2>
+      <p>
+        Born in 1962 in Mathura to a family of temple musicians, Vidyadhar Vyas received his earliest training from his grandfather, Pt. Rameshwar Vyas, a court musician who had sung at the Banke Bihari temple for four decades. By the age of twelve, he was leading dawn <em>mangala aarti</em> kirtans independently, and by sixteen had begun accompanying senior exponents across the Vrindavan festival circuit.
+      </p>
+      <p>
+        His formal education in Dhrupad under Ustad Zia Fariduddin Dagar in the late 1970s gave his voice an architectural severity unusual in the more improvisational kirtan tradition. The result is a style that is simultaneously intimate and monumental — a private whisper broadcast through the acoustics of a large hall.
+      </p>
+      <p>
+        Since the 1990s, Vyas-ji has toured extensively across India, the United Kingdom, the United States, and Mauritius, performing at Vaishnava centres, cultural festivals, and private occasions. He has collaborated with both classical Hindustani musicians and contemporary devotional artists, yet his work remains unmistakably rooted in the Braj-bhasha textual canon. He currently resides in Vrindavan and teaches a small group of students at his <em>gurukul</em>.
+      </p>
+    </section>
+  </div>
+
+  <!-- ACHIEVEMENTS -->
+  <div class="page-body">
+    <section class="achievements-section">
+      <h2>Notable Achievements</h2>
+      <ul class="achievements-list">
+        <li>Sangeet Natak Akademi Award for Devotional Music, 2018</li>
+        <li>Invited performer at Kumbh Mela, Prayagraj (2001, 2013, 2019)</li>
+        <li>Residency at the SOAS World Music Festival, London, 2015</li>
+        <li>Released twelve studio albums, three of which have charted in India's classical-devotional category</li>
+        <li>Featured in the documentary <em>The Sound of Braj</em> (BBC Four, 2017)</li>
+        <li>Awarded the Vrindavan Seva Bhushan by the Vrindavan Research Institute, 2022</li>
+        <li>Holds an honorary doctorate from Banaras Hindu University in Music & Performing Arts</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- PERFORMS IN / AT -->
+  <div class="page-body">
+    <section class="performs-section">
+      <h2>Repertoire &amp; Occasions</h2>
+      <div class="performs-grid">
+        <div class="performs-col">
+          <h3>Performs In</h3>
+          <div class="tag-group">
+            <span class="tag">Hindi</span>
+            <span class="tag">Braj Bhasha</span>
+            <span class="tag">Sanskrit</span>
+            <span class="tag">Maithili</span>
+            <span class="tag">Awadhi</span>
+          </div>
+        </div>
+        <div class="performs-col">
+          <h3>Performs At</h3>
+          <div class="tag-group">
+            <span class="tag">Janmashtami</span>
+            <span class="tag">Holi Milan</span>
+            <span class="tag">Vivah Ceremony</span>
+            <span class="tag">Satyanarayan Katha</span>
+            <span class="tag">Navratri</span>
+            <span class="tag">Griha Pravesh</span>
+            <span class="tag">Satsang Evenings</span>
+            <span class="tag">Akhand Kirtan</span>
+            <span class="tag">Cultural Festivals</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- NOTABLE PERFORMANCES -->
+  <div class="page-body">
+    <section class="notableperfs-section">
+      <h2>Selected Performances</h2>
+      <ul class="perfs-list">
+        <li>
+          <span class="perf-year">2024</span>
+          <span class="perf-name">Vrindavan Utsav — Grand Opening Kirtan</span>
+          <span class="perf-place">Vrindavan, UP</span>
+        </li>
+        <li>
+          <span class="perf-year">2023</span>
+          <span class="perf-name">ISKCON Radhadesh World Holy Name Festival</span>
+          <span class="perf-place">Durbuy, Belgium</span>
+        </li>
+        <li>
+          <span class="perf-year">2022</span>
+          <span class="perf-name">Kashi Sangeet Samaroh — Devotional Evening</span>
+          <span class="perf-place">Varanasi, UP</span>
+        </li>
+        <li>
+          <span class="perf-year">2021</span>
+          <span class="perf-name">Times of India Spiritual Summit — Keynote Kirtan</span>
+          <span class="perf-place">New Delhi</span>
+        </li>
+        <li>
+          <span class="perf-year">2019</span>
+          <span class="perf-name">Prayagraj Kumbh Mela — Main Stage, Mauni Amavasya</span>
+          <span class="perf-place">Prayagraj, UP</span>
+        </li>
+        <li>
+          <span class="perf-year">2017</span>
+          <span class="perf-name">Southbank Centre — Purcell Room, Sacred Music Series</span>
+          <span class="perf-place">London, UK</span>
+        </li>
+        <li>
+          <span class="perf-year">2015</span>
+          <span class="perf-name">SOAS World Music Festival — Headliner</span>
+          <span class="perf-place">London, UK</span>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- WATCH -->
+  <div class="page-body--wide">
+    <section class="watch-section" style="padding-left:40px; padding-right:40px;">
+      <h2>Watch</h2>
+      <div class="watch-grid">
+        <div class="watch-item">
+          <div class="watch-embed">
+            <iframe src="https://www.youtube.com/embed/FP_x9oy3MLM" title="Pandit Vidyadhar Vyas — Govind Bolo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <p class="watch-caption">Govind Bolo Hari Gopal Bolo — Live at Vrindavan, 2023</p>
+        </div>
+        <div class="watch-item">
+          <div class="watch-embed">
+            <iframe src="https://www.youtube.com/embed/BnDl7BClbfc" title="Pandit Vidyadhar Vyas — Radhey Radhey" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <p class="watch-caption">Radhey Radhey — Kumbh Mela, Prayagraj 2019</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER CTA -->
+  <div class="page-body">
+    <section class="footer-cta">
+      <p>Want Vidyadhar Vyas-ji at your occasion? <a href="mailto:hello@bookkirtan.com">→ Send an enquiry</a></p>
+    </section>
+  </div>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <span class="site-footer__brand">Book Kirtan</span>
+    <span class="site-footer__copy">bookkirtan.com &nbsp;·&nbsp; Profile updated May 2026</span>
+  </footer>
+
+  <div id="app-root"></div>
+
+  <!-- React app: Tweaks + nav scroll -->
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "artistName": "Pandit Vidyadhar Vyas",
+      "tradition": "Vaishnava Kirtan",
+      "location": "Vrindavan, India",
+      "badge": "Top Artist",
+      "accentColor": "#c17f24",
+      "paperColor": "#faf9f6",
+      "inkColor": "#1a1a18"
+    }/*EDITMODE-END*/;
+
+    function App() {
+      const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+      // Apply tweaks to CSS vars live
+      useEffect(() => {
+        const root = document.documentElement;
+        root.style.setProperty('--gold', tweaks.accentColor);
+        root.style.setProperty('--paper', tweaks.paperColor);
+        root.style.setProperty('--ink', tweaks.inkColor);
+      }, [tweaks.accentColor, tweaks.paperColor, tweaks.inkColor]);
+
+      // Apply text tweaks
+      useEffect(() => {
+        const nameEl = document.querySelector('.hero__name');
+        if (nameEl) {
+          const parts = tweaks.artistName.split(' ');
+          if (parts.length >= 2) {
+            nameEl.innerHTML = parts.slice(0, -1).join(' ') + '<br/>' + parts[parts.length - 1];
+          } else {
+            nameEl.textContent = tweaks.artistName;
+          }
+        }
+        const tradEl = document.querySelector('.hero__tradition');
+        if (tradEl) tradEl.textContent = tweaks.tradition;
+        const locEl = document.querySelector('.hero__location');
+        if (locEl) locEl.textContent = tweaks.location;
+        const badgeEl = document.querySelector('.hero__badge');
+        if (badgeEl) badgeEl.childNodes[1] && (badgeEl.childNodes[1].textContent = tweaks.badge);
+      }, [tweaks.artistName, tweaks.tradition, tweaks.location, tweaks.badge]);
+
+      // Nav scroll behaviour
+      useEffect(() => {
+        const nav = document.getElementById('site-nav');
+        if (!nav) return;
+        const onScroll = () => {
+          if (window.scrollY > 60) nav.classList.add('scrolled');
+          else nav.classList.remove('scrolled');
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+      }, []);
+
+      return (
+        <TweaksPanel>
+          <TweakSection label="Artist Info">
+            <TweakText    id="artistName" label="Name"         value={tweaks.artistName} onChange={v => setTweak('artistName', v)} />
+            <TweakText    id="tradition"  label="Tradition"    value={tweaks.tradition}  onChange={v => setTweak('tradition', v)} />
+            <TweakText    id="location"   label="Location"     value={tweaks.location}   onChange={v => setTweak('location', v)} />
+            <TweakRadio   id="badge"      label="Status Badge" value={tweaks.badge}      options={["Top Artist","Trending","Featured","Rising Star"]} onChange={v => setTweak('badge', v)} />
+          </TweakSection>
+          <TweakSection label="Colours">
+            <TweakColor id="accentColor" label="Accent / Gold" value={tweaks.accentColor} onChange={v => setTweak('accentColor', v)} />
+            <TweakColor id="paperColor"  label="Background"    value={tweaks.paperColor}  onChange={v => setTweak('paperColor', v)} />
+            <TweakColor id="inkColor"    label="Ink"           value={tweaks.inkColor}    onChange={v => setTweak('inkColor', v)} />
+          </TweakSection>
+        </TweaksPanel>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('app-root'));
+    root.render(<App />);
+  </script>
+
+</body>
+</html>
