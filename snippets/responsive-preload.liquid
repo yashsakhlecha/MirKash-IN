@@ -32,7 +32,7 @@
 
 		assign image_size_array = image_size | split: "x"
 		if image_size_array[0] == '0'
-			echo image.src | image_url: width: height: image_size_array[1]
+			echo image.src | image_url: width: height
 		elsif image_size_array[1] != '0'
 			echo image.src | image_url: width: image_size_array[0], height: image_size_array[1]
 		else
@@ -41,3 +41,13 @@
 	endcapture
 -%}
 <link rel="preload" as="image" href="{{- src -}}" imagesrcset="{{ srcset | slice: 0, l | strip_newlines }}" imagesizes="auto">
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "\t\t\techo image.src | image_url: width: height: image_size_array[1]"
+  to: "\t\t\techo image.src | image_url: width: height"
+  position: 1040..1084
+{% endcomment %}

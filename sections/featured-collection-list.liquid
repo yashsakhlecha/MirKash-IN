@@ -43,7 +43,7 @@
 						endif
 					-%}
 					{%- if image != blank -%}
-						{%- render 'responsive-image', image: image | image_url, sizes: width, class: class -%}
+						{%- render 'responsive-image', image: image, sizes: width, class: class -%}
 					{%- else -%}
 						{%- assign index = forloop.index | modulo: 6 | plus: 1 -%}
 						{{ 'collection-' | append: index | placeholder_svg_tag: class }}
@@ -275,3 +275,14 @@
   }
 
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'responsive-image', image: image | image_url, sizes: width, class:
+    class -%}"
+  to: "{%- render 'responsive-image', image: image, sizes: width, class: class -%}"
+  position: 2209..2284
+{% endcomment %}
